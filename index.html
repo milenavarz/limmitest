@@ -1,0 +1,2868 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>LIMMI — идеальный лимон для напитков</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --limmi-blue:#1e5fa8;
+      --lemon-yellow:#ffd400;
+      --dark:#111;
+      --light:#fff;
+      --bg:#f5f5f5;
+
+      --shadow: 0 20px 40px rgba(0,0,0,.25);
+      --shadow-soft: 0 14px 28px rgba(0,0,0,.10);
+      --r18: 18px;
+      --r22: 22px;
+
+      --container: 1200px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; font-family:'Montserrat',sans-serif; }
+    body{ background:var(--bg); color:var(--dark); }
+    a{ color:inherit; }
+    .container{ width:min(var(--container), 100%); margin:0 auto; padding: 0 18px; }
+
+    /* ===== Header ===== */
+    header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      transition: background .2s ease, box-shadow .2s ease;
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(8px);
+    }
+    header.scrolled{
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+      backdrop-filter: blur(10px);
+    }
+    .nav{
+      height: 72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: .6px;
+      text-decoration:none;
+      color: #fff;
+    }
+    header.scrolled .brand{ color:#111; }
+    .brand-badge{
+      width: 34px; height: 34px;
+      border-radius: 999px;
+      background: var(--lemon-yellow);
+      display:grid;
+      place-items:center;
+      color:#000;
+      font-weight: 900;
+    }
+
+    .brand{ gap: 0; } /* logo only */
+    .brand-logo{
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+    /* Optional: if your logo is dark, make it visible on hero */
+    header:not(.scrolled) .brand-logo{
+      filter: brightness(0) invert(1);
+    }
+    header.scrolled .brand-logo{
+      filter: none;
+    }
+
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap: 18px;
+    }
+    .navlinks a{
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 14px;
+      color:#fff;
+      opacity: .92;
+    }
+    header.scrolled .navlinks a{ color:#111; opacity:.9; }
+
+    .navcta{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      text-decoration:none;
+      border: 0;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{
+      background: var(--lemon-yellow);
+      color:#000;
+      box-shadow: 0 12px 24px rgba(0,0,0,.20);
+    }
+    .btn-ghost{
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.55);
+    }
+    header.scrolled .btn-ghost{
+      color:#111;
+      border-color: rgba(0,0,0,.20);
+    }
+
+    
+    .lang-switch{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .lang-link{
+      min-width: 46px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-align:center;
+      font-weight: 900;
+      text-decoration:none;
+      border: 2px solid rgba(255,255,255,.55);
+      background: transparent;
+      color:#fff;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
+    }
+    .lang-link.active{
+      background: var(--lemon-yellow);
+      color:#000;
+      border-color: transparent;
+      box-shadow: 0 12px 24px rgba(0,0,0,.16);
+    }
+    header.scrolled .lang-link,
+    header .lang-link.on-light{
+      color:#111;
+      border-color: rgba(0,0,0,.20);
+      background: rgba(255,255,255,.72);
+    }
+    header.scrolled .lang-link.active,
+    header .lang-link.on-light.active{
+      background: var(--lemon-yellow);
+      color:#000;
+      border-color: transparent;
+    }
+
+    .burger{
+      display:none;
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(0,0,0,.12);
+      color:#fff;
+      font-size: 18px;
+      cursor:pointer;
+    }
+    header.scrolled .burger{
+      border-color: rgba(0,0,0,.18);
+      background: rgba(255,255,255,.4);
+      color:#111;
+    }
+
+    .mobilemenu{
+      display:none;
+      padding: 10px 18px 18px;
+      border-top: 1px solid rgba(255,255,255,.14);
+    }
+    header.scrolled .mobilemenu{
+      border-top: 1px solid rgba(0,0,0,.08);
+    }
+    .mobilemenu a{
+      display:block;
+      padding: 12px 10px;
+      text-decoration:none;
+      font-weight: 800;
+      color:#fff;
+      opacity:.95;
+      border-radius: 14px;
+    }
+    header.scrolled .mobilemenu a{ color:#111; }
+    .mobilemenu a:hover{
+      background: rgba(255,255,255,.12);
+    }
+    header.scrolled .mobilemenu a:hover{
+      background: rgba(0,0,0,.06);
+    }
+
+    /* ===== Sections ===== */
+    section{ padding: 90px 0; }
+    .section-title{
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+    .section-sub{
+      margin-top: 10px;
+      opacity: .85;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      padding: 0;
+      min-height: 100vh;
+      color:#fff;
+      position:relative;
+      display:flex;
+      align-items:center;
+      background:
+        linear-gradient(rgba(0,0,0,.52), rgba(0,0,0,.52)),
+        url("hero-bar.jpg") center/cover no-repeat;
+    }
+    .hero .container{
+      padding-top: 92px; /* space under fixed header */
+      padding-bottom: 64px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
+      align-items:center;
+    }
+    .hero h1{
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.04;
+      margin-bottom: 16px;
+    }
+    .hero p{
+      font-size: 18px;
+      font-weight: 600;
+      opacity: .95;
+      line-height: 1.55;
+      max-width: 640px;
+    }
+    .hero-actions{
+      margin-top: 26px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+    .hero-note{
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: .86;
+      font-weight: 600;
+    }
+
+    .hero-card{
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 24px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.28);
+      padding: 22px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-card .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .5px;
+      background: rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .pill strong{ color: var(--lemon-yellow); }
+
+    .hero-card h3{
+      font-size: 20px;
+      margin-bottom: 8px;
+      font-weight: 900;
+    }
+    .hero-card ul{
+      list-style: none;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .hero-card li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      font-size: 14px;
+      font-weight: 700;
+      opacity: .95;
+      line-height: 1.4;
+    }
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--lemon-yellow);
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
+
+
+    /* ===== About ===== */
+    .about{
+      background: #fff;
+      padding: 86px 0;
+    }
+    .about-grid{
+      margin-top: 22px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .about-lead{
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0,0,0,.06);
+      background: linear-gradient(180deg, #fff, #fbfbfb);
+    }
+    .about-lead .kicker{
+      display:inline-block;
+      background: rgba(30,95,168,.10);
+      color: var(--limmi-blue);
+      font-weight: 1000;
+      font-size: 12px;
+      letter-spacing: .55px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .about-lead h3{
+      font-size: 26px;
+      font-weight: 1000;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .about-lead p{
+      opacity: .85;
+      font-weight: 700;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .about-list{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .about-list li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      font-weight: 800;
+      opacity: .92;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .about-right{
+      display:grid;
+      grid-template-rows: 1fr auto;
+      gap: 14px;
+    }
+    .about-media{
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow-soft);
+      background:
+        linear-gradient(135deg, rgba(30,95,168,.10), rgba(255,212,0,.10)),
+        url("about-limmi.jpg") center/cover no-repeat;
+      min-height: 260px;
+      position: relative;
+    }
+
+    .about-cards{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .about-card{
+      border-radius: 22px;
+      padding: 18px;
+      background:#fff;
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow-soft);
+    }
+    .about-card .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .about-card .pillmini{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.06);
+      font-weight: 1000;
+      font-size: 12px;
+      letter-spacing: .5px;
+      white-space:nowrap;
+    }
+    .about-card h4{
+      font-size: 16px;
+      font-weight: 1000;
+      margin-bottom: 6px;
+    }
+    .about-card p{
+      font-weight: 700;
+      opacity: .82;
+      line-height: 1.45;
+      font-size: 13px;
+    }
+    @media (max-width: 980px){
+      .about-grid{ grid-template-columns: 1fr; }
+      .about-cards{ grid-template-columns: 1fr; }
+      .about-media{ min-height: 220px; }
+    }
+
+    /* ===== Why ===== */
+    .why{
+      background:#fff;
+    }
+    .why-grid{
+      margin-top: 26px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .why-item{
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0,0,0,.06);
+      background: linear-gradient(180deg, #fff, #fbfbfb);
+      min-height: 150px;
+    }
+    .why-item .tag{
+      display:inline-block;
+      background: rgba(30,95,168,.10);
+      color: var(--limmi-blue);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .5px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .why-item h3{
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .why-item p{
+      opacity: .85;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* ===== Recipes Slider ===== */
+    .recipes{
+      background: var(--limmi-blue);
+      color:#fff;
+      padding: 90px 0 84px;
+    }
+    .recipes .section-sub{ opacity:.92; }
+
+    .slider{
+      margin-top: 28px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .track{
+      width: 100%;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 1fr);
+      gap: 18px;
+      overflow: hidden;
+      scroll-behavior: smooth;
+      padding: 6px 2px 16px;
+    }
+    .navbtn{
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      font-size: 30px;
+      font-weight: 900;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 12px 26px rgba(0,0,0,.20);
+      display: grid;
+      place-items: center;
+      user-select: none;
+    }
+
+    .recipe-card{
+      background:#fff;
+      color:#000;
+      border-radius: 22px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      outline:none;
+      transform: translateY(0);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      display:flex;
+      flex-direction:column;
+      min-height: 440px;
+    }
+    .recipe-card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 26px 52px rgba(0,0,0,.28);
+    }
+    .imgwrap img{
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display:block;
+    }
+    .recipe-content{ padding: 20px; display:flex; flex-direction:column; gap: 10px; flex:1; }
+
+    .label{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      background: var(--lemon-yellow);
+      color:#000;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      border-radius: 999px;
+      letter-spacing: .6px;
+      width: fit-content;
+    }
+    .label.lock{
+      background: #111;
+      color:#fff;
+    }
+    .recipe-title{
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+    .recipe-sub{
+      font-weight: 700;
+      opacity: .80;
+      line-height: 1.4;
+    }
+    .mini-cta{
+      margin-top: auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .mini-pill{
+      background: #f0f3f7;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      opacity: .95;
+    }
+    .locked{
+      filter: saturate(.9);
+    }
+
+    .dots{
+      margin-top: 16px;
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+    }
+    .dotbtn{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.55);
+      background: transparent;
+      cursor:pointer;
+    }
+    .dotbtn.active{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(255,255,255,.92);
+    }
+
+    /* ===== Lifestyle ===== */
+    .lifestyle{
+      background:#fff;
+    }
+    .life-grid{
+      margin-top: 22px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .life-card{
+      border-radius: 22px;
+      overflow:hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0,0,0,.06);
+      background:#fff;
+    }
+    .life-card img{
+      width:100%;
+      height: 220px;
+      object-fit: cover;
+      display:block;
+    }
+    .life-card .cap{
+      padding: 14px 16px 16px;
+      font-weight: 900;
+    }
+    .life-card .cap small{
+      display:block;
+      margin-top: 6px;
+      opacity: .78;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    /* ===== QR/Education ===== */
+    .education{
+      background: linear-gradient(180deg, #ffffff, #fbfbfb);
+    }
+    .edu-grid{
+      margin-top: 20px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .edu-card{
+      border-radius: 22px;
+      padding: 18px;
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0,0,0,.06);
+      display:flex;
+      gap: 14px;
+      align-items:center;
+    }
+    .qr{
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background:
+        repeating-linear-gradient(90deg, #111 0 4px, transparent 4px 8px),
+        repeating-linear-gradient(#111 0 4px, transparent 4px 8px);
+      opacity:.18; /* заглушка под реальный QR */
+      flex: 0 0 auto;
+    }
+    .edu-card h3{
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+    .edu-card p{
+      opacity: .82;
+      font-weight: 700;
+      line-height: 1.35;
+      font-size: 13px;
+    }
+
+    /* ===== Buy ===== */
+    .buy{
+      background:#fff;
+      text-align:center;
+    }
+    .buy-actions{
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .btn-dark{
+      background:#111;
+      color:#fff;
+      box-shadow: 0 14px 28px rgba(0,0,0,.18);
+    }
+
+    /* ===== Footer ===== */
+    footer{
+      background:#111;
+      color:#fff;
+      padding: 44px 0;
+    }
+    .foot{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap:wrap;
+    }
+    .foot small{
+      opacity:.75;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* ===== Modal ===== */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
+      z-index: 999;
+    }
+    .modal-backdrop.open{ display:flex; }
+
+.modal{
+  width: min(980px, 100%);
+  background:#fff;
+  border-radius: 24px;
+  overflow-y: auto;   /* ← скроллится ВСЯ модалка */
+  overflow-x: hidden;
+  box-shadow: 0 30px 70px rgba(0,0,0,.35);
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  max-height: 85vh;
+  height: auto;
+}
+.modal-media{
+  position:relative;
+  min-height: 360px;
+  background:#222;
+  overflow: hidden;
+}
+    .modal-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .modal-close{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      border:0;
+      cursor:pointer;
+      background: rgba(255,255,255,.92);
+      font-weight:900;
+      font-size:18px;
+    }
+
+.modal-body{
+  padding: 24px 24px 20px;
+  background: linear-gradient(180deg, #ffffff, #fafafa);
+  max-height: 85vh;
+  scrollbar-width: thin;
+}
+    .modal-badge{
+      display:inline-block;
+      background: var(--limmi-blue);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:.6px;
+      font-size:12px;
+      margin-bottom:12px;
+    }
+    .modal-body h3{
+      font-size:28px;
+      margin-bottom:8px;
+      font-weight: 900;
+    }
+    .modal-body .desc{
+      opacity:.8;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom:16px;
+    }
+
+    .instructions{
+      border-radius:18px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.08);
+      background:#fff;
+      margin-bottom:14px;
+    }
+    .instructions-head{
+      background: var(--lemon-yellow);
+      padding:12px 14px;
+      font-weight: 1000;
+      letter-spacing:.7px;
+    }
+    .steps{
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .step{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .num{
+      width:30px;
+      height:30px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: #111;
+      color:#fff;
+      font-weight: 1000;
+      flex: 0 0 auto;
+    }
+    .step p{
+      margin-top:2px;
+      font-weight: 800;
+      line-height: 1.35;
+      opacity: .92;
+    }
+
+    .need{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .chip{
+      background:#eef2f6;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+    }
+
+    .modal-bottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-top:14px;
+    }
+    .qrbox{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:16px;
+      background:#f3f6fa;
+      border: 1px dashed rgba(0,0,0,.12);
+      font-weight: 900;
+      font-size:12px;
+      opacity:.9;
+    }
+    .qrmini{
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background:
+        repeating-linear-gradient(90deg, #111 0 4px, transparent 4px 8px),
+        repeating-linear-gradient(#111 0 4px, transparent 4px 8px);
+      opacity:.18;
+    }
+
+/* ===== FAQ ===== */
+.faq {
+  background: #fff;
+  padding: 90px 0;
+}
+.faq-grid {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.faq-item {
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.08);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: #fafafa;
+  font-weight: 800;
+}
+.faq-question span:first-child {
+  font-size: 22px;
+}
+.faq-question h4 {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+}
+.faq-arrow {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+  color: #888;
+}
+.faq-item.open .faq-arrow {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 20px;
+  background: #fff;
+  border-top: 0px solid rgba(0,0,0,.05);
+}
+.faq-item.open .faq-answer {
+  max-height: 200px;
+  padding: 0 20px 18px 20px;
+  border-top-width: 1px;
+}
+.faq-answer p {
+  padding: 12px 0 0 0;
+  line-height: 1.55;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .faq { padding: 64px 0; }
+  .faq-question { padding: 14px 16px; }
+  .faq-question h4 { font-size: 14px; }
+}
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-card{ max-width: 720px; }
+      .why-grid{ grid-template-columns: 1fr; }
+      .life-grid{ grid-template-columns: 1fr; }
+      .edu-grid{ grid-template-columns: 1fr; }
+      .modal{ grid-template-columns: 1fr; }
+      .modal-media{ min-height: 260px; }
+    }
+
+@media (max-width: 860px){
+  .navlinks{ display:none !important; }
+  .burger{ display:inline-flex !important; align-items:center; justify-content:center; }
+  .mobilemenu.open{ display:block; }
+}
+
+@media (min-width: 861px){
+  .burger{ display:none !important; }
+  .navlinks{ display:flex !important; }
+}
+
+    @media (max-width: 768px){
+      .hero h1{ font-size: 38px; }
+      .hero p{ font-size: 15px; }
+      section{ padding: 72px 0; }
+
+      .track{
+        grid-auto-columns: 86%;
+        overflow: auto;
+        scroll-snap-type: x mandatory;
+      }
+      .recipe-card{ scroll-snap-align: start; }
+      .navbtn{ display:none; }
+    } /* <-- FIX: close media query */
+
+    /* ===== Age Gate ===== */
+    body.noscroll{ overflow: hidden; }
+
+    .age-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      z-index: 1000;
+    }
+    .age-backdrop.open{ display:flex; }
+
+    .age-modal{
+      width: min(560px, 100%);
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .age-top{
+      padding: 18px 18px 14px;
+      background: linear-gradient(180deg, #ffffff, #fbfbfb);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .age-top h3{
+      font-size: 22px;
+      font-weight: 1000;
+      margin-bottom: 8px;
+    }
+    .age-top p{
+      font-weight: 700;
+      opacity: .82;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .age-actions{
+      display:flex;
+      gap: 12px;
+      padding: 16px 18px 18px;
+      flex-wrap: wrap;
+    }
+    .age-actions .btn{
+      flex: 1 1 220px;
+    }
+    .age-actions .btn-secondary{
+      background: #111;
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(0,0,0,.18);
+    }
+
+    /* Hide alcohol for under18 */
+    body.under18 .recipe-card[data-type="alc"]{
+      display: none !important;
+    }
+  
+/* ===== Mobile polish ===== */
+@media (max-width: 560px){
+  header{ backdrop-filter: blur(8px); }
+  .nav{ height: 64px; }
+  .brand img{ height: 28px; }
+  .navcta .btn-primary{ padding: 10px 14px; font-size: 13px; }
+  .burger{ width: 42px; height: 42px; }
+  .hero .container{ padding-top: 78px; padding-bottom: 52px; }
+  .hero h1{ font-size: 34px; }
+  .hero p{ font-size: 15px; }
+  .hero-actions{ gap: 10px; }
+  .hero-actions .btn{ width: 100%; justify-content: center; }
+  .hero-note{ font-size: 12px; }
+  .hero-card{ padding: 18px; }
+  section{ padding: 64px 0; }
+  .section-title{ font-size: 30px; }
+  .section-sub{ font-size: 14px; }
+  .why-item{ padding: 18px; }
+  .life-card img{ height: 200px; }
+  .edu-card{ padding: 16px; }
+  .buy-actions .btn{ width: 100%; }
+  footer{ padding: 36px 0; }
+}
+
+/* Make About section tighter on phones */
+@media (max-width: 560px){
+  .about{ padding: 64px 0; }
+  .about-grid{ gap: 14px; }
+  .about-lead{ padding: 18px; }
+  .about-lead h3{ font-size: 22px; }
+  .about-media{ height: 220px; }
+  .about-cards{ grid-template-columns: 1fr; gap: 12px; }
+  .about-card{ padding: 14px; }
+}
+
+.hero-logo {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.hero-logo img {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-logo img {
+    max-width: 220px;
+  }
+}
+
+/* ===== WHY section enhanced ===== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.why-item {
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px 22px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.why-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+}
+
+.why-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.why-item .tag {
+  display: inline-block;
+  background: rgba(30, 95, 168, 0.12);
+  color: var(--limmi-blue);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.why-item h3 {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.why-item p {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ===== Адаптация под планшеты ===== */
+@media (max-width: 900px) {
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* ===== Адаптация под телефоны ===== */
+@media (max-width: 560px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .why-item {
+    padding: 22px 18px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .why-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  
+  .why-item h3 {
+    font-size: 18px;
+  }
+  
+  .why-item p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-logo img {
+    max-width: 180px;
+  }
+}
+
+/* ===== PRODUCTS SECTION ===== */
+.products {
+  background: var(--limmi-blue);
+  color: #fff;
+  padding: 90px 0;
+}
+
+.products .section-title {
+  color: #fff;
+}
+
+.products .section-sub {
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 40px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.product-card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+}
+
+.product-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-hover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.product-image:hover .product-hover {
+  transform: translateY(0);
+}
+
+.product-hover span {
+  background: var(--lemon-yellow);
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.product-info {
+  text-align: center;
+  padding: 16px 0 0;
+}
+
+.product-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.product-subtitle {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.85;
+  color: #fff;
+}
+
+/* ===== PRODUCT MODAL ===== */
+.product-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 1001;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.product-modal.open {
+  display: flex;
+}
+
+.product-modal-content {
+  max-width: 1100px;
+  width: 100%;
+  background: #fff;
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.product-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.product-modal-close:hover {
+  background: rgba(0,0,0,0.9);
+}
+
+.product-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+/* Галерея */
+.product-modal-gallery {
+  background: #f5f5f5;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gallery-main {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-thumbs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.thumb {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+}
+
+.thumb.active {
+  border-color: var(--lemon-yellow);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Информация */
+.product-modal-info {
+  padding: 30px;
+  background: #fff;
+}
+
+.product-modal-info h2 {
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.modal-subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--limmi-blue);
+  margin-bottom: 20px;
+}
+
+.modal-description {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.product-specs h4 {
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: #111;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.spec-item {
+  background: #f8f8f8;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.spec-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.spec-value {
+  font-size: 14px;
+  font-weight: 800;
+  color: #111;
+}
+
+.product-buy {
+  margin-top: 20px;
+}
+
+.product-buy .btn {
+  width: 100%;
+  text-align: center;
+}
+
+/* Адаптация */
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .product-modal-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-modal-gallery {
+    padding: 20px;
+  }
+  
+  .product-modal-info {
+    padding: 24px;
+  }
+  
+  .product-modal-info h2 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 560px) {
+  .products {
+    padding: 64px 0;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .specs-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .thumb {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .product-modal-content {
+    max-height: 95vh;
+  }
+  
+  .product-modal-info h2 {
+    font-size: 22px;
+  }
+  
+  .modal-subtitle {
+    font-size: 14px;
+  }
+  
+  .modal-description {
+    font-size: 13px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<header id="header">
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Limmi">
+        <img class="brand-logo" src="logo-limmi.svg" alt="LIMMI">
+      </a>
+
+      <nav class="navlinks" aria-label="Навигация">
+        <a href="#products">Продукты</a>
+        <a href="recipes.html">Рецепты</a>
+        <a href="#buy">Где купить</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="navcta">
+        <div class="lang-switch" aria-label="Переключение языка">
+          <a class="lang-link active" href="Index_with_correct_images.html">RU</a>
+          <a class="lang-link" href="index-en.html">EN</a>
+        </div>
+        <button class="burger" id="burger" aria-label="Открыть меню">☰</button>
+      </div>
+    </div>
+
+    <div class="mobilemenu" id="mobilemenu" aria-label="Мобильное меню">
+      <a href="#products">Продукты</a>
+      <a href="recipes.html">Рецепты</a>
+      <a href="#buy">Где купить</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+<div class="hero-logo">
+  <img src="logo-limmi.svg" alt="LIMMI Logo">
+</div>          
+<h1>LIMMI — Солнце Сицилии в твоём бокале</h1>
+          <p>Сок сицилийских лимонов — для безупречных напитков</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="recipes.html">Смотреть рецепты</a>
+            <a class="btn btn-ghost" href="#buy">Где купить</a>
+          </div>
+
+          <div class="hero-note">Подсказка: замените “свежий лимон” на LIMMI — удобно, быстро, стабильный вкус.</div>
+        </div>
+
+        <div class="hero-card" aria-label="Преимущества">
+          <div class="pillrow"></div>
+
+          <h3>Идеальное дополнение для ваших коктейлей</h3>
+          <ul>
+            <li><span class="dot"></span><span>Стабильный вкус — каждый коктейль получается идеальным, без сюрпризов.</span></li>
+            <li><span class="dot"></span><span>100% сицилийские лимоны — выращены на солнце Италии, без концентратов.</span></li>
+            <li><span class="dot"></span><span>Экономия — одна бутылка = много порций.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-title">О бренде <span style="color: #ffd400;">LIMMI</span></div>
+<!-- О БРЕНДЕ LIMMI -->
+<style>
+  .brand-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .brand-intro-text {
+    flex: 1;
+    min-width: 280px;
+  }
+  .brand-intro-text p {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 16px;
+  }
+  .brand-intro-text p:last-child {
+    margin-bottom: 0;
+  }
+  .brand-intro-text .highlight {
+    font-weight: 800;
+  }
+  .brand-intro-text .secondary {
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+  .brand-anniversary {
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .brand-anniversary img {
+    max-width: 160px;
+    height: auto;
+    display: block;
+  }
+  .brand-anniversary span {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.6;
+  }
+
+  /* АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ */
+  @media (max-width: 768px) {
+    .brand-intro {
+      gap: 20px;
+    }
+    .brand-intro-text p {
+      font-size: 15px;
+    }
+    .brand-intro-text .secondary {
+      font-size: 14px;
+    }
+    .brand-anniversary img {
+      max-width: 140px;
+    }
+  }
+
+  /* АДАПТАЦИЯ ДЛЯ СМАРТФОНОВ — ЛОГО ПЕРЕНОСИТСЯ ВВЕРХ И ЦЕНТРИРУЕТСЯ */
+  @media (max-width: 640px) {
+    .brand-intro {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .brand-intro-text {
+      min-width: 100%;
+      order: 2; /* Текст идёт после логотипа */
+    }
+    .brand-anniversary {
+      order: 1; /* Логотип идёт первым */
+      margin-bottom: 8px;
+    }
+    .brand-anniversary img {
+      max-width: 130px;
+      margin: 0 auto;
+    }
+    .brand-intro-text p {
+      text-align: left; /* На маленьких экранах текст лучше читается с выравниванием влево */
+    }
+  }
+
+  /* АДАПТАЦИЯ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
+  @media (max-width: 480px) {
+    .brand-intro-text p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .brand-intro-text .secondary {
+      font-size: 13px;
+    }
+    .brand-anniversary img {
+      max-width: 120px;
+    }
+  }
+
+/* Мобильная версия: скрываем навигационные ссылки и показываем бургер */
+@media (max-width: 860px) {
+  .navlinks {
+    display: none !important;
+  }
+  
+  .burger {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* На десктопе бургер скрыт, ссылки видны */
+@media (min-width: 861px) {
+  .burger {
+    display: none !important;
+  }
+  
+  .navlinks {
+    display: flex !important;
+  }
+}
+
+</style>
+
+<div class="brand-intro">
+  <div class="brand-intro-text">
+    <p>
+      <span class="highlight">LIMMI — это натуральный сок из отборных итальянских лимонов</span>, выращенных на солнце Сицилии, Кампании и Калабрии. С 1999 года мы сохраняем традиции и гарантируем безупречное качество в каждой бутылке.
+    </p>
+    <p class="secondary">
+      Урожай собирается вручную в пик сочности, а технология холодного отжима без нагрева позволяет сохранить максимум витамина С и яркий, насыщенный вкус без добавления сахара, красителей и консервантов. Всё это делает LIMMI <strong>лидером в Италии с долей рынка 38%</strong> и идеальным выбором для вашего домашнего бара.
+    </p>
+  </div>
+  <div class="brand-anniversary">
+    <img src="limmi-manufacture.jpg" alt="LIMMI производство">
+    <span>1999 – 2026</span>
+  </div>
+</div>
+
+      <div class="section-sub">LIMMI — это привычка: один продукт, который делает напитки дома проще и стабильнее.</div>
+
+      <div class="about-grid">
+        <div class="about-lead">
+          <span class="kicker">ШКОЛА ВКУСА</span>
+          <h3>Меняем отношение к лимонному соку: из редкого ингредиента — в ежедневный ритуал.</h3>
+          <p>
+            В России лимонный сок часто воспринимается как редкая замена свежего лимона или ингредиент для готовки.
+    <p style="margin-top: 16px; font-weight: 500; opacity: 0.85;">
+        Наша задача — развить культуру потребления лимонного сока и превратить LIMMI в стандартный ингредиент бара и кухни у вас дома.
+    </p>
+          <ul class="about-list">
+            <li><span class="dot"></span><span><strong>LIMMI</strong>: идеальный выбор для домашних коктейлей и миксов.</span></li>
+            <li><span class="dot"></span><span><strong>Без лишних хлопот</strong>: не нужно мыть, чистить и нарезать лимоны. Достаточно просто открыть и добавить.</span></li>
+            <li><span class="dot"></span><span><strong>Стабильный результат</strong>: тот же вкус и кислотность в каждой капле. Ваши коктейли всегда идеальны.</span></li>
+            <li><span class="dot"></span><span><strong>Экономия и удобство</strong>: одной бутылки хватит на десятки порций. Всегда под рукой.</span></li>
+          </ul>
+        </div>
+
+        <div class="about-right">
+          <div class="about-media" aria-label="Фото бренда (можно заменить)"></div>
+
+          <div class="about-cards" aria-label="Ключевые идеи">
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Ритуал</div>
+                <span class="pillmini">ДОМАШНИЙ БАР</span>
+              </div>
+              <h4>Must-have на каждой кухне</h4>
+              <p>Цель — чтобы LIMMI стал тем, что всегда есть дома «для напитков».</p>
+            </div>
+
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Удобство</div>
+                <span class="pillmini">БЕЗ НОЖА</span>
+              </div>
+              <h4>Открыл и добавил</h4>
+              <p>Фокус на простоте использования: напитки, миксы и быстрые решения без лишних шагов.</p>
+            </div>
+
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Главная польза</div>
+                <span class="pillmini">СТАБИЛЬНОСТЬ</span>
+              </div>
+              <h4>Стабильный вкус</h4>
+              <p>Больше никаких сюрпризов. LIMMI даёт тот же результат — от первой капли до последней.</p>
+            </div>
+
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Ценность</div>
+                <span class="pillmini">ЭКОНОМИЯ</span>
+              </div>
+              <h4>Много порций</h4>
+              <p>Одной бутылки хватает на десятки напитков. Это ощутимо дешевле, чем покупать лимоны. Платите за лимонный сок, а не за воду, кожуру и косточки.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-title">Продукты <span style="color: var(--lemon-yellow);">LIMMI</span></div>
+      <div class="section-sub">Натуральный сок сицилийских лимонов — для ваших любимых напитков и блюд</div>
+
+      <div class="products-grid">
+        
+        <!-- Товар 1: LIMMI -->
+        <div class="product-card" data-product="classic">
+          <div class="product-image">
+            <img src="product-classic.png" alt="LIMMI Classic лимонный сок">
+            <div class="product-hover">
+              <span>Подробнее</span>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">LIMMI</h3>
+            <p class="product-subtitle">Лимонный сок</p>
+          </div>
+        </div>
+
+
+        <!-- Товар 2: LIMMI SWEET -->
+        <div class="product-card" data-product="sweet">
+          <div class="product-image">
+            <img src="product-sweet.png" alt="LIMMI Sweet сладкий лимонный сок">
+            <div class="product-hover">
+              <span>Подробнее</span>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">LIMMI SWEET</h3>
+            <p class="product-subtitle">Лимонный сок со сладким вкусом</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal" id="productModal">
+    <div class="product-modal-content">
+      <button class="product-modal-close" id="productModalClose">&times;</button>
+      
+      <div class="product-modal-grid">
+        <!-- Левая колонка: карусель -->
+        <div class="product-modal-gallery">
+          <div class="gallery-main">
+            <img id="galleryMainImg" src="" alt="Product image">
+          </div>
+          <div class="gallery-thumbs" id="galleryThumbs"></div>
+        </div>
+        
+        <!-- Правая колонка: информация -->
+        <div class="product-modal-info">
+          <h2 id="modalProductTitle">LIMMI CLASSIC</h2>
+          <p class="modal-subtitle" id="modalProductSubtitle">Лимонный сок</p>
+          
+          <div class="modal-description" id="modalProductDesc">
+            <!-- описание будет подставлено из JS -->
+          </div>
+          
+          <div class="product-specs">
+            <h4>Характеристики</h4>
+            <div class="specs-grid" id="modalProductSpecs"></div>
+          </div>
+          
+          <div class="product-buy">
+            <a href="#buy" class="btn btn-primary">Где купить</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY -->
+<section class="why">
+  <div class="container">
+    <div class="section-title">Почему LIMMI</div>
+    <div class="section-sub">LIMMI - лидер в сегменте лимонных соков.</div>
+
+    <div class="why-grid">
+      
+      <!-- Карточка 1: Качество -->
+      <div class="why-item">
+       <div class="why-icon">🍋</div>
+        <span class="tag">100% ИТАЛИЯ</span>
+        <h3>Только сицилийские лимоны</h3>
+        <p>Лимоны из Сицилии, Кампании и Калабрии. Собираются вручную в пик сочности. Холодный отжим без нагрева.</p>
+      </div>
+
+      <!-- Карточка 2: Уникальная технология -->
+      <div class="why-item">
+        <div class="why-icon">✨</div>
+        <span class="tag">ФИРМЕННАЯ ФИШКА</span>
+        <h3>Капсула с эфирным маслом</h3>
+        <p>Эфирное масло лимона в горлышке бутылки. При каждом наливании добавляются свежие капли — как будто только что выжал.</p>
+      </div>
+
+      <!-- Карточка 3: Стабильность -->
+      <div class="why-item">
+        <div class="why-icon">📊</div>
+        <span class="tag">СТАБИЛЬНОСТЬ</span>
+        <h3>Один и тот же вкус всегда</h3>
+        <p>Десятки слепых тестов каждый год. LIMMI стабильно получает высшие баллы, обходя конкурентов.</p>
+      </div>
+
+      <!-- Карточка 4: Удобство -->
+      <div class="why-item">
+        <div class="why-icon">🥤</div>
+        <span class="tag">УДОБСТВО</span>
+        <h3>Не нужно резать лимоны</h3>
+        <p>Открыл — добавил — готово. Никаких досок, ножей, косточек и отходов.</p>
+      </div>
+
+      <!-- Карточка 5: Натуральность -->
+      <div class="why-item">
+        <div class="why-icon">🌿</div>
+        <span class="tag">НАТУРАЛЬНО</span>
+        <h3>Без сахара и консервантов</h3>
+        <p>Натуральный лимонный сок. Никаких искусственных ароматизаторов, красителей и ГМО. Только витамин С и польза.</p>
+      </div>
+
+      <!-- Карточка 6: Экономия -->
+      <div class="why-item">
+        <div class="why-icon">💰</div>
+        <span class="tag">ЭКОНОМИЯ</span>
+        <h3>Одна бутылка = десятки порций</h3>
+        <p>Форматы от 200 мл до 1 литра. Хватит на множество коктейлей, лимонадов и блюд.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- RECIPES -->
+  <section class="recipes" id="recipes">
+    <div class="container">
+      <div class="section-title">Напитки с LIMMI</div>
+      <div class="section-sub" style="margin-top:10px; opacity:.92; font-weight:700;">Алкогольные карточки доступны только для 18+. Алкоголь вредит вашему здоровью.</div>
+      
+      <div class="slider" aria-label="Слайдер рецептов">
+        <button class="navbtn" id="prev" aria-label="Назад">‹</button>
+
+        <div class="track" id="track" tabindex="0">
+          
+          <!-- 1. Айболит (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="АЙБОЛИТ"
+               data-title="Айболит"
+               data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: сок грейпфрут 100 мл, сок апельсин 100 мл, банан 1/2 шт."
+               data-img="Aibolit.png"
+               data-step1="Соедини сок грейпфрут 100 мл, сок апельсин 100 мл в стакане, шейкере или чаше блендера."
+               data-step2="Добавь банан 1/2 шт, фруктовый LIMMI 20 мл и при необходимости лёд."
+               data-step3="Взбей до однородной текстуры и подавай сразу."
+               data-need="Сок грейпфрут 100 мл,Сок апельсин 100 мл,Банан 1/2 шт,Фруктовый LIMMI 20 мл">
+            <div class="imgwrap"><img src="Aibolit.png" alt="Айболит"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Айболит</div>
+              <div class="recipe-sub">Грейпфрут + Апельсин + Банан</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 2. Арбузный (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="АРБУЗНЫЙ"
+               data-title="Арбузный"
+               data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: пюре арбуза 120 г, фруктовый limmi 25 мл, сироп арбуз."
+               data-img="Watermelon.png"
+               data-step1="Соедини пюре арбуза 120 г, фруктовый limmi 25 мл в стакане, шейкере или чаше блендера."
+               data-step2="Добавь сироп арбуз, лёд и при необходимости лёд."
+               data-step3="Взбей до однородной текстуры и подавай сразу."
+               data-need="Пюре арбуза 120 г,Фруктовый LIMMI 25 мл,Сироп арбуз,Лёд">
+            <div class="imgwrap"><img src="Watermelon.png" alt="Арбузный"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Арбузный</div>
+              <div class="recipe-sub">Арбуз + Фруктовый LIMMI + Сироп</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 3. Базилио (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="БАЗИЛИО"
+               data-title="Базилио"
+               data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: синий базилик 25 г, лимонный limmi 15 мл, сахарный сироп 25 мл."
+               data-img="Basilio.png"
+               data-step1="Соедини синий базилик 25 г, лимонный limmi 15 мл в стакане, шейкере или чаше блендера."
+               data-step2="Добавь сахарный сироп 25 мл, газированную воду и при необходимости лёд."
+               data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+               data-need="Синий базилик 25 г,Лимонный LIMMI 15 мл,Сахарный сироп 25 мл,Газированная вода top">
+            <div class="imgwrap"><img src="Basilio.png" alt="Базилио"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Базилио</div>
+              <div class="recipe-sub">Базилик + LIMMI + Сахарный сироп</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 4. Беби колада (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="БЕБИ"
+               data-title="Беби колада"
+               data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: ананасовый сок 100 мл, кокосовые сливки 30 мл, лимонный limmi 19 мл."
+               data-img="BabyColada.png"
+               data-step1="Соедини ананасовый сок 100 мл, кокосовые сливки 30 мл в стакане, шейкере или чаше блендера."
+               data-step2="Добавь лимонный limmi 19 мл, кокосовый сироп 15 мл и при необходимости лёд."
+               data-step3="Перемешай до баланса вкуса и подавай очень холодным."
+               data-need="Ананасовый сок 100 мл,Кокосовые сливки 30 мл,Лимонный LIMMI 19 мл,Кокосовый сироп 15 мл">
+            <div class="imgwrap"><img src="BabyColada.png" alt="Беби колада"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Беби колада</div>
+              <div class="recipe-sub">Ананас + Кокос + LIMMI</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 5. Грушевый лимонад (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="ГРУШЕВЫЙ"
+               data-title="Грушевый лимонад"
+               data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: пюре груши 80 г, лимонный limmi 20 мл, грушевый сироп 20 мл."
+               data-img="PearLemonade.png"
+               data-step1="Соедини пюре груши 80 г, лимонный limmi 20 мл в стакане, шейкере или чаше блендера."
+               data-step2="Добавь грушевый сироп 20 мл, газированная вода top и при необходимости лёд."
+               data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+               data-need="Пюре груши 80 г,Лимонный LIMMI 20 мл,Грушевый сироп 20 мл,Газированная вода top">
+            <div class="imgwrap"><img src="PearLemonade.png" alt="Грушевый лимонад"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Грушевый лимонад</div>
+              <div class="recipe-sub">Груша + LIMMI + Грушевый сироп</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 6. Домашний лимонад (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="ДОМАШНИЙ"
+               data-title="Домашний лимонад"
+               data-desc="Классический освежающий лимонад на основе LIMMI."
+               data-img="HomemadeLemonade.png"
+               data-step1="Соедини лимонный LIMMI 20 мл и тростниковый сахар 25 мл в стакане."
+               data-step2="Добавь лёд и долей газированную воду."
+               data-step3="Аккуратно перемешай и подавай с долькой лимона."
+               data-need="Лимонный LIMMI 20 мл,Тростниковый сахар 25 мл,Газированная вода,Лёд,Долька лимона">
+            <div class="imgwrap"><img src="HomemadeLemonade.png" alt="Домашний лимонад"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Домашний лимонад</div>
+              <div class="recipe-sub">LIMMI + Сахар + Газированная вода</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 7. Клюквенный лимонад (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="КЛЮКВЕННЫЙ"
+               data-title="Клюквенный лимонад"
+               data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: клюква или клюквенное пюре 65 г, клюквенный сироп 30 мл, фруктовый limmi 20 мл."
+               data-img="CranberryLemonade.png"
+               data-step1="Соедини клюква или клюквенное пюре 65 г, клюквенный сироп 30 мл в стакане, шейкере или чаше блендера."
+               data-step2="Добавь фруктовый limmi 20 мл, газированная вода top и при необходимости лёд."
+               data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+               data-need="Клюква или клюквенное пюре 65 г,Клюквенный сироп 30 мл,Фруктовый LIMMI 20 мл,Газированная вода top">
+            <div class="imgwrap"><img src="CranberryLemonade.png" alt="Клюквенный лимонад"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Клюквенный лимонад</div>
+              <div class="recipe-sub">Клюква + Сироп + LIMMI</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 8. Лавандовый (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="ЛАВАНДОВЫЙ"
+               data-title="Лавандовый"
+               data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: лавандовый сироп 20 мл, лимонный limmi 20 мл, газированная вода top."
+               data-img="Lavender.png"
+               data-step1="Соедини лавандовый сироп 20 мл, лимонный limmi 20 мл в стакане, шейкере или чаше блендера."
+               data-step2="Добавь лимонный limmi 20 мл, газированная вода top и при необходимости лёд."
+               data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+               data-need="Лавандовый сироп 20 мл,Лимонный LIMMI 20 мл,Газированная вода top">
+            <div class="imgwrap"><img src="Lavender.png" alt="Лавандовый"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Лавандовый</div>
+              <div class="recipe-sub">Лаванда + LIMMI + Газированная вода</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 9. Малина Алоэ (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="МАЛИНА"
+               data-title="Малина Алоэ"
+               data-desc="Ягодный напиток с нотками алоэ и лимона."
+               data-img="RaspberryAloe.png"
+               data-step1="Соедини пюре малина 50 г, сироп малина 10 мл в стакане."
+               data-step2="Добавь сироп алоэ 25 мл, лимонный LIMMI 20 мл и лёд."
+               data-step3="Долей газированную воду, аккуратно перемешай."
+               data-need="Пюре малина 50 г,Сироп малина 10 мл,Сироп алоэ 25 мл,Лимонный LIMMI 20 мл,Газированная вода">
+            <div class="imgwrap"><img src="RaspberryAloe.png" alt="Малина Алоэ"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Малина Алоэ</div>
+              <div class="recipe-sub">Малина + Алоэ + LIMMI</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 10. Смузи авокадо (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="СМУЗИ"
+               data-title="Смузи авокадо"
+               data-desc="Полезный и сытный смузи с авокадо и лимоном."
+               data-img="AvocadoSmoothie.png"
+               data-step1="Соедини авокадо 1 шт и лимонный LIMMI 20 мл в блендере."
+               data-step2="Добавь тростниковый сахар 20 мл и лёд."
+               data-step3="Взбей до однородной текстуры и подавай."
+               data-need="Авокадо 1 шт,Лимонный LIMMI 20 мл,Тростниковый сахар 20 мл,Лёд">
+            <div class="imgwrap"><img src="AvocadoSmoothie.png" alt="Смузи авокадо"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Смузи авокадо</div>
+              <div class="recipe-sub">Авокадо + LIMMI + Сахар</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 11. Спирулина (безалкогольный) -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc"
+               data-badge="СПИРУЛИНА"
+               data-title="Спирулина"
+               data-desc="Зеленый детокс-напиток с суперфудами."
+               data-img="Spirulina.png"
+               data-step1="Соедини спирулину 5 г, огурец 100 г, сельдерей 50 г в блендере."
+               data-step2="Добавь базилик 15 г, тростниковый сахар 15 мл, лимонный LIMMI 15 мл."
+               data-step3="Перемешай до баланса вкуса и подавай охлаждённым."
+               data-need="Спирулина 5 г,Огурец 100 г,Сельдерей 50 г,Базилик 15 г,Тростниковый сахар 15 мл,Лимонный LIMMI 15 мл">
+            <div class="imgwrap"><img src="Spirulina.png" alt="Спирулина"></div>
+            <div class="recipe-content">
+              <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+              <div class="recipe-title">Спирулина</div>
+              <div class="recipe-sub">Спирулина + Огурец + Сельдерей</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 12. Маргарита (алкогольный 18+) -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc"
+               data-badge="18+"
+               data-title="Маргарита"
+               data-desc="Авторский коктейль на текиле с ярким лимонным акцентом LIMMI."
+               data-img="Margarita.png"
+               data-alcinfo="Текила серебро 50 мл, Трипл сек 25 мл, Лимми лимонное 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+               data-need="Текила серебро 50 мл,Трипл сек 25 мл,Лимми лимонное 15 мл">
+            <div class="imgwrap"><img src="Margarita.png" alt="Маргарита"></div>
+            <div class="recipe-content">
+              <span class="label lock">АЛКОГОЛЬНЫЙ 18+</span>
+              <div class="recipe-title">Маргарита</div>
+              <div class="recipe-sub">Текила + Трипл сек + LIMMI</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 13. Космополитен (алкогольный 18+) -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc"
+               data-badge="18+"
+               data-title="Космополитен"
+               data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+               data-img="Cosmopolitan.png"
+               data-alcinfo="Куантро 50 мл, Водка клюквенная 25 мл, Морс клюквенный 25 мл, Лимми лимонное 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+               data-need="Куантро 50 мл,Водка клюквенная 25 мл,Морс клюквенный 25 мл,Лимми лимонное 15 мл">
+            <div class="imgwrap"><img src="Cosmopolitan.png" alt="Космополитен"></div>
+            <div class="recipe-content">
+              <span class="label lock">АЛКОГОЛЬНЫЙ 18+</span>
+              <div class="recipe-title">Космополитен</div>
+              <div class="recipe-sub">Куантро + Водка + Клюква</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 14. Гимлет (алкогольный 18+) -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc"
+               data-badge="18+"
+               data-title="Гимлет"
+               data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+               data-img="Gimlet.png"
+               data-alcinfo="Джин Блю 75 мл, Лимонный LIMMI 15 мл, Сахарный сироп 15 мл, Альбумин 5 г. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+               data-need="Джин Блю 75 мл,Лимонный LIMMI 15 мл,Сахарный сироп 15 мл,Альбумин 5 г">
+            <div class="imgwrap"><img src="Gimlet.png" alt="Гимлет"></div>
+            <div class="recipe-content">
+              <span class="label lock">АЛКОГОЛЬНЫЙ 18+</span>
+              <div class="recipe-title">Гимлет</div>
+              <div class="recipe-sub">Джин + LIMMI + Сахарный сироп</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+          <!-- 15. Порн Стар Мартини (алкогольный 18+) -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc"
+               data-badge="18+"
+               data-title="Порн Стар Мартини"
+               data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+               data-img="PornStarMartini.png"
+               data-alcinfo="Водка ванильная 25 мл, Пюре маракуйя 50 г, Лимонный LIMMI 10 мл, Сахарный сироп, Игристое вино. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+               data-need="Водка ванильная 25 мл,Пюре маракуйя 50 г,Лимонный LIMMI 10 мл,Сахарный сироп,Игристое вино">
+            <div class="imgwrap"><img src="PornStarMartini.png" alt="Порн Стар Мартини"></div>
+            <div class="recipe-content">
+              <span class="label lock">АЛКОГОЛЬНЫЙ 18+</span>
+              <div class="recipe-title">Порн Стар Мартини</div>
+              <div class="recipe-sub">Водка + Маракуйя + LIMMI</div>
+              <div class="mini-cta"><span class="mini-pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="navbtn" id="next" aria-label="Вперёд">›</button>
+      </div>
+
+      <div class="dots" id="dots" aria-label="Пагинация"></div>
+    </div>
+  </section>
+
+  <!-- BUY -->
+  <section class="buy" id="buy">
+    <div class="container">
+      <div class="section-title">Где купить LIMMI</div>
+      <div class="section-sub">Заказать LIMMI можно на популярных маркетплейсах и в онлайн-магазине Globus.</div>
+
+      <div class="buy-actions">
+        <a class="btn btn-primary" href="https://www.wildberries.ru/brands/23485-limmi?sort=popular&page=1&foriginal=1" target="_blank" rel="noopener noreferrer">Wildberries</a>
+        <a class="btn btn-dark" href="https://www.ozon.ru/category/limonnyy-sok-31526/limmi-75977239/" target="_blank" rel="noopener noreferrer">Ozon</a>
+        <a class="btn btn-primary" href="https://online.globus.ru/brand/26178" target="_blank" rel="noopener noreferrer">Globus</a>
+      </div>
+    </div>
+  </section>
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-title">Часто задаваемые вопросы (FAQ)</div>
+    <div class="section-sub">Ответы на главные вопросы о LIMMI</div>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-question">
+          <img src="lemon.svg" alt="Вопрос" style="width: 28px; height: 28px;">
+          <h4>Чем LIMMI отличается от свежего лимона?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>LIMMI даёт стабильный вкус и удобство в каждой бутылке. Вам не нужно мыть, резать и выжимать лимоны — достаточно просто открыть и добавить в напиток. Идеально для домашнего бара.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <img src="lemon.svg" alt="Вопрос" style="width: 28px; height: 28px;">
+          <h4>Сколько хранится открытая бутылка?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>После вскрытия хранить в холодильнике при температуре от +2°C до +4°C в пределах срока годности. Бутылка оснащена удобным дозатором, который сохраняет свежесть продукта. Продукт может содержать естественный осадок. Перед использованием взболтать.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <img src="lemon.svg" alt="Вопрос" style="width: 28px; height: 28px;">
+          <h4>Подходит ли LIMMI для выпечки и готовки?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Да! LIMMI отлично подходит для маринадов, соусов, выпечки и десертов. Это полноценная замена свежему лимонному соку.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <img src="lemon.svg" alt="Вопрос" style="width: 28px; height: 28px;">
+          <h4>Из каких лимонов делают LIMMI?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>LIMMI производится из 100% сицилийских лимонов, выращенных на солнечных плантациях Италии. Никаких концентратов и добавок.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <img src="lemon.svg" alt="Вопрос" style="width: 28px; height: 28px;">
+          <h4>Есть ли сахар в составе?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>В классическом лимонном соке LIMMI сахара нет. Это натуральный лимонный сок. Для сладких напитков мы рекомендуем добавлять сиропы по вкусу. В сладкой версии LIMMI используется фруктозный сироп.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <img src="lemon.svg" alt="Вопрос" style="width: 28px; height: 28px;">
+          <h4>Где можно купить LIMMI?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>LIMMI доступен на Wildberries, Ozon и в гипермаркетах Globus. Ссылки на магазины есть в разделе "Где купить".</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <div style="font-weight:1000; letter-spacing:.6px;">LIMMI</div>
+        <small>Идеальный лимон для напитков. Education-first подход: показываем сценарии использования.</small>
+      </div>
+      <div>
+        <small>
+          © 2026<br>
+          Контакты / соцсети — сюда
+        </small>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-media">
+      <img id="modalImg" src="" alt="" />
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <span class="modal-badge" id="modalBadge">RECIPE</span>
+      <h3 id="modalTitle">Рецепт</h3>
+      <p class="desc" id="modalDesc"></p>
+
+      <div class="instructions">
+        <div class="instructions-head">РЕЦЕПТ</div>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><p id="modalStep1"></p></div>
+          <div class="step"><div class="num">2</div><p id="modalStep2"></p></div>
+          <div class="step"><div class="num">3</div><p id="modalStep3"></p></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:1000; margin-bottom:10px;">ВАМ ПОНАДОБИТСЯ:</div>
+        <div class="need" id="modalNeed"></div>
+      </div>
+
+      <div class="modal-bottom">
+        <div class="qrbox" title="Заменишь заглушку на реальный QR">
+          <div class="qrmini" aria-hidden="true"></div>
+          <div>УЗНАТЬ БОЛЬШЕ</div>
+        </div>
+
+        <button class="btn btn-primary" id="modalOk">Понятно</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AGE GATE (moved BEFORE script) -->
+<div class="age-backdrop" id="ageBackdrop" aria-hidden="true">
+  <div class="age-modal" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+    <div class="age-top">
+      <h3 id="ageTitle">Подтвердите свой возраст</h3>
+      <p>Алкогольные коктейли доступны только для пользователей 18+. Выберите вариант ниже.</p>
+    </div>
+
+    <div class="age-actions">
+      <button class="btn btn-primary" id="ageYes">Мне больше 18</button>
+      <button class="btn btn-dark" id="ageNo">Мне меньше 18</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== Header behavior =====
+  const header = document.getElementById('header');
+  const burger = document.getElementById('burger');
+  const mobilemenu = document.getElementById('mobilemenu');
+
+  function onScroll(){
+    if (window.scrollY > 20) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+  burger?.addEventListener('click', () => {
+    mobilemenu.classList.toggle('open');
+  });
+
+  // Close mobile menu on click
+  mobilemenu?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobilemenu.classList.remove('open'));
+  });
+
+  // ===== Slider logic =====
+  const track = document.getElementById('track');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const dotsWrap = document.getElementById('dots');
+
+  function slideWidth(){
+    const first = track.querySelector('.recipe-card');
+    if(!first) return 320;
+    const rect = first.getBoundingClientRect();
+    const gap = parseFloat(getComputedStyle(track).gap || "0");
+    return rect.width + gap;
+  }
+
+  function scrollByCards(dir = 1){
+    track.scrollBy({ left: slideWidth() * dir, behavior: 'smooth' });
+  }
+
+  prev?.addEventListener('click', ()=> scrollByCards(-1));
+  next?.addEventListener('click', ()=> scrollByCards(1));
+
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    const total = track.querySelectorAll('.recipe-card').length;
+    const visible = Math.max(1, Math.round(track.clientWidth / slideWidth()));
+    const pages = Math.max(1, Math.ceil(total / visible));
+
+    for(let i=0;i<pages;i++){
+      const b = document.createElement('button');
+      b.className = 'dotbtn' + (i===0 ? ' active' : '');
+      b.setAttribute('aria-label', `Страница ${i+1}`);
+      b.addEventListener('click', ()=>{
+        track.scrollTo({ left: i * track.clientWidth, behavior:'smooth' });
+      });
+      dotsWrap.appendChild(b);
+    }
+  }
+
+  function setActiveDot(){
+    const dots = [...dotsWrap.querySelectorAll('.dotbtn')];
+    if(!dots.length) return;
+    const page = Math.round(track.scrollLeft / track.clientWidth);
+    dots.forEach((d, idx)=> d.classList.toggle('active', idx===page));
+  }
+
+  window.addEventListener('resize', buildDots);
+  track.addEventListener('scroll', ()=> {
+    window.requestAnimationFrame(setActiveDot);
+  });
+
+  buildDots();
+  setActiveDot();
+
+  // ===== Modal logic =====
+  const backdrop = document.getElementById('modalBackdrop');
+  const closeBtn = document.getElementById('modalClose');
+  const okBtn = document.getElementById('modalOk');
+
+  const modal = {
+    img: document.getElementById('modalImg'),
+    badge: document.getElementById('modalBadge'),
+    title: document.getElementById('modalTitle'),
+    desc: document.getElementById('modalDesc'),
+    s1: document.getElementById('modalStep1'),
+    s2: document.getElementById('modalStep2'),
+    s3: document.getElementById('modalStep3'),
+    need: document.getElementById('modalNeed'),
+  };
+
+function openModalFromCard(card){
+  const type = card.dataset.type || 'nonalc';
+
+  modal.badge.textContent = card.dataset.badge || 'RECIPE';
+  modal.title.textContent = card.dataset.title || 'Напиток';
+  modal.desc.textContent  = card.dataset.desc  || '';
+  modal.img.src = card.dataset.img || '';
+  modal.img.alt = card.dataset.title || 'Напиток';
+
+  if(type === 'alc'){
+    modal.s1.textContent = card.dataset.alcinfo || 'Контент 18+. (Заполнить описание на взрослой версии сайта.)';
+    modal.s2.textContent = 'Алкоголь вредит вашему здоровью.';
+    modal.s3.textContent = 'Если вам есть 18+, выберите «Мне больше 18» в окне подтверждения возраста.';
+
+    modal.need.innerHTML = '';
+    const items = (card.dataset.need || '18+').split(',').map(s => s.trim()).filter(Boolean);
+    items.forEach(it => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = it;
+      modal.need.appendChild(chip);
+    });
+  } else {
+    modal.s1.textContent = card.dataset.step1 || '';
+    modal.s2.textContent = card.dataset.step2 || '';
+    modal.s3.textContent = card.dataset.step3 || '';
+
+    modal.need.innerHTML = '';
+    const items = (card.dataset.need || '').split(',').map(s => s.trim()).filter(Boolean);
+    items.forEach(it => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = it;
+      modal.need.appendChild(chip);
+    });
+  }
+
+  document.body.classList.add('noscroll');
+  backdrop.classList.add('open');
+  backdrop.setAttribute('aria-hidden', 'false');
+  const modalBody = document.querySelector('.modal-body');
+if (backdrop) backdrop.scrollTop = 0;
+okBtn.focus();
+}
+
+function closeModal(){
+  backdrop.classList.remove('open');
+  backdrop.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('noscroll');
+}
+
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    card.addEventListener('click', () => openModalFromCard(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') openModalFromCard(card);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  okBtn?.addEventListener('click', closeModal);
+
+  backdrop?.addEventListener('click', (e) => {
+    if (e.target === backdrop) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && backdrop?.classList.contains('open')) closeModal();
+  });
+
+  // ===== Age Gate logic =====
+  const AGE_KEY = 'limmi_age'; // '18plus' | 'under18'
+  const ageBackdrop = document.getElementById('ageBackdrop');
+  const ageYes = document.getElementById('ageYes');
+  const ageNo = document.getElementById('ageNo');
+
+  function openAgeGate(){
+    ageBackdrop.classList.add('open');
+    ageBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('noscroll');
+  }
+
+  function closeAgeGate(){
+    ageBackdrop.classList.remove('open');
+    ageBackdrop.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('noscroll');
+  }
+
+  function applyAgeFilter(value){
+    try { localStorage.setItem(AGE_KEY, value); } catch(e) {}
+    document.body.classList.toggle('under18', value === 'under18');
+    buildDots();
+    setActiveDot();
+  }
+
+  function initAgeGate(){
+    let saved = null;
+    try { saved = localStorage.getItem(AGE_KEY); } catch(e) {}
+
+    if(saved === '18plus' || saved === 'under18'){
+      applyAgeFilter(saved);
+      return;
+    }
+
+    document.body.classList.add('under18');
+    buildDots();
+    setActiveDot();
+    openAgeGate();
+  }
+
+  ageYes.addEventListener('click', () => {
+    applyAgeFilter('18plus');
+    closeAgeGate();
+  });
+
+  ageNo.addEventListener('click', () => {
+    applyAgeFilter('under18');
+    closeAgeGate();
+  });
+
+  // Prevent opening alc modal when under18
+  const _openModalFromCard = openModalFromCard;
+  openModalFromCard = function(card){
+    const type = card?.dataset?.type;
+    const isUnder18 = document.body.classList.contains('under18');
+    if(type === 'alc' && isUnder18){
+      openAgeGate();
+      return;
+    }
+    return _openModalFromCard(card);
+  };
+
+  // start when DOM ready (extra safety)
+  window.addEventListener('DOMContentLoaded', initAgeGate);
+
+// ===== FAQ Accordion =====
+function initFaq() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    question.addEventListener('click', () => {
+      // Закрыть все остальные (раскомментируй, если нужно только один открытый)
+      // faqItems.forEach(other => {
+      //   if (other !== item && other.classList.contains('open')) {
+      //     other.classList.remove('open');
+      //   }
+      // });
+      item.classList.toggle('open');
+    });
+  });
+}
+
+// Запустить после загрузки страницы
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFaq);
+} else {
+  initFaq();
+}
+
+// ===== PRODUCTS MODAL =====
+const productModal = document.getElementById('productModal');
+const productModalClose = document.getElementById('productModalClose');
+const productCards = document.querySelectorAll('.product-card');
+
+// Данные о продуктах
+const productsData = {
+  classic: {
+    title: 'LIMMI',
+    subtitle: 'Лимонный сок',
+    desc: 'Классический лимонный сок из отборных сицилийских лимонов. Холодный отжим, без добавления сахара, ароматизаторов и красителей. Сохраняет максимум витамина С и натуральный вкус.',
+    specs: {
+      volume: '200 мл / 1 л',
+      composition: 'Сок лимона (99,85%), эфирное масло лимонной цедры, антиокислитель: метабисульфит калия',
+      storage: 'Хранить в сухом, прохладном месте. После вскрытия хранить в холодильнике при температуре от +2℃ до +4℃ в пределах срока годности',
+      nutrition: 'КБЖУ на 100 мл: 26 ккал / 0,3 г / 0 г / 2,3 г',
+      shelfLife: '12 месяцев',
+      features: 'Холодный отжим, капсула с эфирным маслом в горлышке'
+    },
+    images: ['product-classic-1.png', 'product-classic-2.png', 'product-classic-3.png', 'product-classic-4.png', 'product-classic-5.png', 'product-classic-6.png', 'product-classic-7.png', 'product-classic-8.png']
+  },
+  lime: {
+    title: 'LIMMI LIME',
+    subtitle: 'Лаймовый сок 100%',
+    desc: 'Свежевыжатый сок лайма с ярким цитрусовым ароматом. Идеален для коктейлей, маринадов и азиатской кухни. Без добавок и консервантов.',
+    specs: {
+      volume: '200 мл / 500 мл',
+      composition: '100% сок лайма',
+      storage: 'После вскрытия хранить в холодильнике при +2...+4°C',
+      nutrition: 'КБЖУ на 100 мл: 30 ккал / 0г / 0г / 7г',
+      shelfLife: '24 месяца',
+      features: 'Холодный отжим, 100% натуральный продукт'
+    },
+    images: ['product-lime.jpg', 'product-lime-2.jpg', 'product-lime-3.jpg']
+  },
+  sweet: {
+    title: 'LIMMI SWEET',
+    subtitle: 'Лимонный сок со сладким вкусом',
+    desc: 'Уникальный продукт, сочетающий вкус и аромат лимонного сока IGP Syracuse с натуральным фруктозным сиропом. Идеален для детей, десертов и сладких коктейлей.',
+    specs: {
+      volume: '250 мл',
+      composition: 'Сок лимона (59,8%), фруктозный сироп, эфирное масло лимонной цедры, антиокислитель: метабисульфит калия',
+      storage: 'Хранить в сухом, прохладном месте. После вскрытия хранить в холодильнике при температуре от +2℃ до +4℃ в пределах срока годности',
+      nutrition: 'КБЖУ на 100 мл: 105 ккал / 0,3 г / 0 г / 26 г',
+      shelfLife: '12 месяцев',
+      features: 'Сладкий вкус без сахара, идеально для детей'
+    },
+    images: ['product-sweet-1.png', 'product-sweet-2.png', 'product-sweet-3.png', 'product-sweet-4.png', 'product-sweet-5.png', 'product-sweet-6.png', 'product-sweet-7.png']
+  }
+};
+
+// Функция открытия модального окна
+function openProductModal(productId) {
+  const product = productsData[productId];
+  if (!product) return;
+  
+  // Заполняем данные
+  document.getElementById('modalProductTitle').textContent = product.title;
+  document.getElementById('modalProductSubtitle').textContent = product.subtitle;
+  document.getElementById('modalProductDesc').textContent = product.desc;
+  
+  // Заполняем характеристики
+  const specsContainer = document.getElementById('modalProductSpecs');
+  specsContainer.innerHTML = '';
+  
+  const specItems = [
+    { label: 'Объем', value: product.specs.volume },
+    { label: 'Состав', value: product.specs.composition },
+    { label: 'Условия хранения', value: product.specs.storage },
+    { label: 'КБЖУ', value: product.specs.nutrition },
+    { label: 'Срок годности', value: product.specs.shelfLife },
+    { label: 'Особенности', value: product.specs.features }
+  ];
+  
+  specItems.forEach(item => {
+    const specDiv = document.createElement('div');
+    specDiv.className = 'spec-item';
+    specDiv.innerHTML = `
+      <span class="spec-label">${item.label}</span>
+      <span class="spec-value">${item.value}</span>
+    `;
+    specsContainer.appendChild(specDiv);
+  });
+  
+  // Заполняем галерею
+  const galleryMain = document.getElementById('galleryMainImg');
+  const thumbsContainer = document.getElementById('galleryThumbs');
+  
+  galleryMain.src = product.images[0];
+  thumbsContainer.innerHTML = '';
+  
+  product.images.forEach((img, index) => {
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb' + (index === 0 ? ' active' : '');
+    thumb.innerHTML = `<img src="${img}" alt="Фото продукта">`;
+    thumb.addEventListener('click', () => {
+      galleryMain.src = img;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+    thumbsContainer.appendChild(thumb);
+  });
+  
+  // Открываем модальное окно
+  productModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var buyBtn = document.querySelector('#productModal .product-buy .btn');
+    if (buyBtn) {
+      buyBtn.onclick = function(e) {
+        e.preventDefault();
+        closeProductModal();
+        setTimeout(function() {
+          window.location.href = buyBtn.getAttribute('href');
+        }, 200);
+      };
+    }
+  }, 50);
+}
+
+// Закрытие модального окна
+function closeProductModal() {
+  productModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+productModalClose.addEventListener('click', closeProductModal);
+productModal.addEventListener('click', (e) => {
+  if (e.target === productModal) closeProductModal();
+});
+
+// Обработчики для карточек товаров
+productCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const productId = card.dataset.product;
+    openProductModal(productId);
+  });
+});
+
+// Закрытие по Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && productModal.classList.contains('open')) {
+    closeProductModal();
+  }
+});
+
+</script>
+
+</body>
+</html>

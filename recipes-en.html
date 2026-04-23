@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>LIMMI — Recipes</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root{
+      --limmi-blue:#1e5fa8;
+      --lemon-yellow:#ffd400;
+      --dark:#111;
+      --bg:#f5f5f5;
+      --shadow: 0 20px 40px rgba(0,0,0,.18);
+      --shadow-soft: 0 14px 28px rgba(0,0,0,.10);
+      --container: 1200px;
+      --r22: 22px;
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; font-family:'Montserrat',sans-serif; }
+    body{ background:var(--bg); color:var(--dark); }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(var(--container), 100%); margin:0 auto; padding: 0 18px; }
+    body.noscroll{ overflow:hidden; }
+
+    /* Header */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    }
+    .nav{
+      height: 72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 1000;
+      letter-spacing:.4px;
+    }
+    .brand img{ height:34px; width:auto; display:block; }
+    .navlinks{ display:flex; gap:18px; align-items:center; }
+    .navlinks a{ font-weight:800; font-size:14px; opacity:.9; }
+    
+    .lang-switch{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .lang-link{
+      min-width: 46px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-align:center;
+      font-weight: 900;
+      text-decoration:none;
+      border: 2px solid rgba(255,255,255,.55);
+      background: transparent;
+      color:#fff;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
+    }
+    .lang-link.active{
+      background: var(--lemon-yellow);
+      color:#000;
+      border-color: transparent;
+      box-shadow: 0 12px 24px rgba(0,0,0,.16);
+    }
+    header.scrolled .lang-link,
+    header .lang-link.on-light{
+      color:#111;
+      border-color: rgba(0,0,0,.20);
+      background: rgba(255,255,255,.72);
+    }
+    header.scrolled .lang-link.active,
+    header .lang-link.on-light.active{
+      background: var(--lemon-yellow);
+      color:#000;
+      border-color: transparent;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:999px;
+      font-weight:900;
+      border:0;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{
+      background: var(--lemon-yellow);
+      color:#000;
+      box-shadow: 0 12px 24px rgba(0,0,0,.16);
+    }
+    .btn-dark{
+      background:#111;
+      color:#fff;
+      box-shadow: 0 14px 28px rgba(0,0,0,.18);
+    }
+
+    /* Page head */
+    .pagehead{ padding: 36px 0 18px; }
+    h1{ font-size: 40px; font-weight: 1000; line-height: 1.05; }
+    .sub{
+      margin-top:10px;
+      font-weight:700;
+      opacity:.78;
+      line-height:1.5;
+      max-width: 860px;
+    }
+
+    /* Filters */
+    .filters{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .chipbtn{
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor:pointer;
+      box-shadow: 0 10px 18px rgba(0,0,0,.06);
+      opacity:.92;
+    }
+    .chipbtn.active{
+      background: var(--limmi-blue);
+      color:#fff;
+      border-color: rgba(0,0,0,0);
+    }
+    .spacer{ flex: 1 1 auto; }
+    .search{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex: 1 1 260px;
+      max-width: 420px;
+    }
+    .search input{
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.12);
+      outline:none;
+      font-weight:700;
+    }
+
+    /* Grid */
+    .grid{
+      padding: 18px 0 56px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } h1{ font-size:32px; } }
+
+    .card{
+      background:#fff;
+      border-radius: var(--r22);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      min-height: 420px;
+      transform: translateY(0);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 28px 56px rgba(0,0,0,.22);
+    }
+    .imgwrap img{
+      width:100%;
+      height: 240px;
+      object-fit: cover;
+      display:block;
+    }
+    .content{ padding: 18px; display:flex; flex-direction:column; gap:10px; flex:1; }
+    .label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 1000;
+      letter-spacing:.6px;
+      width: fit-content;
+      background: var(--lemon-yellow);
+      color:#000;
+    }
+    .label.alc{ background:#111; color:#fff; }
+    .title{ font-size: 20px; font-weight: 1000; line-height:1.15; }
+    .meta{ font-weight: 800; opacity:.75; line-height:1.35; }
+    .cta{
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight: 1000;
+      font-size: 13px;
+    }
+    .pill{
+      background:#f0f3f7;
+      padding: 8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+    }
+
+    /* Age gate */
+    .age-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
+      z-index: 1000;
+    }
+    .age-backdrop.open{ display:flex; }
+    .age-modal{
+      width: min(560px, 100%);
+      background:#fff;
+      border-radius: 24px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .age-top{
+      padding: 18px 18px 14px;
+      background: linear-gradient(180deg, #ffffff, #fbfbfb);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .age-top h3{ font-size: 22px; font-weight: 1000; margin-bottom: 8px; }
+    .age-top p{ font-weight: 700; opacity:.82; line-height:1.45; font-size:14px; }
+    .age-actions{ display:flex; gap:12px; padding: 16px 18px 18px; flex-wrap:wrap; }
+    .age-actions .btn{ flex: 1 1 220px; }
+    .btn-secondary{ background:#111; color:#fff; box-shadow: 0 14px 28px rgba(0,0,0,.18); }
+
+    body.under18 .card[data-type="alc"]{ display:none !important; }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
+      z-index: 999;
+    }
+    .modal-backdrop.open{ display:flex; }
+    .modal{
+      width: min(980px, 100%);
+      background:#fff;
+      border-radius: 24px;
+      overflow:hidden;
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+    }
+    @media (max-width: 980px){ .modal{ grid-template-columns:1fr; } }
+    .modal-media{ position:relative; min-height: 320px; background:#222; }
+    .modal-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .modal-close{
+      position:absolute; top:14px; right:14px;
+      width:44px; height:44px; border-radius:999px;
+      border:0; cursor:pointer;
+      background: rgba(255,255,255,.92);
+      font-weight:1000; font-size:18px;
+    }
+    .modal-body{ padding: 22px; background: linear-gradient(180deg, #ffffff, #fafafa); }
+    .modal-badge{
+      display:inline-block;
+      background: var(--limmi-blue);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:1000;
+      letter-spacing:.6px;
+      font-size:12px;
+      margin-bottom:12px;
+    }
+    .modal-body h3{ font-size: 26px; font-weight: 1000; margin-bottom: 8px; }
+    .modal-body .desc{ font-weight: 800; opacity:.78; line-height:1.5; margin-bottom: 14px; }
+
+    .instructions{
+      border-radius:18px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.08);
+      background:#fff;
+      margin-bottom:14px;
+    }
+    .instructions-head{
+      background: var(--lemon-yellow);
+      padding:12px 14px;
+      font-weight: 1000;
+      letter-spacing:.7px;
+    }
+    .steps{ padding:14px; display:flex; flex-direction:column; gap:12px; }
+    .step{ display:flex; gap:12px; align-items:flex-start; }
+    .num{
+      width:30px; height:30px; border-radius:999px;
+      display:flex; align-items:center; justify-content:center;
+      background:#111; color:#fff;
+      font-weight:1000; flex:0 0 auto;
+    }
+    .step p{ margin-top:2px; font-weight: 900; line-height:1.35; opacity:.92; }
+
+    .need{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
+    .chip{ background:#eef2f6; padding: 8px 12px; border-radius:999px; font-weight:1000; font-size:12px; }
+
+    .warn{
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 1000;
+      opacity: .72;
+    }
+
+    footer{
+      padding: 34px 0 50px;
+      border-top: 1px solid rgba(0,0,0,.08);
+      background: #fff;
+    }
+    footer small{ opacity:.75; font-weight:700; line-height:1.5; }
+  
+/* ===== Mobile polish ===== */
+@media (max-width: 720px){
+  .pagehead{ padding: 28px 0 14px; }
+  h1{ font-size: 32px; }
+  .sub{ font-size: 14px; }
+}
+
+/* Filters: horizontal scroll on small screens */
+@media (max-width: 640px){
+  .filters{
+    gap: 8px;
+  }
+  .filters{
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+  .filters::-webkit-scrollbar{ height: 6px; }
+  .filters::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.18); border-radius: 999px; }
+  .chipbtn{ padding: 9px 12px; font-size: 13px; flex: 0 0 auto; }
+  .spacer{ display:none; }
+  .search{ flex: 0 0 auto; min-width: 220px; max-width: 260px; }
+  .search input{ padding: 10px 12px; border-radius: 12px; }
+}
+
+/* Modal spacing on phones */
+@media (max-width: 640px){
+  .modal-body{ padding: 16px; }
+  .modal-body h3{ font-size: 22px; }
+  .modal-media{ min-height: 220px; }
+}
+
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<div class="nav">
+<a aria-label="Limmi" class="brand" href="index-en.html#top">
+<img alt="LIMMI" src="logo-limmi.svg"/>
+</a>
+<nav aria-label="Навигация" class="navlinks">
+<a href="index-en.html#about">About the brand</a>
+<a href="#filters">Filter</a>
+<a href="index-en.html#buy">Where to buy</a>
+</nav>
+<div class="navcta">
+<div class="lang-switch" aria-label="Language switcher">
+<a class="lang-link on-light" href="recipes.html">RU</a>
+<a class="lang-link active on-light" href="recipes-en.html">EN</a>
+</div>
+<a class="btn btn-primary" href="index-en.html#buy">Where to buy</a>
+</div>
+</div>
+</div>
+</header>
+<main>
+<section class="pagehead">
+<div class="container">
+<h1>Recipes with LIMMI</h1>
+<div class="sub">
+        The selection has been updated: old cards were removed and new recipes from your file were added to the page. Use the filters to quickly find the drink you need.
+      </div>
+<div class="filters" id="filters">
+<button class="chipbtn active" data-filter="all">All</button>
+<button class="chipbtn" data-filter="nonalc">Non-alcoholic</button>
+<button class="chipbtn" data-filter="alc">Alcoholic 18+</button>
+<button class="chipbtn" data-filter="vodka">Vodka</button>
+<button class="chipbtn" data-filter="gin">Gin</button>
+<button class="chipbtn" data-filter="tequila">Tequila</button>
+<button class="chipbtn" data-filter="rum">Rum</button>
+<button class="chipbtn" data-filter="whiskey">Whiskey / Bourbon</button>
+<button class="chipbtn" data-filter="sparkling">Sparkling</button>
+<div class="spacer"></div>
+<div class="search">
+<input autocomplete="off" id="q" placeholder="Search by name…" type="search"/>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="container">
+<div class="grid" id="grid">
+<div class="card" data-badge="AIBOLIT" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: grapefruit juice 100 ml, orange juice 100 ml, banana 1/2 pc." data-img="Aibolit.png" data-need="Grapefruit juice 100 ml,Orange juice 100 ml,Banana 1/2 pc,Fruit LIMMI 20 ml,Strawberry puree 50 g,Strawberry syrup 20 ml" data-step1="Combine grapefruit juice 100 ml, orange juice 100 ml in a glass, shaker, or blender bowl." data-step2="Add banana 1/2 pc, Fruit LIMMI 20 ml and ice if needed." data-step3="Blend until smooth and serve immediately." data-tags="nonalc" data-title="Aibolit" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Aibolit" src="Aibolit.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Aibolit</div>
+<div class="meta">Grapefruit juice + Orange juice + Banana</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="WATERMELON" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: watermelon puree 120 g, Fruit LIMMI 25 ml, watermelon syrup." data-img="Watermelon.png" data-need="Watermelon puree 120 g,Fruit LIMMI 25 ml,Watermelon syrup,Ice" data-step1="Combine watermelon puree 120 g, Fruit LIMMI 25 ml in a glass, shaker, or blender bowl." data-step2="Add watermelon syrup, ice and ice if needed." data-step3="Blend until smooth and serve immediately." data-tags="nonalc" data-title="Watermelon" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Watermelon" src="Watermelon.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Watermelon</div>
+<div class="meta">Watermelon puree + Fruit LIMMI + Watermelon syrup</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="BASILIO" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: blue basil 25 g, Lemon LIMMI 15 ml, simple syrup 25 ml." data-img="Basilio.png" data-need="Blue basil 25 g,Lemon LIMMI 15 ml,Simple syrup 25 ml,Top with sparkling water" data-step1="Combine blue basil 25 g, Lemon LIMMI 15 ml in a glass, shaker, or blender bowl." data-step2="Add simple syrup 25 ml, top with sparkling water and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-tags="nonalc" data-title="Basilio" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Basilio" src="Basilio.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Basilio</div>
+<div class="meta">Blue basil + Lemon LIMMI + Simple syrup</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="BABY COLADA" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: pineapple juice 100 ml, coconut cream 30 ml, Lemon LIMMI 19 ml." data-img="BabyColada.png" data-need="Pineapple juice 100 ml,Coconut cream 30 ml,Lemon LIMMI 19 ml,Coconut syrup 15 ml" data-step1="Combine pineapple juice 100 ml, coconut cream 30 ml in a glass, shaker, or blender bowl." data-step2="Add Lemon LIMMI 19 ml, coconut syrup 15 ml and ice if needed." data-step3="Stir to balance the flavor and serve very cold." data-tags="nonalc" data-title="Baby Colada" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Baby Colada" src="BabyColada.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Baby Colada</div>
+<div class="meta">Pineapple juice + Coconut cream + Lemon LIMMI</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="PEAR LEMONADE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: pear puree 80 g, Lemon LIMMI 20 ml, pear syrup 20 ml." data-img="PearLemonade.png" data-need="Pear puree 80 g,Lemon LIMMI 20 ml,Pear syrup 20 ml,Top with sparkling water" data-step1="Combine pear puree 80 g, Lemon LIMMI 20 ml in a glass, shaker, or blender bowl." data-step2="Add pear syrup 20 ml, top with sparkling water and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-tags="nonalc" data-title="Pear Lemonade" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Pear Lemonade" src="PearLemonade.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Pear Lemonade</div>
+<div class="meta">Pear puree + Lemon LIMMI + Pear syrup</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="HOMEMADE LEMONADE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: Lemon LIMMI 20 ml, cane sugar 25 ml, top with sparkling water." data-img="HomemadeLemonade.png" data-need="Lemon LIMMI 20 ml,Cane sugar 25 ml,Top with sparkling water" data-step1="Combine Lemon LIMMI 20 ml, cane sugar 25 ml in a glass, shaker, or blender bowl." data-step2="Add cane sugar 25 ml, top with sparkling water and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-tags="nonalc" data-title="Homemade Lemonade" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Homemade Lemonade" src="HomemadeLemonade.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Homemade Lemonade</div>
+<div class="meta">Lemon LIMMI + Cane sugar + Top with sparkling water</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="CRANBERRY LEMONADE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: cranberries or cranberry puree 65 g, cranberry syrup 30 ml, Fruit LIMMI 20 ml." data-img="CranberryLemonade.png" data-need="Cranberries or cranberry puree 65 g,Cranberry syrup 30 ml,Fruit LIMMI 20 ml,Top with sparkling water" data-step1="Combine cranberries or cranberry puree 65 g, cranberry syrup 30 ml in a glass, shaker, or blender bowl." data-step2="Add Fruit LIMMI 20 ml, top with sparkling water and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-tags="nonalc" data-title="Cranberry Lemonade" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Cranberry Lemonade" src="CranberryLemonade.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Cranberry Lemonade</div>
+<div class="meta">Cranberries or cranberry puree + Cranberry syrup + Fruit LIMMI</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="LAVENDER" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: lavender syrup 20 ml, Lemon LIMMI 20 ml, top with sparkling water." data-img="Lavender.png" data-need="Lavender syrup 20 ml,Lemon LIMMI 20 ml,Top with sparkling water" data-step1="Combine lavender syrup 20 ml, Lemon LIMMI 20 ml in a glass, shaker, or blender bowl." data-step2="Add Lemon LIMMI 20 ml, top with sparkling water and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-tags="nonalc" data-title="Lavender" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Lavender" src="Lavender.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Lavender</div>
+<div class="meta">Lavender syrup + Lemon LIMMI + Top with sparkling water</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="RASPBERRY ALOE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: raspberry puree 50 g, raspberry syrup 10 ml, aloe syrup 25 ml." data-img="RaspberryAloe.png" data-need="Raspberry puree 50 g,Raspberry syrup 10 ml,Aloe syrup 25 ml,Lemon LIMMI 20 ml,Top with sparkling water" data-step1="Combine raspberry puree 50 g, raspberry syrup 10 ml in a glass, shaker, or blender bowl." data-step2="Add aloe syrup 25 ml, Lemon LIMMI 20 ml and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-tags="nonalc" data-title="Raspberry Aloe" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Raspberry Aloe" src="RaspberryAloe.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Raspberry Aloe</div>
+<div class="meta">Raspberry puree + Raspberry syrup + Aloe syrup</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="CUCUMBER MINT" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: cucumber 100 g, fresh mint 15 g, mint syrup 20 ml." data-img="CucumberMint.png" data-need="Cucumber 100 g,Fresh mint 15 g,Mint syrup 20 ml,Lemon LIMMI 15 ml" data-step1="Combine cucumber 100 g, fresh mint 15 g in a glass, shaker, or blender bowl." data-step2="Add mint syrup 20 ml, Lemon LIMMI 15 ml and ice if needed." data-step3="Stir to balance the flavor and serve very cold." data-tags="nonalc" data-title="Cucumber Mint" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Cucumber Mint" src="CucumberMint.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Cucumber Mint</div>
+<div class="meta">Cucumber + Fresh mint + Mint syrup</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="SENCHA LYCHEE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: brewed sencha tea 150 ml, lychee syrup 25 ml, Lemon LIMMI 20 ml." data-img="SenchaLychee.png" data-need="Brewed sencha tea 150 ml,Lychee syrup 25 ml,Lemon LIMMI 20 ml" data-step1="Combine brewed sencha tea 150 ml, lychee syrup 25 ml in a glass, shaker, or blender bowl." data-step2="Add lychee syrup 25 ml, Lemon LIMMI 20 ml and ice if needed." data-step3="Chill well, stir, and serve over ice." data-tags="nonalc" data-title="Sencha Lychee" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Sencha Lychee" src="SenchaLychee.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Sencha Lychee</div>
+<div class="meta">Brewed sencha tea + Lychee syrup + Lemon LIMMI</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="AVOCADO SMOOTHIE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: ripe avocado 1 pc, Lemon LIMMI 20 ml, cane sugar 20 ml." data-img="AvocadoSmoothie.png" data-need="Ripe avocado 1 pc,Lemon LIMMI 20 ml,Cane sugar 20 ml,sparkling water if desired" data-step1="Combine ripe avocado 1 pc, Lemon LIMMI 20 ml in a glass, shaker, or blender bowl." data-step2="Add cane sugar 20 ml, sparkling water if desired and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-tags="nonalc" data-title="Avocado Smoothie" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Avocado Smoothie" src="AvocadoSmoothie.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Avocado Smoothie</div>
+<div class="meta">Ripe avocado + Lemon LIMMI + Cane sugar</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="SPIRULINA" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: spirulina 5 g, fresh cucumber 100 g, celery stalk 50 g." data-img="Spirulina.png" data-need="Spirulina 5 g,Fresh cucumber 100 g,Celery stalk 50 g,Fresh green basil 15 g,Cane sugar 15 ml,Lemon LIMMI 15 ml" data-step1="Combine spirulina 5 g, fresh cucumber 100 g in a glass, shaker, or blender bowl." data-step2="Add celery stalk 50 g, fresh green basil 15 g and ice if needed." data-step3="Stir to balance the flavor and serve very cold." data-tags="nonalc" data-title="Spirulina" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Spirulina" src="Spirulina.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Spirulina</div>
+<div class="meta">Spirulina + Fresh cucumber + Celery stalk</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-badge="STRAWBERRY LEMON SHERBET" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: strawberry puree 75 g, lemon puree 75 g, Fruit LIMMI 25 ml." data-img="StrawberryLemonSherbet.png" data-need="Strawberry puree 75 g,Lemon puree 75 g,Fruit LIMMI 25 ml,Ice" data-step1="Combine strawberry puree 75 g, lemon puree 75 g in a glass, shaker, or blender bowl." data-step2="Add Fruit LIMMI 25 ml, ice and ice if needed." data-step3="Blend until smooth and serve immediately." data-tags="nonalc" data-title="Strawberry Lemon Sherbet" data-type="nonalc" tabindex="0">
+<div class="imgwrap"><img alt="Strawberry Lemon Sherbet" src="StrawberryLemonSherbet.png"/></div>
+<div class="content">
+<span class="label">NON-ALCOHOLIC</span>
+<div class="title">Strawberry Lemon Sherbet</div>
+<div class="meta">Strawberry puree + Lemon puree + Fruit LIMMI</div>
+<div class="cta"><span class="pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka 50 ml, Watermelon puree 70 g, Watermelon syrup 15 ml, Lemon LIMMI 15 ml, Top with sparkling water. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="WatermelonMan.png" data-need="Vodka 50 ml,Watermelon puree 70 g,Watermelon syrup 15 ml,Lemon LIMMI 15 ml,Top with sparkling water" data-tags="alc vodka" data-title="Watermelon Man (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Watermelon Man" src="WatermelonMan.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Watermelon Man</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Ready mulled wine 150 ml, Lemon LIMMI 15 ml, Simple syrup to taste. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature sparkling cocktail with a bright Lemon LIMMI accent." data-img="ColdMulledWine.png" data-need="Ready mulled wine 150 ml,Lemon LIMMI 15 ml,Simple syrup to taste" data-tags="alc sparkling" data-title="Cold Mulled Wine (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Cold Mulled Wine" src="ColdMulledWine.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Cold Mulled Wine</div>
+<div class="meta">Category: sparkling</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Light rum 50 ml, Pineapple syrup 15 ml, Fresh pineapple, Lemon LIMMI 15 ml, Albumin 5 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature rum cocktail with a bright Lemon LIMMI accent." data-img="PineappleDaiquiri.png" data-need="Light rum 50 ml,Pineapple syrup 15 ml,Fresh pineapple,Lemon LIMMI 15 ml,Albumin 5 ml" data-tags="alc rum" data-title="Pineapple Daiquiri (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Pineapple Daiquiri" src="PineappleDaiquiri.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Pineapple Daiquiri</div>
+<div class="meta">Category: rum</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 50 ml, Watermelon puree 50 g, Lemon LIMMI 15 ml, Watermelon syrup 5 ml, Albumin 5 g. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="WatermelonFizz.png" data-need="Gin 50 ml,Watermelon puree 50 g,Lemon LIMMI 15 ml,Watermelon syrup 5 ml,Albumin 5 g" data-tags="alc gin" data-title="Watermelon Fizz (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Watermelon Fizz" src="WatermelonFizz.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Watermelon Fizz</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka 50 ml, Cointreau 25 ml, Lemon LIMMI 15 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="Balalaika.png" data-need="Vodka 50 ml,Cointreau 25 ml,Lemon LIMMI 15 ml" data-tags="alc vodka" data-title="Balalaika (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Balalaika" src="Balalaika.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Balalaika</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Light rum 50 ml, Banana 100 g, Lemon LIMMI 20 ml, Simple syrup, Coconut cream 30 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature rum cocktail with a bright Lemon LIMMI accent." data-img="BananaBliss.png" data-need="Light rum 50 ml,Banana 100 g,Lemon LIMMI 20 ml,Simple syrup,Coconut cream 30 ml" data-tags="alc rum" data-title="Banana Bliss (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Banana Bliss" src="BananaBliss.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Banana Bliss</div>
+<div class="meta">Category: rum</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka 50 ml, Basil puree 70 g, Basil syrup 15 ml, Lemon LIMMI 15 ml, Fresh green basil. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="BasilSmash.png" data-need="Vodka 50 ml,Basil puree 70 g,Basil syrup 15 ml,Lemon LIMMI 15 ml,Fresh green basil" data-tags="alc vodka" data-title="Basil Smash (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Basil Smash" src="BasilSmash.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Basil Smash</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka 50 ml, Sweet LIMMI 20 ml, Strawberry puree 50 g. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="VodkaStrawberrySour.png" data-need="Vodka 50 ml,Sweet LIMMI 20 ml,Strawberry puree 50 g" data-tags="alc vodka" data-title="Vodka Strawberry Sour (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Vodka Strawberry Sour" src="VodkaStrawberrySour.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Vodka Strawberry Sour</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Blue gin 75 ml, Lemon LIMMI 15 ml, Simple syrup 15 ml, Albumin 5 g. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="Gimlet.png" data-need="Blue gin 75 ml,Lemon LIMMI 15 ml,Simple syrup 15 ml,Albumin 5 g" data-tags="alc gin" data-title="Gimlet (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Gimlet" src="Gimlet.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Gimlet</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 50 ml, Triple Sec liqueur 25 ml, Blue curaçao syrup 15 ml, Lemon LIMMI 15 ml, Pineapple juice, Top with Sprite. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="BlueMoon.png" data-need="Gin 50 ml,Triple Sec liqueur 25 ml,Blue curaçao syrup 15 ml,Lemon LIMMI 15 ml,Pineapple juice,Top with Sprite" data-tags="alc gin" data-title="Blue Moon (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Blue Moon" src="BlueMoon.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Blue Moon</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Brut sparkling wine 100 ml, Sweet LIMMI 15 ml, Crème de Cassis liqueur 25 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature sparkling cocktail with a bright Lemon LIMMI accent." data-img="KirSpecial.png" data-need="Brut sparkling wine 100 ml,Sweet LIMMI 15 ml,Crème de Cassis liqueur 25 ml" data-tags="alc sparkling" data-title="Kir Special (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Kir Special" src="KirSpecial.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Kir Special</div>
+<div class="meta">Category: sparkling</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 50 ml, Raspberry puree 70 g, Raspberry syrup 15 ml, Lemon LIMMI 15 ml, Albumin 5 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="CloverClub.png" data-need="Gin 50 ml,Raspberry puree 70 g,Raspberry syrup 15 ml,Lemon LIMMI 15 ml,Albumin 5 ml" data-tags="alc gin" data-title="Clover Club (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Clover Club" src="CloverClub.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Clover Club</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Cointreau 50 ml, Cranberry vodka 25 ml, Cranberry drink 25 ml, Lemon LIMMI 15 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="Cosmopolitan.png" data-need="Cointreau 50 ml,Cranberry vodka 25 ml,Cranberry drink 25 ml,Lemon LIMMI 15 ml" data-tags="alc vodka" data-title="Cosmopolitan (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Cosmopolitan" src="Cosmopolitan.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Cosmopolitan</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 50 ml, Lavender liqueur 20 ml, Lavender syrup 15 ml, Lemon LIMMI 15 ml, Top with sparkling water. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="LavenderGinFizz.png" data-need="Gin 50 ml,Lavender liqueur 20 ml,Lavender syrup 15 ml,Lemon LIMMI 15 ml,Top with sparkling water" data-tags="alc gin" data-title="Lavender Gin Fizz (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Lavender Gin Fizz" src="LavenderGinFizz.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Lavender Gin Fizz</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Bourbon 50 ml, Peach liqueur 20 ml, Apple liqueur 20 ml, Lemon LIMMI 15 ml, Simple syrup 15 ml, Top with sparkling water. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature whiskey / bourbon cocktail with a bright LIMMI lemon accent." data-img="LemonadeJoe.png" data-need="Bourbon 50 ml,Peach liqueur 20 ml,Apple liqueur 20 ml,Lemon LIMMI 15 ml,Simple syrup 15 ml,Top with sparkling water" data-tags="alc whiskey" data-title="Lemonade Joe (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Lemonade Joe" src="LemonadeJoe.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Lemonade Joe</div>
+<div class="meta">Category: whiskey / bourbon</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Silver tequila 50 ml, Triple Sec 25 ml, Lemon LIMMI 15 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature tequila cocktail with a bright Lemon LIMMI accent." data-img="Margarita.png" data-need="Silver tequila 50 ml,Triple Sec 25 ml,Lemon LIMMI 15 ml" data-tags="alc tequila" data-title="Margarita (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Margarita" src="Margarita.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Margarita</div>
+<div class="meta">Category: tequila</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Rum 50 ml, Passion fruit puree 70 g, Passion fruit syrup 15 ml, Lemon LIMMI 15 ml, Lime, Mint, Sparkling water. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature rum cocktail with a bright Lemon LIMMI accent." data-img="MojitoPassion.png" data-need="Rum 50 ml,Passion fruit puree 70 g,Passion fruit syrup 15 ml,Lemon LIMMI 15 ml,Lime,Mint,Sparkling water" data-tags="alc rum" data-title="Passion Mojito (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Passion Mojito" src="MojitoPassion.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Passion Mojito</div>
+<div class="meta">Category: rum</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="White tequila 50 ml, Lemon LIMMI 5 ml, Salt 1 pinch, Grapefruit soda water 100 ml, Ice. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature tequila cocktail with a bright Lemon LIMMI accent." data-img="Paloma.png" data-need="White tequila 50 ml,Lemon LIMMI 5 ml,Salt 1 pinch,Grapefruit soda water 100 ml,Ice" data-tags="alc tequila" data-title="Paloma (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Paloma" src="Paloma.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Paloma</div>
+<div class="meta">Category: tequila</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka vanilla 25 ml, Passion fruit puree 50 g, Lemon LIMMI 10 ml, Simple syrup, Sparkling wine. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="PornStarMartini.png" data-need="Vodka vanilla 25 ml,Passion fruit puree 50 g,Lemon LIMMI 10 ml,Simple syrup,Sparkling wine" data-tags="alc vodka sparkling" data-title="Pornstar Martini (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Pornstar Martini" src="PornStarMartini.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Pornstar Martini</div>
+<div class="meta">Category: vodka / sparkling</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 45 ml, Lemon LIMMI 10 ml, Sweet LIMMI 10 ml, Simple syrup 30 ml, Egg white 30 ml, Cream 60 ml, Top with soda water. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="RamosFizz.png" data-need="Gin 45 ml,Lemon LIMMI 10 ml,Sweet LIMMI 10 ml,Simple syrup 30 ml,Egg white 30 ml,Cream 60 ml,Top with soda water" data-tags="alc gin" data-title="Ramos Fizz (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Ramos Fizz" src="RamosFizz.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Ramos Fizz</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 50 ml, Lemon LIMMI 15 ml, Simple syrup 10 ml, Orange bitters 2 dashes, Albumin 5 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="SilverKing.png" data-need="Gin 50 ml,Lemon LIMMI 15 ml,Simple syrup 10 ml,Orange bitters 2 dashes,Albumin 5 ml" data-tags="alc gin" data-title="Silver King (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Silver King" src="SilverKing.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Silver King</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 50 ml, Sweet LIMMI 15 ml, Cherry liqueur 25 ml, Albumin 5 ml, Top with sparkling water. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="Sling.png" data-need="Gin 50 ml,Sweet LIMMI 15 ml,Cherry liqueur 25 ml,Albumin 5 ml,Top with sparkling water" data-tags="alc gin" data-title="Sling (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Sling" src="Sling.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Sling</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Gin 50 ml, Dry vermouth 15 ml, Syrup cucumber 20 ml, Lemon LIMMI 15 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="TinyCucumber.png" data-need="Gin 50 ml,Dry vermouth 15 ml,Syrup cucumber 20 ml,Lemon LIMMI 15 ml" data-tags="alc gin" data-title="Cucumber Martini (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Cucumber Martini" src="TinyCucumber.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Cucumber Martini</div>
+<div class="meta">Category: gin</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka 50 ml, Tom Yum paste 25 g, Lemon LIMMI 15 ml, Tomato juice 100 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="TomYumMary.png" data-need="Vodka 50 ml,Tom Yum paste 25 g,Lemon LIMMI 15 ml,Tomato juice 100 ml" data-tags="alc vodka" data-title="Tom Yum Mary (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Tom Yum Mary" src="TomYumMary.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Tom Yum Mary</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Bourbon 50 ml, Lemon LIMMI 15 ml, Passion fruit puree 50 ml, Passion fruit syrup 20 ml, Albumin 5 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature whiskey / bourbon cocktail with a bright LIMMI lemon accent." data-img="TommyDSour.png" data-need="Bourbon 50 ml,Lemon LIMMI 15 ml,Passion fruit puree 50 ml,Passion fruit syrup 20 ml,Albumin 5 ml" data-tags="alc whiskey" data-title="Tommy D Sour (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Tommy D Sour" src="TommyDSour.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Tommy D Sour</div>
+<div class="meta">Category: whiskey / bourbon</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka 50 ml, Fresh spinach 50 g, Lemon LIMMI 15 ml, Simple syrup, Top with tonic. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="SpinachSour.png" data-need="Vodka 50 ml,Fresh spinach 50 g,Lemon LIMMI 15 ml,Simple syrup,Top with tonic" data-tags="alc vodka" data-title="Spinach Sour (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Spinach Sour" src="SpinachSour.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Spinach Sour</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+<div class="card" data-alcinfo="Vodka 50 ml, Apple liqueur 25 ml, Lemon LIMMI 10 ml, Top with sparkling water. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="AppleTiny.png" data-need="Vodka 50 ml,Apple liqueur 25 ml,Lemon LIMMI 10 ml,Top with sparkling water" data-tags="alc vodka" data-title="Apple Martini (18+)" data-type="alc" tabindex="0">
+<div class="imgwrap"><img alt="Apple Martini" src="AppleTiny.png"/></div>
+<div class="content">
+<span class="label alc">ALCOHOL 18+</span>
+<div class="title">Apple Martini</div>
+<div class="meta">Category: vodka</div>
+<div class="cta"><span class="pill">RECIPE 18+</span><span>Open →</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<small>
+        LIMMI • Recipes and usage ideas.<br/>
+        Alcohol is harmful to your health.
+      </small>
+</div>
+</footer>
+</main>
+<!-- MODAL -->
+<div aria-hidden="true" class="modal-backdrop" id="modalBackdrop">
+<div aria-labelledby="modalTitle" aria-modal="true" class="modal" role="dialog">
+<div class="modal-media">
+<img alt="" id="modalImg" src="">
+<button aria-label="Закрыть" class="modal-close" id="modalClose">✕</button>
+</img></div>
+<div class="modal-body">
+<span class="modal-badge" id="modalBadge">RECIPE</span>
+<h3 id="modalTitle">Recipe</h3>
+<p class="desc" id="modalDesc"></p>
+<div class="instructions" id="instructionsBox">
+<div class="instructions-head">INSTRUCTIONS</div>
+<div class="steps">
+<div class="step"><div class="num">1</div><p id="modalStep1"></p></div>
+<div class="step"><div class="num">2</div><p id="modalStep2"></p></div>
+<div class="step"><div class="num">3</div><p id="modalStep3"></p></div>
+</div>
+</div>
+<div>
+<div style="font-weight:1000; margin-bottom:10px;">YOU WILL NEED:</div>
+<div class="need" id="modalNeed"></div>
+</div>
+<div class="warn" id="warnText" style="display:none;">Alcohol is harmful to your health</div>
+</div>
+</div>
+</div>
+<!-- AGE GATE -->
+<div aria-hidden="true" class="age-backdrop" id="ageBackdrop">
+<div aria-labelledby="ageTitle" aria-modal="true" class="age-modal" role="dialog">
+<div class="age-top">
+<h3 id="ageTitle">Confirm your age</h3>
+<p>Alcoholic cards are available only to users aged 18+. Please choose an option below.</p>
+</div>
+<div class="age-actions">
+<button class="btn btn-primary" id="ageYes">I am over 18</button>
+<button class="btn btn-secondary" id="ageNo">I am under 18</button>
+</div>
+</div>
+</div>
+<script>
+  // ===== Age Gate =====
+  const AGE_KEY = 'limmi_age'; // '18plus' | 'under18'
+  const ageBackdrop = document.getElementById('ageBackdrop');
+  const ageYes = document.getElementById('ageYes');
+  const ageNo = document.getElementById('ageNo');
+
+  function openAgeGate(){
+    ageBackdrop.classList.add('open');
+    ageBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('noscroll');
+  }
+  function closeAgeGate(){
+    ageBackdrop.classList.remove('open');
+    ageBackdrop.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('noscroll');
+  }
+  function applyAge(value){
+    try { localStorage.setItem(AGE_KEY, value); } catch(e){}
+    document.body.classList.toggle('under18', value === 'under18');
+    render();
+  }
+  function initAge(){
+    let saved = null;
+    try { saved = localStorage.getItem(AGE_KEY); } catch(e){}
+    if(saved === '18plus' || saved === 'under18'){
+      document.body.classList.toggle('under18', saved === 'under18');
+      return;
+    }
+    document.body.classList.add('under18'); // hide alcohol until choice
+    openAgeGate();
+  }
+  ageYes.addEventListener('click', ()=> { applyAge('18plus'); closeAgeGate(); });
+  ageNo.addEventListener('click', ()=> { applyAge('under18'); closeAgeGate(); });
+
+  // ===== Modal =====
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalClose = document.getElementById('modalClose');
+  const instructionsBox = document.getElementById('instructionsBox');
+  const warnText = document.getElementById('warnText');
+
+  const modal = {
+    img: document.getElementById('modalImg'),
+    badge: document.getElementById('modalBadge'),
+    title: document.getElementById('modalTitle'),
+    desc: document.getElementById('modalDesc'),
+    s1: document.getElementById('modalStep1'),
+    s2: document.getElementById('modalStep2'),
+    s3: document.getElementById('modalStep3'),
+    need: document.getElementById('modalNeed')
+  };
+
+  function openModal(card){
+    const type = card.dataset.type;
+    const isUnder18 = document.body.classList.contains('under18');
+    if(type === 'alc' && isUnder18){
+      openAgeGate();
+      return;
+    }
+
+    modal.badge.textContent = (type === 'alc') ? '18+' : (card.dataset.badge || 'RECIPE');
+    modal.title.textContent = card.dataset.title || '';
+    modal.desc.textContent  = card.dataset.desc || '';
+    modal.img.src = card.dataset.img || '';
+    modal.img.alt = card.dataset.title || '';
+
+    // need chips
+    modal.need.innerHTML = '';
+    const need = (card.dataset.need || '').split(',').map(s=>s.trim()).filter(Boolean);
+    need.forEach(n=>{
+      const c = document.createElement('div');
+      c.className = 'chip';
+      c.textContent = n;
+      modal.need.appendChild(c);
+    });
+
+    if(type === 'alc'){
+      instructionsBox.style.display = 'none';
+      warnText.style.display = 'block';
+      modal.desc.textContent = card.dataset.alcinfo || card.dataset.desc || '';
+    } else {
+      instructionsBox.style.display = 'block';
+      warnText.style.display = 'none';
+      modal.s1.textContent = card.dataset.step1 || '';
+      modal.s2.textContent = card.dataset.step2 || '';
+      modal.s3.textContent = card.dataset.step3 || '';
+    }
+
+    modalBackdrop.classList.add('open');
+    modalBackdrop.setAttribute('aria-hidden','false');
+  }
+
+  function closeModal(){
+    modalBackdrop.classList.remove('open');
+    modalBackdrop.setAttribute('aria-hidden','true');
+  }
+  modalClose.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modalBackdrop.classList.contains('open')) closeModal(); });
+
+  // ===== Filters + search =====
+  const grid = document.getElementById('grid');
+  const q = document.getElementById('q');
+  const filterBtns = [...document.querySelectorAll('.chipbtn')];
+  let activeFilter = 'all';
+
+  function matchesFilter(card){
+    const type = card.dataset.type; // nonalc | alc
+    const tags = (card.dataset.tags || '').toLowerCase().split(/\s+/).filter(Boolean);
+
+    if(activeFilter === 'all') return true;
+    if(activeFilter === 'nonalc') return type === 'nonalc';
+    if(activeFilter === 'alc') return type === 'alc';
+    // spirits: vodka/whiskey/gin/tequila
+    return tags.includes(activeFilter);
+  }
+
+  function matchesQuery(card){
+    const text = (card.dataset.title || '').toLowerCase();
+    const qq = (q.value || '').trim().toLowerCase();
+    if(!qq) return true;
+    return text.includes(qq);
+  }
+
+  function render(){
+    const cards = [...grid.querySelectorAll('.card')];
+    cards.forEach(card=>{
+      const visible = matchesFilter(card) && matchesQuery(card);
+      card.style.display = visible ? '' : 'none';
+    });
+  }
+
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      render();
+    });
+  });
+  q.addEventListener('input', render);
+
+  // Card click
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('click', ()=> openModal(card));
+    card.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') openModal(card); });
+  });
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    initAge();
+    render();
+  });
+</script>
+</body>
+</html>

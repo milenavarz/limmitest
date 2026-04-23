@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>LIMMI — Рецепты</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --limmi-blue:#1e5fa8;
+      --lemon-yellow:#ffd400;
+      --dark:#111;
+      --bg:#f5f5f5;
+      --shadow: 0 20px 40px rgba(0,0,0,.18);
+      --shadow-soft: 0 14px 28px rgba(0,0,0,.10);
+      --container: 1200px;
+      --r22: 22px;
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; font-family:'Montserrat',sans-serif; }
+    body{ background:var(--bg); color:var(--dark); }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(var(--container), 100%); margin:0 auto; padding: 0 18px; }
+    body.noscroll{ overflow:hidden; }
+
+    /* Header */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    }
+    .nav{
+      height: 72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 1000;
+      letter-spacing:.4px;
+    }
+    .brand img{ height:34px; width:auto; display:block; }
+    .navlinks{ display:flex; gap:18px; align-items:center; }
+    .navlinks a{ font-weight:800; font-size:14px; opacity:.9; }
+    
+    .lang-switch{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .lang-link{
+      min-width: 46px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-align:center;
+      font-weight: 900;
+      text-decoration:none;
+      border: 2px solid rgba(255,255,255,.55);
+      background: transparent;
+      color:#fff;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
+    }
+    .lang-link.active{
+      background: var(--lemon-yellow);
+      color:#000;
+      border-color: transparent;
+      box-shadow: 0 12px 24px rgba(0,0,0,.16);
+    }
+    header.scrolled .lang-link,
+    header .lang-link.on-light{
+      color:#111;
+      border-color: rgba(0,0,0,.20);
+      background: rgba(255,255,255,.72);
+    }
+    header.scrolled .lang-link.active,
+    header .lang-link.on-light.active{
+      background: var(--lemon-yellow);
+      color:#000;
+      border-color: transparent;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:999px;
+      font-weight:900;
+      border:0;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{
+      background: var(--lemon-yellow);
+      color:#000;
+      box-shadow: 0 12px 24px rgba(0,0,0,.16);
+    }
+    .btn-dark{
+      background:#111;
+      color:#fff;
+      box-shadow: 0 14px 28px rgba(0,0,0,.18);
+    }
+
+    /* Page head */
+    .pagehead{ padding: 36px 0 18px; }
+    h1{ font-size: 40px; font-weight: 1000; line-height: 1.05; }
+    .sub{
+      margin-top:10px;
+      font-weight:700;
+      opacity:.78;
+      line-height:1.5;
+      max-width: 860px;
+    }
+
+    /* Filters */
+    .filters{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .chipbtn{
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor:pointer;
+      box-shadow: 0 10px 18px rgba(0,0,0,.06);
+      opacity:.92;
+    }
+    .chipbtn.active{
+      background: var(--limmi-blue);
+      color:#fff;
+      border-color: rgba(0,0,0,0);
+    }
+    .spacer{ flex: 1 1 auto; }
+    .search{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex: 1 1 260px;
+      max-width: 420px;
+    }
+    .search input{
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.12);
+      outline:none;
+      font-weight:700;
+    }
+
+    /* Grid */
+    .grid{
+      padding: 18px 0 56px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } h1{ font-size:32px; } }
+
+    .card{
+      background:#fff;
+      border-radius: var(--r22);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      min-height: 420px;
+      transform: translateY(0);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 28px 56px rgba(0,0,0,.22);
+    }
+    .imgwrap img{
+      width:100%;
+      height: 240px;
+      object-fit: cover;
+      display:block;
+    }
+    .content{ padding: 18px; display:flex; flex-direction:column; gap:10px; flex:1; }
+    .label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 1000;
+      letter-spacing:.6px;
+      width: fit-content;
+      background: var(--lemon-yellow);
+      color:#000;
+    }
+    .label.alc{ background:#111; color:#fff; }
+    .title{ font-size: 20px; font-weight: 1000; line-height:1.15; }
+    .meta{ font-weight: 800; opacity:.75; line-height:1.35; }
+    .cta{
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight: 1000;
+      font-size: 13px;
+    }
+    .pill{
+      background:#f0f3f7;
+      padding: 8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+    }
+
+    /* Age gate */
+    .age-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
+      z-index: 1000;
+    }
+    .age-backdrop.open{ display:flex; }
+    .age-modal{
+      width: min(560px, 100%);
+      background:#fff;
+      border-radius: 24px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .age-top{
+      padding: 18px 18px 14px;
+      background: linear-gradient(180deg, #ffffff, #fbfbfb);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .age-top h3{ font-size: 22px; font-weight: 1000; margin-bottom: 8px; }
+    .age-top p{ font-weight: 700; opacity:.82; line-height:1.45; font-size:14px; }
+    .age-actions{ display:flex; gap:12px; padding: 16px 18px 18px; flex-wrap:wrap; }
+    .age-actions .btn{ flex: 1 1 220px; }
+    .btn-secondary{ background:#111; color:#fff; box-shadow: 0 14px 28px rgba(0,0,0,.18); }
+
+    body.under18 .card[data-type="alc"]{ display:none !important; }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
+      z-index: 999;
+    }
+    .modal-backdrop.open{ display:flex; }
+    .modal{
+      width: min(980px, 100%);
+      background:#fff;
+      border-radius: 24px;
+      overflow-y: auto;
+max-height: 85vh;
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+    }
+    @media (max-width: 980px){ .modal{ grid-template-columns:1fr; } }
+    .modal-media{ position:relative; min-height: 320px; background:#222; }
+    .modal-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .modal-close{
+      position:absolute; top:14px; right:14px;
+      width:44px; height:44px; border-radius:999px;
+      border:0; cursor:pointer;
+      background: rgba(255,255,255,.92);
+      font-weight:1000; font-size:18px;
+    }
+.modal-body{ padding: 22px; background: linear-gradient(180deg, #ffffff, #fafafa); }
+    .modal-badge{
+      display:inline-block;
+      background: var(--limmi-blue);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:1000;
+      letter-spacing:.6px;
+      font-size:12px;
+      margin-bottom:12px;
+    }
+    .modal-body h3{ font-size: 26px; font-weight: 1000; margin-bottom: 8px; }
+    .modal-body .desc{ font-weight: 800; opacity:.78; line-height:1.5; margin-bottom: 14px; }
+
+    .instructions{
+      border-radius:18px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.08);
+      background:#fff;
+      margin-bottom:14px;
+    }
+    .instructions-head{
+      background: var(--lemon-yellow);
+      padding:12px 14px;
+      font-weight: 1000;
+      letter-spacing:.7px;
+    }
+    .steps{ padding:14px; display:flex; flex-direction:column; gap:12px; }
+    .step{ display:flex; gap:12px; align-items:flex-start; }
+    .num{
+      width:30px; height:30px; border-radius:999px;
+      display:flex; align-items:center; justify-content:center;
+      background:#111; color:#fff;
+      font-weight:1000; flex:0 0 auto;
+    }
+    .step p{ margin-top:2px; font-weight: 900; line-height:1.35; opacity:.92; }
+
+    .need{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
+    .chip{ background:#eef2f6; padding: 8px 12px; border-radius:999px; font-weight:1000; font-size:12px; }
+
+    .warn{
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 1000;
+      opacity: .72;
+    }
+
+    footer{
+      padding: 34px 0 50px;
+      border-top: 1px solid rgba(0,0,0,.08);
+      background: #fff;
+    }
+    footer small{ opacity:.75; font-weight:700; line-height:1.5; }
+  
+/* ===== Mobile polish ===== */
+@media (max-width: 720px){
+  .pagehead{ padding: 28px 0 14px; }
+  h1{ font-size: 32px; }
+  .sub{ font-size: 14px; }
+}
+
+/* Filters: mobile adaptation */
+@media (max-width: 640px){
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  /* Кнопки "Все" и "Безалкогольные" в один ряд */
+  .filters > .chipbtn:first-child,
+  .filters > .chipbtn:nth-child(2) {
+    flex: 1;
+    text-align: center;
+    display: inline-block;
+    width: auto;
+  }
+  
+  /* Ряд с двумя основными кнопками */
+  .filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .filters > .chipbtn:first-child,
+  .filters > .chipbtn:nth-child(2) {
+    flex: 1 1 40%;
+  }
+  
+  /* Алкогольные фильтры — горизонтальный скролл */
+  #alcFilters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    width: 100%;
+  }
+  
+  #alcFilters::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  #alcFilters::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+  }
+  
+  #alcFilters .chipbtn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  
+  /* Кнопка "Алкогольные 18+" внутри скролла тоже нормально выглядит */
+  
+  /* Поиск на всю ширину */
+  .search {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+  
+  .search input {
+    width: 100%;
+    padding: 12px 14px;
+  }
+  
+  .spacer {
+    display: none;
+  }
+}
+
+
+
+/* Modal spacing on phones */
+  .modal{ max-height: 90vh; }
+  .modal-body{ padding: 16px; }
+  .modal-body h3{ font-size: 22px; }
+  .modal-media{ min-height: 220px; }
+
+/* Фикс для верхней панели — все элементы горизонтально */
+/* Десктоп: все элементы в одну строку */
+@media (min-width: 721px) {
+  .nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .brand {
+    flex-shrink: 0;
+  }
+  
+  .navlinks {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    margin: 0 auto 0 20px;
+  }
+  
+  .navcta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  
+  .lang-switch {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  
+  .btn-primary {
+    white-space: nowrap;
+  }
+}
+
+/* Мобилка (до 720px) */
+@media (max-width: 720px) {
+  .nav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 0;
+    row-gap: 12px;
+  }
+  
+  .brand {
+    order: 0;
+  }
+  
+  .navlinks {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    gap: 24px;
+  }
+  
+  .navcta {
+    order: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+}
+
+}
+
+body.modal-open { overflow: hidden !important; position: fixed; width: 100%; height: 100%; top: 0; left: 0; right: 0; }
+
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="index.html#top" aria-label="Limmi">
+        <img src="logo-limmi.svg" alt="LIMMI">
+      </a>
+
+      <nav class="navlinks" aria-label="Навигация">
+        <a href="index.html#about">О бренде</a>
+        <a href="#filters">Фильтр</a>
+        <a href="index.html#buy">Где купить</a>
+      </nav>
+
+<div class="navcta">
+  <a class="btn btn-primary" href="index.html#buy">Где купить</a>
+  <div class="lang-switch" aria-label="Переключение языка">
+    <a class="lang-link active on-light" href="recipes.html">RU</a>
+    <a class="lang-link on-light" href="recipes-en.html">EN</a>
+  </div>
+</div>
+
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="pagehead">
+    <div class="container">
+      <h1>Рецепты с LIMMI</h1>
+      <div class="sub">
+        Смешивайте, экспериментируйте, удивляйте. В этом разделе вы найдете разнообразные рецепты с LIMMI: от освежающих безалкогольных до ярких авторских. Фильтры и поиск помогут найти идеальный вариант за секунды!
+      </div>
+
+<div class="filters" id="filters">
+  <button class="chipbtn active" data-filter="all">Все</button>
+  <button class="chipbtn" data-filter="nonalc">Безалкогольные</button>
+  
+  <!-- Эти кнопки будут скрыты для пользователей младше 18 лет -->
+  <div id="alcFilters" style="gap: 10px; flex-wrap: wrap;">
+    <button class="chipbtn" data-filter="alc">Алкогольные 18+</button>
+    <button class="chipbtn" data-filter="vodka">Водка</button>
+    <button class="chipbtn" data-filter="gin">Джин</button>
+    <button class="chipbtn" data-filter="tequila">Текила</button>
+    <button class="chipbtn" data-filter="rum">Ром</button>
+    <button class="chipbtn" data-filter="whiskey">Виски / Бурбон</button>
+    <button class="chipbtn" data-filter="sparkling">Игристое</button>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="search">
+    <input id="q" type="search" placeholder="Поиск по названию…" autocomplete="off">
+  </div>
+</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="grid" id="grid">
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="АЙБОЛИТ"
+          data-title="Айболит"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: сок грейпфрут 100 мл, сок апельсин 100 мл, банан 1/2 шт."
+          data-img="Aibolit.png"
+          data-step1="Соедини сок грейпфрут 100 мл, сок апельсин 100 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь банан 1/2 шт, фруктовый limmi 20 мл и при необходимости лёд."
+          data-step3="Взбей до однородной текстуры и подавай сразу."
+          data-need="Сок грейпфрут 100 мл,Сок апельсин 100 мл,Банан 1/2 шт,Фруктовый LIMMI 20 мл,Клубничное пюре 50 г,Клубничный сироп 20 мл">
+          <div class="imgwrap"><img src="Aibolit.png" alt="Айболит"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Айболит</div>
+            <div class="meta">Сок грейпфрут + Сок апельсин + Банан</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="АРБУЗНЫЙ"
+          data-title="Арбузный"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: пюре арбуза 120 г, фруктовый limmi 25 мл, сироп арбуз."
+          data-img="Watermelon.png"
+          data-step1="Соедини пюре арбуза 120 г, фруктовый limmi 25 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь сироп арбуз и лёд при необходимости."
+          data-step3="Взбей до однородной текстуры и подавай сразу."
+          data-need="Пюре арбуза 120 г,Фруктовый LIMMI 25 мл,Сироп арбуз,Лёд">
+          <div class="imgwrap"><img src="Watermelon.png" alt="Арбузный"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Арбузный</div>
+            <div class="meta">Пюре арбуза + Фруктовый LIMMI + Сироп арбуз</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="БАЗИЛИО"
+          data-title="Базилио"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: синий базилик 25 г, лимонный limmi 15 мл, сахарный сироп 25 мл."
+          data-img="Basilio.png"
+          data-step1="Соедини синий базилик 25 г, лимонный limmi 15 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь сахарный сироп 25 мл, газированная вода top и при необходимости лёд."
+          data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+          data-need="Синий базилик 25 г,Лимонный LIMMI 15 мл,Сахарный сироп 25 мл,Газированная вода top">
+          <div class="imgwrap"><img src="Basilio.png" alt="Базилио"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Базилио</div>
+            <div class="meta">Синий базилик + Лимонный LIMMI + Сахарный сироп</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="БЕБИ"
+          data-title="Беби колада"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: ананасовый сок 100 мл, кокосовые сливки 30 мл, лимонный limmi 19 мл."
+          data-img="BabyColada.png"
+          data-step1="Соедини ананасовый сок 100 мл, кокосовые сливки 30 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь лимонный limmi 19 мл, кокосовый сироп 15 мл и при необходимости лёд."
+          data-step3="Перемешай до баланса вкуса и подавай очень холодным."
+          data-need="Ананасовый сок 100 мл,Кокосовые сливки 30 мл,Лимонный LIMMI 19 мл,Кокосовый сироп 15 мл">
+          <div class="imgwrap"><img src="BabyColada.png" alt="Беби колада"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Беби колада</div>
+            <div class="meta">Ананасовый сок + Кокосовые сливки + Лимонный LIMMI</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="ГРУШЕВЫЙ"
+          data-title="Грушевый лимонад"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: пюре груши 80 г, лимонный limmi 20 мл, грушевый сироп 20 мл."
+          data-img="PearLemonade.png"
+          data-step1="Соедини пюре груши 80 г, лимонный limmi 20 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь грушевый сироп 20 мл, газированная вода top и при необходимости лёд."
+          data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+          data-need="Пюре груши 80 г,Лимонный LIMMI 20 мл,Грушевый сироп 20 мл,Газированная вода top">
+          <div class="imgwrap"><img src="PearLemonade.png" alt="Грушевый лимонад"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Грушевый лимонад</div>
+            <div class="meta">Пюре груши + Лимонный LIMMI + Грушевый сироп</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="ДОМАШНИЙ"
+          data-title="Домашний лимонад"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: лимонный limmi 20 мл, тростниковый сахар 25 мл, газированная вода top."
+          data-img="HomemadeLemonade.png"
+          data-step1="Соедини лимонный limmi 20 мл, тростниковый сахар 25 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь тростниковый сахар 25 мл, газированная вода top и при необходимости лёд."
+          data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+          data-need="Лимонный LIMMI 20 мл,Тростниковый сахар 25 мл,Газированная вода top">
+          <div class="imgwrap"><img src="HomemadeLemonade.png" alt="Домашний лимонад"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Домашний лимонад</div>
+            <div class="meta">Лимонный LIMMI + Тростниковый сахар + Газированная вода top</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="КЛЮКВЕННЫЙ"
+          data-title="Клюквенный лимонад"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: клюква или клюквенное пюре 65 г, клюквенный сироп 30 мл, фруктовый limmi 20 мл."
+          data-img="CranberryLemonade.png"
+          data-step1="Соедини клюква или клюквенное пюре 65 г, клюквенный сироп 30 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь фруктовый limmi 20 мл, газированная вода top и при необходимости лёд."
+          data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+          data-need="Клюква или клюквенное пюре 65 г,Клюквенный сироп 30 мл,Фруктовый LIMMI 20 мл,Газированная вода top">
+          <div class="imgwrap"><img src="CranberryLemonade.png" alt="Клюквенный лимонад"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Клюквенный лимонад</div>
+            <div class="meta">Клюква или клюквенное пюре + Клюквенный сироп + Фруктовый LIMMI</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="ЛАВАНДОВЫЙ"
+          data-title="Лавандовый"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: лавандовый сироп 20 мл, лимонный limmi 20 мл, газированная вода top."
+          data-img="Lavender.png"
+          data-step1="Соедини лавандовый сироп 20 мл, лимонный limmi 20 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь лимонный LIMMI 20 мл и газированную воду, при необходимости — лёд."
+          data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+          data-need="Лавандовый сироп 20 мл,Лимонный LIMMI 20 мл,Газированная вода top">
+          <div class="imgwrap"><img src="Lavender.png" alt="Лавандовый"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Лавандовый</div>
+            <div class="meta">Лавандовый сироп + Лимонный LIMMI + Газированная вода top</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="МАЛИНА"
+          data-title="Малина Алоэ"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: пюре малина 50 г, сироп малина 10 мл, сироп алоэ 25 мл."
+          data-img="RaspberryAloe.png"
+          data-step1="Соедини пюре малина 50 г, сироп малина 10 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь сироп алоэ 25 мл, лимонный limmi 20 мл и при необходимости лёд."
+          data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+          data-need="Пюре малина 50 г,Сироп малина 10 мл,Сироп алоэ 25 мл,Лимонный LIMMI 20 мл,Газированная вода top">
+          <div class="imgwrap"><img src="RaspberryAloe.png" alt="Малина Алоэ"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Малина Алоэ</div>
+            <div class="meta">Пюре малина + Сироп малина + Сироп алоэ</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="ОГУРЕЧНО-МЯТНЫЙ"
+          data-title="Огуречно-мятный"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: огурец 100 г, свежая мята 15 г, мятный сироп 20 мл."
+          data-img="CucumberMint.png"
+          data-step1="Соедини огурец 100 г, свежая мята 15 г в стакане, шейкере или чаше блендера."
+          data-step2="Добавь мятный сироп 20 мл, лимонный limmi 15 мл и при необходимости лёд."
+          data-step3="Перемешай до баланса вкуса и подавай очень холодным."
+          data-need="Огурец 100 г,Свежая мята 15 г,Мятный сироп 20 мл,Лимонный LIMMI 15 мл">
+          <div class="imgwrap"><img src="CucumberMint.png" alt="Огуречно-мятный"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Огуречно-мятный</div>
+            <div class="meta">Огурец + Свежая мята + Мятный сироп</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="СЕНЧА"
+          data-title="Сенча Личи"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: чай сенча заваренный 150 мл, сироп личи 25 мл, лимонный limmi 20 мл."
+          data-img="SenchaLychee.png"
+          data-step1="Соедини чай сенча заваренный 150 мл, сироп личи 25 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь сироп личи 25 мл, лимонный limmi 20 мл и при необходимости лёд."
+          data-step3="Хорошо охлади напиток, перемешай и подай со льдом."
+          data-need="Чай сенча заваренный 150 мл,Сироп личи 25 мл,Лимонный LIMMI 20 мл">
+          <div class="imgwrap"><img src="SenchaLychee.png" alt="Сенча Личи"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Сенча Личи</div>
+            <div class="meta">Чай сенча заваренный + Сироп личи + Лимонный LIMMI</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="СМУЗИ"
+          data-title="Смузи авокадо"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: авокадо спелое 1 шт, лимонный limmi 20 мл, тростниковый сахар 20 мл."
+          data-img="AvocadoSmoothie.png"
+          data-step1="Соедини авокадо спелое 1 шт, лимонный limmi 20 мл в стакане, шейкере или чаше блендера."
+          data-step2="Добавь тростниковый сахар 20 мл, газированная вода по желанию и при необходимости лёд."
+          data-step3="Долей газированную основу, аккуратно перемешай и подавай охлаждённым."
+          data-need="Авокадо спелое 1 шт,Лимонный LIMMI 20 мл,Тростниковый сахар 20 мл,Газированная вода по желанию">
+          <div class="imgwrap"><img src="AvocadoSmoothie.png" alt="Смузи авокадо"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Смузи авокадо</div>
+            <div class="meta">Авокадо спелое + Лимонный LIMMI + Тростниковый сахар</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="СПИРУЛИНА"
+          data-title="Спирулина"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: спирулина 5 г, огурец свежий 100 г, сельдерей черешковый 50 г."
+          data-img="Spirulina.png"
+          data-step1="Соедини спирулина 5 г, огурец свежий 100 г в стакане, шейкере или чаше блендера."
+          data-step2="Добавь сельдерей черешковый 50 г, базилик зеленый свежий 15 г и при необходимости лёд."
+          data-step3="Перемешай до баланса вкуса и подавай очень холодным."
+          data-need="Спирулина 5 г,Огурец свежий 100 г,Сельдерей черешковый 50 г,Базилик зеленый свежий 15 г,Тростниковый сахар 15 мл,Лимонный LIMMI 15 мл">
+          <div class="imgwrap"><img src="Spirulina.png" alt="Спирулина"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Спирулина</div>
+            <div class="meta">Спирулина + Огурец свежий + Сельдерей черешковый</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="nonalc" data-tags="nonalc"
+          data-badge="ЩЕРБЕТ"
+          data-title="Щербет клубнично-лимонный"
+          data-desc="Освежающий безалкогольный напиток на основе LIMMI. В составе: клубничное пюре 75 г, пюре лимона 75 г, сладкий LIMMI 25 мл."
+          data-img="StrawberryLemonSherbet.png"
+          data-step1="Соедини клубничное пюре 75 г, пюре лимона 75 г в стакане, шейкере или чаше блендера."
+          data-step2="Добавь сладкий LIMMI 25 мл, лёд и при необходимости лёд."
+          data-step3="Взбей до однородной текстуры и подавай сразу."
+          data-need="Клубничное пюре 75 г,Пюре лимона 75 г,сладкий LIMMI 25 мл,Лёд">
+          <div class="imgwrap"><img src="StrawberryLemonSherbet.png" alt="Щербет клубнично-лимонный"></div>
+          <div class="content">
+            <span class="label">БЕЗАЛКОГОЛЬНЫЙ</span>
+            <div class="title">Щербет клубнично-лимонный</div>
+            <div class="meta">Клубничное пюре + Пюре лимона + сладкий LIMMI</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Вотермелонмен (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка 50 мл, Пюре арбуз 70 г, Сироп арбуз 15 мл, сок лимона LIMMI 15 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="WatermelonMan.png"
+          data-need="Водка 50 мл,Пюре арбуз 70 г,Сироп арбуз 15 мл,сок лимона LIMMI 15 мл,Газированная вода top">
+          <div class="imgwrap"><img src="WatermelonMan.png" alt="Вотермелонмен"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Вотермелонмен</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc sparkling"
+          data-badge="18+"
+          data-title="Холодный Глинтвейн (18+)"
+          data-desc="Авторский коктейль на игристом с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Готовый глинтвейн 150 мл, сок лимона LIMMI 15 мл, Сахарный сироп по вкусу. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="ColdMulledWine.png"
+          data-need="Готовый глинтвейн 150 мл,сок лимона LIMMI 15 мл,Сахарный сироп по вкусу">
+          <div class="imgwrap"><img src="ColdMulledWine.png" alt="Холодный Глинтвейн"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Холодный Глинтвейн</div>
+            <div class="meta">Категория: игристое</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc rum"
+          data-badge="18+"
+          data-title="Ананас дайкири (18+)"
+          data-desc="Авторский коктейль на роме с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Ром светлый 50 мл, Сироп ананас 15 мл, Свежий ананас, сок лимона LIMMI 15 мл, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="PineappleDaiquiri.png"
+          data-need="Ром светлый 50 мл,Сироп ананас 15 мл,Свежий ананас,сок лимона LIMMI 15 мл,Альбумин 5 мл">
+          <div class="imgwrap"><img src="PineappleDaiquiri.png" alt="Ананас дайкири"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Ананас дайкири</div>
+            <div class="meta">Категория: ром</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Арбузный физ (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 50 мл, Пюре арбуз 50 г, сок лимона LIMMI 15 мл, Арбузный сироп 5 мл, Альбумин 5 г. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="WatermelonFizz.png"
+          data-need="Джин 50 мл,Пюре арбуз 50 г,сок лимона LIMMI 15 мл,Арбузный сироп 5 мл,Альбумин 5 г">
+          <div class="imgwrap"><img src="WatermelonFizz.png" alt="Арбузный физ"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Арбузный физ</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Балалайка (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка 50 мл, Куантро 25 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="Balalaika.png"
+          data-need="Водка 50 мл,Куантро 25 мл,сок лимона LIMMI 15 мл">
+          <div class="imgwrap"><img src="Balalaika.png" alt="Балалайка"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Балалайка</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc rum"
+          data-badge="18+"
+          data-title="Банановое блаженство (18+)"
+          data-desc="Авторский коктейль на роме с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Ром светлый 50 мл, Банан 100 г, сок лимона LIMMI 20 мл, Сахарный сироп, Кокосовые сливки 30 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="BananaBliss.png"
+          data-need="Ром светлый 50 мл,Банан 100 г,сок лимона LIMMI 20 мл,Сахарный сироп,Кокосовые сливки 30 мл">
+          <div class="imgwrap"><img src="BananaBliss.png" alt="Банановое блаженство"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Банановое блаженство</div>
+            <div class="meta">Категория: ром</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Безил смеш (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка 50 мл, Пюре базилик 70 г, Сироп базилик 15 мл, сок лимона LIMMI 15 мл, Свежий зеленый базилик. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="BasilSmash.png"
+          data-need="Водка 50 мл,Пюре базилик 70 г,Сироп базилик 15 мл,сок лимона LIMMI 15 мл,Свежий зеленый базилик">
+          <div class="imgwrap"><img src="BasilSmash.png" alt="Безил смеш"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Безил смеш</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Водка Строуберри Сауэр (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка 50 мл, Сладкий LIMMI 20 мл, Клубничное пюре 50 г. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="VodkaStrawberrySour.png"
+          data-need="Водка 50 мл,Сладкий LIMMI 20 мл,Клубничное пюре 50 г">
+          <div class="imgwrap"><img src="VodkaStrawberrySour.png" alt="Водка Строуберри Сауэр"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Водка Строуберри Сауэр</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Гимлет (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин Блю 75 мл, сок лимона LIMMI 15 мл, Сахарный сироп 15 мл, Альбумин 5 г. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="Gimlet.png"
+          data-need="Джин Блю 75 мл,сок лимона LIMMI 15 мл,Сахарный сироп 15 мл,Альбумин 5 г">
+          <div class="imgwrap"><img src="Gimlet.png" alt="Гимлет"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Гимлет</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Голубая Луна (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 50 мл, Ликер Трипл Сек 25 мл, Сироп блю кюрасао 15 мл, сок лимона LIMMI 15 мл, Ананасовый сок, Спрайт top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="BlueMoon.png"
+          data-need="Джин 50 мл,Ликер Трипл Сек 25 мл,Сироп блю кюрасао 15 мл,сок лимона LIMMI 15 мл,Ананасовый сок,Спрайт top">
+          <div class="imgwrap"><img src="BlueMoon.png" alt="Голубая Луна"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Голубая Луна</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc sparkling"
+          data-badge="18+"
+          data-title="Кир Спешл (18+)"
+          data-desc="Авторский коктейль на игристом с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Игристое брют 100 мл, Sweet LIMMI 15 мл, Ликер «Крем де Кассис» 25 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="KirSpecial.png"
+          data-need="Игристое брют 100 мл,Sweet LIMMI 15 мл,Ликер «Крем де Кассис» 25 мл">
+          <div class="imgwrap"><img src="KirSpecial.png" alt="Кир Спешл"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Кир Спешл</div>
+            <div class="meta">Категория: игристое</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Кловер клаб (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 50 мл, Пюре малина 70 г, Сироп малина 15 мл, сок лимона LIMMI 15 мл, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="CloverClub.png"
+          data-need="Джин 50 мл,Пюре малина 70 г,Сироп малина 15 мл,сок лимона LIMMI 15 мл,Альбумин 5 мл">
+          <div class="imgwrap"><img src="CloverClub.png" alt="Кловер клаб"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Кловер клаб</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Космополитен (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Куантро 50 мл, Водка клюквенная 25 мл, Морс клюквенный 25 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="Cosmopolitan.png"
+          data-need="Куантро 50 мл,Водка клюквенная 25 мл,Морс клюквенный 25 мл,сок лимона LIMMI 15 мл">
+          <div class="imgwrap"><img src="Cosmopolitan.png" alt="Космополитен"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Космополитен</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Лавандовый джин физ (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 50 мл, Лавандовый ликер 20 мл, Сироп лаванда 15 мл, сок лимона LIMMI 15 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="LavenderGinFizz.png"
+          data-need="Джин 50 мл,Лавандовый ликер 20 мл,Сироп лаванда 15 мл,сок лимона LIMMI 15 мл,Газированная вода top">
+          <div class="imgwrap"><img src="LavenderGinFizz.png" alt="Лавандовый джин физ"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Лавандовый джин физ</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc whiskey"
+          data-badge="18+"
+          data-title="Лимонадный Джо (18+)"
+          data-desc="Авторский коктейль на виски/бурбоне с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Бурбон 50 мл, Ликер персиковый 20 мл, Ликер яблочный 20 мл, сок лимона LIMMI 15 мл, Сахарный сироп 15 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="LemonadeJoe.png"
+          data-need="Бурбон 50 мл,Ликер персиковый 20 мл,Ликер яблочный 20 мл,сок лимона LIMMI 15 мл,Сахарный сироп 15 мл,Газированная вода top">
+          <div class="imgwrap"><img src="LemonadeJoe.png" alt="Лимонадный Джо"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Лимонадный Джо</div>
+            <div class="meta">Категория: виски / бурбон</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc tequila"
+          data-badge="18+"
+          data-title="Маргарита (18+)"
+          data-desc="Авторский коктейль на текиле с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Текила серебро 50 мл, Трипл сек 25 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="Margarita.png"
+          data-need="Текила серебро 50 мл,Трипл сек 25 мл,сок лимона LIMMI 15 мл">
+          <div class="imgwrap"><img src="Margarita.png" alt="Маргарита"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Маргарита</div>
+            <div class="meta">Категория: текила</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc rum"
+          data-badge="18+"
+          data-title="Мохито пешн (18+)"
+          data-desc="Авторский коктейль на роме с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Ром 50 мл, Пюре маракуйя 70 г, Сироп маракуйя 15 мл, сок лимона LIMMI 15 мл, Лайм, Мята, Газированная вода. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="MojitoPassion.png"
+          data-need="Ром 50 мл,Пюре маракуйя 70 г,Сироп маракуйя 15 мл,сок лимона LIMMI 15 мл,Лайм,Мята,Газированная вода">
+          <div class="imgwrap"><img src="MojitoPassion.png" alt="Мохито пешн"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Мохито пешн</div>
+            <div class="meta">Категория: ром</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc tequila"
+          data-badge="18+"
+          data-title="Палома (18+)"
+          data-desc="Авторский коктейль на текиле с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Белая текила 50 мл, Лимми лимон 5 мл, Соль 1 щепотка, Грейпфрутовая содовая 100 мл, Лёд. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="Paloma.png"
+          data-need="Белая текила 50 мл,Лимми лимон 5 мл,Соль 1 щепотка,Грейпфрутовая содовая 100 мл,Лёд">
+          <div class="imgwrap"><img src="Paloma.png" alt="Палома"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Палома</div>
+            <div class="meta">Категория: текила</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka sparkling"
+          data-badge="18+"
+          data-title="Порн Стар Мартини (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка ванильная 25 мл, Пюре маракуйя 50 г, сок лимона LIMMI 10 мл, Сахарный сироп, Игристое вино. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="PornStarMartini.png"
+          data-need="Водка ванильная 25 мл,Пюре маракуйя 50 г,сок лимона LIMMI 10 мл,Сахарный сироп,Игристое вино">
+          <div class="imgwrap"><img src="PornStarMartini.png" alt="Порн Стар Мартини"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Порн Стар Мартини</div>
+            <div class="meta">Категория: водка игристое</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Рамос Физ (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 45 мл, сок лимона LIMMI 10 мл, LIMMI sweet 10 мл, Сахарный сироп 30 мл, Белок яйца 30 мл, Сливки 60 мл, Содовая до верха. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="RamosFizz.png"
+          data-need="Джин 45 мл,сок лимона LIMMI 10 мл,LIMMI sweet 10 мл,Сахарный сироп 30 мл,Белок яйца 30 мл,Сливки 60 мл,Содовая до верха">
+          <div class="imgwrap"><img src="RamosFizz.png" alt="Рамос Физ"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Рамос Физ</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Серебряный Король (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 50 мл, сок лимона LIMMI 15 мл, Сахарный сироп 10 мл, Апельсиновый биттер 2 дэша, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="SilverKing.png"
+          data-need="Джин 50 мл,сок лимона LIMMI 15 мл,Сахарный сироп 10 мл,Апельсиновый биттер 2 дэша,Альбумин 5 мл">
+          <div class="imgwrap"><img src="SilverKing.png" alt="Серебряный Король"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Серебряный Король</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Слинг (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 50 мл, LIMMI sweet 15 мл, Вишневый ликер 25 мл, Альбумин 5 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="Sling.png"
+          data-need="Джин 50 мл,LIMMI sweet 15 мл,Вишневый ликер 25 мл,Альбумин 5 мл,Газированная вода top">
+          <div class="imgwrap"><img src="Sling.png" alt="Слинг"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Слинг</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc gin"
+          data-badge="18+"
+          data-title="Тини Огурец (18+)"
+          data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Джин 50 мл, Вермут сухой 15 мл, Сироп огурец 20 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="TinyCucumber.png"
+          data-need="Джин 50 мл,Вермут сухой 15 мл,Сироп огурец 20 мл,сок лимона LIMMI 15 мл">
+          <div class="imgwrap"><img src="TinyCucumber.png" alt="Тини Огурец"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Тини Огурец</div>
+            <div class="meta">Категория: джин</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Том Ям Мери (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка 50 мл, Паста Том Ям 25 г, сок лимона LIMMI 15 мл, Томатный сок 100 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="TomYumMary.png"
+          data-need="Водка 50 мл,Паста Том Ям 25 г,сок лимона LIMMI 15 мл,Томатный сок 100 мл">
+          <div class="imgwrap"><img src="TomYumMary.png" alt="Том Ям Мери"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Том Ям Мери</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc whiskey"
+          data-badge="18+"
+          data-title="Томми Ди Сауэр (18+)"
+          data-desc="Авторский коктейль на виски/бурбоне с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Бурбон 50 мл, сок лимона LIMMI 15 мл, Пюре маракуйя 50 мл, Сироп маракуйя 20 мл, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="TommyDSour.png"
+          data-need="Бурбон 50 мл,сок лимона LIMMI 15 мл,Пюре маракуйя 50 мл,Сироп маракуйя 20 мл,Альбумин 5 мл">
+          <div class="imgwrap"><img src="TommyDSour.png" alt="Томми Ди Сауэр"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Томми Ди Сауэр</div>
+            <div class="meta">Категория: виски / бурбон</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Шпинат Сауэр (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка 50 мл, Шпинат свежий 50 г, сок лимона LIMMI 15 мл, Сахарный сироп, Тоник top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="SpinachSour.png"
+          data-need="Водка 50 мл,Шпинат свежий 50 г,сок лимона LIMMI 15 мл,Сахарный сироп,Тоник top">
+          <div class="imgwrap"><img src="SpinachSour.png" alt="Шпинат Сауэр"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Шпинат Сауэр</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+
+        <div class="card" tabindex="0"
+          data-type="alc" data-tags="alc vodka"
+          data-badge="18+"
+          data-title="Яблочный тини (18+)"
+          data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
+          data-alcinfo="Водка 50 мл, Яблочный ликер 25 мл, сок лимона LIMMI 10 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-img="AppleTiny.png"
+          data-need="Водка 50 мл,Яблочный ликер 25 мл,сок лимона LIMMI 10 мл,Газированная вода top">
+          <div class="imgwrap"><img src="AppleTiny.png" alt="Яблочный тини"></div>
+          <div class="content">
+            <span class="label alc">АЛКОГОЛЬНЫЙ 18+</span>
+            <div class="title">Яблочный тини</div>
+            <div class="meta">Категория: водка</div>
+            <div class="cta"><span class="pill">РЕЦЕПТ 18+</span><span>Открыть →</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <small>
+        LIMMI • Рецепты и сценарии использования.<br>
+        Алкоголь вредит вашему здоровью.
+      </small>
+    </div>
+  </footer>
+</main>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-media">
+      <img id="modalImg" src="" alt="" />
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <span class="modal-badge" id="modalBadge">RECIPE</span>
+      <h3 id="modalTitle">Рецепт</h3>
+      <p class="desc" id="modalDesc"></p>
+      <div class="instructions" id="instructionsBox">
+        <div class="instructions-head">ПРИГОТОВЛЕНИЕ</div>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><p id="modalStep1"></p></div>
+          <div class="step"><div class="num">2</div><p id="modalStep2"></p></div>
+          <div class="step"><div class="num">3</div><p id="modalStep3"></p></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:1000; margin-bottom:8px;">🍸 ВАМ ПОТРЕБУЕТСЯ:</div>
+        <div class="need" id="modalNeed"></div>
+      </div>
+      <div class="warn" id="warnText" style="display:none;">🔞 Алкоголь вредит вашему здоровью</div>
+    </div>
+  </div>
+</div>
+
+<!-- AGE GATE -->
+<div class="age-backdrop" id="ageBackdrop" aria-hidden="true">
+  <div class="age-modal" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+    <div class="age-top">
+      <h3 id="ageTitle">Подтвердите свой возраст</h3>
+      <p>Алкогольные карточки доступны только для пользователей 18+. Выберите вариант ниже.</p>
+    </div>
+
+    <div class="age-actions">
+      <button class="btn btn-primary" id="ageYes">Мне больше 18</button>
+      <button class="btn btn-dark" id="ageNo">Мне меньше 18</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== Age Gate =====
+  const AGE_KEY = 'limmi_age'; // '18plus' | 'under18'
+  const ageBackdrop = document.getElementById('ageBackdrop');
+  const ageYes = document.getElementById('ageYes');
+  const ageNo = document.getElementById('ageNo');
+
+  function openAgeGate(){
+    ageBackdrop.classList.add('open');
+    ageBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('noscroll');
+  }
+  function closeAgeGate(){
+    ageBackdrop.classList.remove('open');
+    ageBackdrop.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('noscroll');
+  }
+function applyAge(value){
+  try { localStorage.setItem(AGE_KEY, value); } catch(e){}
+  document.body.classList.toggle('under18', value === 'under18');
+  
+  // Скрываем или показываем алкогольные фильтры в зависимости от возраста
+  const alcFilters = document.getElementById('alcFilters');
+  if (alcFilters) {
+    alcFilters.style.display = (value === 'under18') ? 'none' : 'inline-flex';
+  }
+  
+  // Если выбран режим under18 и текущий активный фильтр — алкогольный, сбрасываем на "Все"
+  if (value === 'under18') {
+    const activeFilterBtn = document.querySelector('.chipbtn.active');
+    const currentFilter = activeFilterBtn?.dataset.filter;
+    if (currentFilter !== 'all' && currentFilter !== 'nonalc') {
+      // Сбросить на "Все"
+      const allBtn = document.querySelector('.chipbtn[data-filter="all"]');
+      if (allBtn) {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        allBtn.classList.add('active');
+        activeFilter = 'all';
+        render();
+      }
+    }
+  }
+  
+  render();
+}
+function initAge(){
+  let saved = null;
+  try { saved = localStorage.getItem(AGE_KEY); } catch(e){}
+  const alcFilters = document.getElementById('alcFilters');
+  
+  if(saved === '18plus' || saved === 'under18'){
+    document.body.classList.toggle('under18', saved === 'under18');
+    
+    // Скрываем или показываем алкогольные фильтры в зависимости от возраста
+    if (alcFilters) {
+      alcFilters.style.display = (saved === 'under18') ? 'none' : 'inline-flex';
+    }
+    
+    return;
+  }
+  
+  // По умолчанию (если выбор не сделан) — считаем, что пользователь младше 18
+  document.body.classList.add('under18');
+  
+  // Скрываем алкогольные фильтры
+  if (alcFilters) {
+    alcFilters.style.display = 'none';
+  }
+  
+  openAgeGate();
+}
+  ageYes.addEventListener('click', ()=> { applyAge('18plus'); closeAgeGate(); });
+  ageNo.addEventListener('click', ()=> { applyAge('under18'); closeAgeGate(); });
+
+  // ===== Modal =====
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalClose = document.getElementById('modalClose');
+  const instructionsBox = document.getElementById('instructionsBox');
+  const warnText = document.getElementById('warnText');
+const modalBody = document.getElementById('modalBody');
+
+  const modal = {
+    img: document.getElementById('modalImg'),
+    badge: document.getElementById('modalBadge'),
+    title: document.getElementById('modalTitle'),
+    desc: document.getElementById('modalDesc'),
+    s1: document.getElementById('modalStep1'),
+    s2: document.getElementById('modalStep2'),
+    s3: document.getElementById('modalStep3'),
+    need: document.getElementById('modalNeed')
+  };
+
+function disableBodyScroll() {
+    document.body.classList.add('modal-open');
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+}
+  
+function enableBodyScroll() {
+    const scrollY = document.body.style.top;
+    document.body.classList.remove('modal-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    if (scrollY) {
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+}
+
+function openModal(card){
+    const type = card.dataset.type;
+    const isUnder18 = document.body.classList.contains('under18');
+    if(type === 'alc' && isUnder18){ openAgeGate(); return; }
+    
+    modal.badge.textContent = (type === 'alc') ? '18+' : (card.dataset.badge || 'РЕЦЕПТ');
+    modal.title.textContent = card.dataset.title || '';
+    modal.desc.textContent = card.dataset.desc || '';
+    modal.img.src = card.dataset.img || '';
+    modal.img.alt = card.dataset.title || '';
+    
+    modal.need.innerHTML = '';
+    const need = (card.dataset.need || '').split(',').map(s=>s.trim()).filter(Boolean);
+    need.forEach(n=>{ const c = document.createElement('div'); c.className = 'chip'; c.textContent = n; modal.need.appendChild(c); });
+    
+    if(type === 'alc'){
+      instructionsBox.style.display = 'none';
+      warnText.style.display = 'block';
+      modal.desc.textContent = card.dataset.alcinfo || card.dataset.desc || '';
+    } else {
+      instructionsBox.style.display = 'block';
+      warnText.style.display = 'none';
+      modal.s1.textContent = card.dataset.step1 || '';
+      modal.s2.textContent = card.dataset.step2 || '';
+      modal.s3.textContent = card.dataset.step3 || '';
+    }
+    
+    // 👇 ЭТО САМОЕ ВАЖНОЕ — прокрутка к началу и блокировка скролла
+    if (modalBackdrop) {
+      modalBackdrop.scrollTop = 0;
+    }
+if (modalBody) {
+  modalBody.scrollTop = 0;
+}
+    
+    modalBackdrop.classList.add('open');
+    modalBackdrop.setAttribute('aria-hidden', 'false');
+    disableBodyScroll();
+  }
+
+function closeModal(){
+    modalBackdrop.classList.remove('open');
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+    enableBodyScroll();
+}
+  modalClose.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modalBackdrop.classList.contains('open')) closeModal(); });
+
+  // ===== Filters + search =====
+  const grid = document.getElementById('grid');
+  const q = document.getElementById('q');
+  const filterBtns = [...document.querySelectorAll('.chipbtn')];
+  let activeFilter = 'all';
+
+  function matchesFilter(card){
+    const type = card.dataset.type; // nonalc | alc
+    const tags = (card.dataset.tags || '').toLowerCase().split(/\s+/).filter(Boolean);
+
+    if(activeFilter === 'all') return true;
+    if(activeFilter === 'nonalc') return type === 'nonalc';
+    if(activeFilter === 'alc') return type === 'alc';
+    // spirits: vodka/whiskey/gin/tequila
+    return tags.includes(activeFilter);
+  }
+
+  function matchesQuery(card){
+    const text = (card.dataset.title || '').toLowerCase();
+    const qq = (q.value || '').trim().toLowerCase();
+    if(!qq) return true;
+    return text.includes(qq);
+  }
+
+  function render(){
+    const cards = [...grid.querySelectorAll('.card')];
+    cards.forEach(card=>{
+      const visible = matchesFilter(card) && matchesQuery(card);
+      card.style.display = visible ? '' : 'none';
+    });
+  }
+
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      render();
+    });
+  });
+  q.addEventListener('input', render);
+
+  // Card click
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('click', ()=> openModal(card));
+    card.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') openModal(card); });
+  });
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    initAge();
+    render();
+  });
+</script>
+</body>
+</html>

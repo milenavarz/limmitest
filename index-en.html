@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>LIMMI — the perfect lemon for drinks</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
-<style>
+  <meta charset="UTF-8" />
+  <title>LIMMI — the perfect lemon for drinks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LIMMI — natural juice from handpicked Sicilian lemons. No sugar, preservatives or GMO. Perfect for cocktails, lemonades and cooking. Available on Wildberries, Ozon and Globus stores.">
+  <meta property="og:title" content="LIMMI — Sicilian sunshine in your glass">
+  <meta property="og:description" content="Natural lemon juice from Sicily for perfect homemade drinks. One product — dozens of recipes.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.jpg">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LIMMI — Sicilian sunshine in your glass">
+  <meta name="twitter:description" content="Natural lemon juice from Sicily for perfect homemade drinks.">
+  <link rel="canonical" href="https://limmi.ru/index-en.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
     :root{
       --limmi-blue:#1e5fa8;
       --lemon-yellow:#ffd400;
@@ -407,12 +420,7 @@
       min-height: 260px;
       position: relative;
     }
-    .about-media:after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(rgba(0,0,0,.10), rgba(0,0,0,.20));
-    }
+
     .about-cards{
       display:grid;
       grid-template-columns: repeat(2, 1fr);
@@ -462,44 +470,7 @@
     }
 
     /* ===== Why ===== */
-    .why{
-      background:#fff;
-    }
-    .why-grid{
-      margin-top: 26px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-    .why-item{
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(0,0,0,.06);
-      background: linear-gradient(180deg, #fff, #fbfbfb);
-      min-height: 150px;
-    }
-    .why-item .tag{
-      display:inline-block;
-      background: rgba(30,95,168,.10);
-      color: var(--limmi-blue);
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing: .5px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      margin-bottom: 12px;
-    }
-    .why-item h3{
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-    .why-item p{
-      opacity: .85;
-      font-weight: 600;
-      line-height: 1.5;
-    }
+    .why{ background:#fff; }
 
     /* ===== Recipes Slider ===== */
     .recipes{
@@ -541,79 +512,6 @@
       user-select: none;
     }
 
-    .recipe-card{
-      background:#fff;
-      color:#000;
-      border-radius: 22px;
-      overflow:hidden;
-      box-shadow: var(--shadow);
-      cursor:pointer;
-      outline:none;
-      transform: translateY(0);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-      display:flex;
-      flex-direction:column;
-      min-height: 440px;
-    }
-    .recipe-card:hover{
-      transform: translateY(-4px);
-      box-shadow: 0 26px 52px rgba(0,0,0,.28);
-    }
-    .imgwrap img{
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      display:block;
-    }
-    .recipe-content{ padding: 20px; display:flex; flex-direction:column; gap: 10px; flex:1; }
-
-    .label{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      background: var(--lemon-yellow);
-      color:#000;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 900;
-      border-radius: 999px;
-      letter-spacing: .6px;
-      width: fit-content;
-    }
-    .label.lock{
-      background: #111;
-      color:#fff;
-    }
-    .recipe-title{
-      font-size: 22px;
-      font-weight: 900;
-      line-height: 1.15;
-    }
-    .recipe-sub{
-      font-weight: 700;
-      opacity: .80;
-      line-height: 1.4;
-    }
-    .mini-cta{
-      margin-top: auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      font-weight: 900;
-      font-size: 13px;
-    }
-    .mini-pill{
-      background: #f0f3f7;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 12px;
-      opacity: .95;
-    }
-    .locked{
-      filter: saturate(.9);
-    }
 
     .dots{
       margin-top: 16px;
@@ -695,7 +593,7 @@
       background:
         repeating-linear-gradient(90deg, #111 0 4px, transparent 4px 8px),
         repeating-linear-gradient(#111 0 4px, transparent 4px 8px);
-      opacity:.18; /* заглушка под реальный QR */
+      opacity:.18; /* placeholder for real QR */
       flex: 0 0 auto;
     }
     .edu-card h3{
@@ -760,20 +658,24 @@
     }
     .modal-backdrop.open{ display:flex; }
 
-    .modal{
-      width: min(980px, 100%);
-      background:#fff;
-      border-radius: 24px;
-      overflow:hidden;
-      box-shadow: 0 30px 70px rgba(0,0,0,.35);
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-    }
-    .modal-media{
-      position:relative;
-      min-height: 360px;
-      background:#222;
-    }
+.modal{
+  width: min(980px, 100%);
+  background:#fff;
+  border-radius: 24px;
+  overflow-y: auto;   /* ← scrolls the whole modal */
+  overflow-x: hidden;
+  box-shadow: 0 30px 70px rgba(0,0,0,.35);
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  max-height: 85vh;
+  height: auto;
+}
+.modal-media{
+  position:relative;
+  min-height: 360px;
+  background:#222;
+  overflow: hidden;
+}
     .modal-media img{
       width:100%;
       height:100%;
@@ -794,10 +696,12 @@
       font-size:18px;
     }
 
-    .modal-body{
-      padding: 24px 24px 20px;
-      background: linear-gradient(180deg, #ffffff, #fafafa);
-    }
+.modal-body{
+  padding: 24px 24px 20px;
+  background: linear-gradient(180deg, #ffffff, #fafafa);
+  max-height: 85vh;
+  scrollbar-width: thin;
+}
     .modal-badge{
       display:inline-block;
       background: var(--limmi-blue);
@@ -907,6 +811,79 @@
       opacity:.18;
     }
 
+/* ===== FAQ ===== */
+.faq {
+  background: #fff;
+  padding: 90px 0;
+}
+.faq-grid {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.faq-item {
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.08);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: #fafafa;
+  font-weight: 800;
+}
+.faq-question span:first-child {
+  font-size: 22px;
+}
+.faq-question h4 {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+}
+.faq-arrow {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+  color: #888;
+}
+.faq-item.open .faq-arrow {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 20px;
+  background: #fff;
+  border-top: 0px solid rgba(0,0,0,.05);
+}
+.faq-item.open .faq-answer {
+  max-height: 500px;
+  padding: 0 20px 18px 20px;
+  border-top-width: 1px;
+}
+.faq-answer p {
+  padding: 12px 0 0 0;
+  line-height: 1.55;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .faq { padding: 64px 0; }
+  .faq-question { padding: 14px 16px; }
+  .faq-question h4 { font-size: 14px; }
+}
+
     /* ===== Responsive ===== */
     @media (max-width: 980px){
       .hero-grid{ grid-template-columns: 1fr; }
@@ -918,11 +895,16 @@
       .modal-media{ min-height: 260px; }
     }
 
-    @media (max-width: 860px){
-      .navlinks{ display:none; }
-      .burger{ display:inline-grid; place-items:center; }
-      .mobilemenu.open{ display:block; }
-    }
+@media (max-width: 860px){
+  .navlinks{ display:none !important; }
+  .burger{ display:inline-flex !important; align-items:center; justify-content:center; }
+  .mobilemenu.open{ display:block; }
+}
+
+@media (min-width: 861px){
+  .burger{ display:none !important; }
+  .navlinks{ display:flex !important; }
+}
 
     @media (max-width: 768px){
       .hero h1{ font-size: 38px; }
@@ -994,7 +976,8 @@
     }
 
     /* Hide alcohol for under18 */
-    body.under18 .recipe-card[data-type="alc"]{
+    body.under18 .recipe-card[data-type="alc"],
+    html.pre-under18 .recipe-card[data-type="alc"]{
       display: none !important;
     }
   
@@ -1033,322 +1016,1721 @@
   .about-card{ padding: 14px; }
 }
 
+.hero-logo {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.hero-logo img {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-logo img {
+    max-width: 220px;
+  }
+}
+
+/* ===== WHY section enhanced ===== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.why-item {
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px 22px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.why-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+}
+
+.why-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.why-item .tag {
+  display: inline-block;
+  background: rgba(30, 95, 168, 0.12);
+  color: var(--limmi-blue);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.why-item h3 {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.why-item p {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ===== Tablet adaptation ===== */
+@media (max-width: 900px) {
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* ===== Mobile adaptation ===== */
+@media (max-width: 560px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .why-item {
+    padding: 22px 18px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .why-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  
+  .why-item h3 {
+    font-size: 18px;
+  }
+  
+  .why-item p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-logo img {
+    max-width: 180px;
+  }
+}
+
+/* ===== PRODUCTS SECTION ===== */
+.products {
+  background: var(--limmi-blue);
+  color: #fff;
+  padding: 90px 0;
+}
+
+.products .section-title {
+  color: #fff;
+}
+
+.products .section-sub {
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 40px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.product-card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+}
+
+.product-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-hover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.product-image:hover .product-hover {
+  transform: translateY(0);
+}
+
+.product-hover span {
+  background: var(--lemon-yellow);
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.product-info {
+  text-align: center;
+  padding: 16px 0 0;
+}
+
+.product-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.product-subtitle {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.85;
+  color: #fff;
+}
+
+/* ===== PRODUCT MODAL ===== */
+.product-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 1001;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.product-modal.open {
+  display: flex;
+}
+
+.product-modal-content {
+  max-width: 1100px;
+  width: 100%;
+  background: #fff;
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.product-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.product-modal-close:hover {
+  background: rgba(0,0,0,0.9);
+}
+
+.product-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+/* Gallery */
+.product-modal-gallery {
+  background: #f5f5f5;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gallery-main {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-thumbs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.thumb {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+}
+
+.thumb.active {
+  border-color: var(--lemon-yellow);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info */
+.product-modal-info {
+  padding: 30px;
+  background: #fff;
+}
+
+.product-modal-info h2 {
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.modal-subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--limmi-blue);
+  margin-bottom: 20px;
+}
+
+.modal-description {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.product-specs h4 {
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: #111;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.spec-item {
+  background: #f8f8f8;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.spec-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.spec-value {
+  font-size: 14px;
+  font-weight: 800;
+  color: #111;
+}
+
+.product-buy {
+  margin-top: 20px;
+}
+
+.product-buy .btn {
+  width: 100%;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .product-modal-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-modal-gallery {
+    padding: 20px;
+  }
+  
+  .product-modal-info {
+    padding: 24px;
+  }
+  
+  .product-modal-info h2 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 560px) {
+  .products {
+    padding: 64px 0;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .specs-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .thumb {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .product-modal-content {
+    max-height: 95vh;
+  }
+  
+  .product-modal-info h2 {
+    font-size: 22px;
+  }
+  
+  .modal-subtitle {
+    font-size: 14px;
+  }
+  
+  .modal-description {
+    font-size: 13px;
+  }
+}
+
+/* ===== Brand Intro (About section) ===== */
+.brand-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.brand-intro-text {
+  flex: 1;
+  min-width: 280px;
+}
+.brand-intro-text p {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 16px;
+}
+.brand-intro-text p:last-child { margin-bottom: 0; }
+.brand-intro-text .highlight { font-weight: 800; }
+.brand-intro-text .secondary { font-size: 15px; font-weight: 500; opacity: 0.8; }
+.brand-anniversary { flex-shrink: 0; text-align: center; }
+.brand-anniversary img { max-width: 160px; height: auto; display: block; }
+.brand-anniversary span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+@media (max-width: 768px) {
+  .brand-intro { gap: 20px; }
+  .brand-intro-text p { font-size: 15px; }
+  .brand-intro-text .secondary { font-size: 14px; }
+  .brand-anniversary img { max-width: 140px; }
+}
+@media (max-width: 640px) {
+  .brand-intro { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+  .brand-intro-text { min-width: 100%; order: 2; }
+  .brand-anniversary { order: 1; margin-bottom: 8px; }
+  .brand-anniversary img { max-width: 130px; margin: 0 auto; }
+  .brand-intro-text p { text-align: left; }
+}
+@media (max-width: 480px) {
+  .brand-intro-text p { font-size: 14px; line-height: 1.5; }
+  .brand-intro-text .secondary { font-size: 13px; }
+  .brand-anniversary img { max-width: 120px; }
+}
+
+/* ===== Recipe Cards — redesign ===== */
+.recipe-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.16);
+}
+.card-type-strip {
+  height: 4px;
+  background: var(--lemon-yellow);
+  flex-shrink: 0;
+}
+.recipe-card[data-type="alc"] .card-type-strip {
+  background: #111;
+}
+.imgwrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.imgwrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.recipe-card:hover .imgwrap img {
+  transform: scale(1.06);
+}
+.recipe-content {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .9px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #edf7e5;
+  color: #2e7d1e;
+  border: 1px solid rgba(46,125,30,0.18);
+  width: fit-content;
+}
+.label.lock {
+  background: #111;
+  color: #fff;
+  border-color: transparent;
+}
+.recipe-title {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #111;
+}
+.card-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ing-chip {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: #f3f5f8;
+  border-radius: 999px;
+  color: #555;
+}
+.card-cta {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+.cta-text {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--limmi-blue);
+  letter-spacing: .3px;
+}
+.cta-arrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--lemon-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 900;
+  color: #000;
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+.recipe-card:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+
+    /* ━━━━━ FIX 1: Slider navbtn — hover + disabled state ━━━━━ */
+    .navbtn{
+      transition: opacity .18s ease, transform .12s ease, box-shadow .12s ease;
+    }
+    .navbtn:hover{ transform: scale(1.08); box-shadow: 0 16px 34px rgba(0,0,0,.28); }
+    .navbtn:active{ transform: scale(0.94); }
+    .navbtn:disabled{
+      opacity: 0.22;
+      cursor: default;
+      pointer-events: none;
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* ━━━━━ FIX 2: FAQ max-height — stop clipping long answers ━━━━━ */
+    /* overrides the 200px set earlier */
+
+    /* ━━━━━ FIX 5: Slider right-edge fade ━━━━━ */
+    .slider{ overflow: visible; }
+    .slider::after{
+      content: '';
+      position: absolute;
+      right: 60px;      /* leaves room for the › button */
+      top: 6px;
+      bottom: 16px;
+      width: 64px;
+      background: linear-gradient(to right, transparent, var(--limmi-blue));
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ━━━━━ FIX 6: Scroll-to-top button ━━━━━ */
+    #backToTop{
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      background: var(--lemon-yellow);
+      color: #000;
+      border: 0;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,.22);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .22s ease, transform .22s ease, box-shadow .18s ease;
+      pointer-events: none;
+      z-index: 300;
+    }
+    #backToTop.visible{
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #backToTop:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(0,0,0,.28);
+    }
+
+    /* ━━━━━ FIX 8: Buy section — branded store buttons ━━━━━ */
+    .btn-wb{
+      background: #CB11AB;
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(203,17,171,.35);
+    }
+    .btn-wb:hover{ box-shadow: 0 16px 34px rgba(203,17,171,.45); }
+    .btn-ozon{
+      background: #005BFF;
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(0,91,255,.30);
+    }
+    .btn-ozon:hover{ box-shadow: 0 16px 34px rgba(0,91,255,.40); }
+    .btn-globus{
+      background: #00A650;
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(0,166,80,.28);
+    }
+    .btn-globus:hover{ box-shadow: 0 16px 34px rgba(0,166,80,.38); }
+
+    /* ━━━━━ FIX 9: Smooth anchor scroll ━━━━━ */
+    html{ scroll-behavior: smooth; }
+
+
+    /* ━━━━━ 1: Scroll-reveal ━━━━━ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .55s cubic-bezier(.4,0,.2,1),
+                  transform .55s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ━━━━━ 2: Hero scroll indicator ━━━━━ */
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      opacity: 0;
+      animation: hintFadeIn 1s ease 1.4s forwards,
+                 hintPulse 2.4s ease-in-out 2.4s infinite;
+      z-index: 2;
+    }
+    @keyframes hintFadeIn { to { opacity: .72; } }
+    @keyframes hintPulse {
+      0%,100% { transform: translateX(-50%) translateY(0);   opacity: .72; }
+      55%     { transform: translateX(-50%) translateY(8px); opacity: 1;   }
+    }
+    .hero-scroll-line {
+      width: 1.5px; height: 26px;
+      background: rgba(255,255,255,.75);
+      border-radius: 2px;
+    }
+    .hero-scroll-chevron { color: rgba(255,255,255,.9); font-size: 14px; line-height: 1; }
+
+    /* ━━━━━ 4: Footer nav ━━━━━ */
+    .foot-nav {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px;
+    }
+    .foot-nav a {
+      font-size: 13px; font-weight: 700; opacity: .68;
+      text-decoration: none; color: inherit; transition: opacity .15s;
+    }
+    .foot-nav a:hover { opacity: 1; }
+
+    /* ━━━━━ 5: Copy ingredients button ━━━━━ */
+    .copy-btn {
+      background: rgba(0,0,0,.06); border: 0; border-radius: 999px;
+      padding: 5px 12px; font-size: 12px; font-weight: 800;
+      cursor: pointer; font-family: inherit; white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .copy-btn:hover { background: rgba(0,0,0,.12); }
+    .copy-btn.copied { background: #d4edda; color: #155724; }
+
+    /* ━━━━━ 6: Empty search state ━━━━━ */
+    .empty-state {
+      display: none; flex-direction: column; align-items: center;
+      padding: 64px 20px; text-align: center; gap: 10px;
+    }
+    .empty-icon { font-size: 52px; line-height: 1; }
+    .empty-state h3 { font-size: 22px; font-weight: 1000; margin-top: 4px; }
+    .empty-state p { font-weight: 600; opacity: .7; max-width: 320px; line-height: 1.5; }
+    .empty-reset {
+      margin-top: 6px; background: var(--limmi-blue); color: #fff; border: 0;
+      border-radius: 999px; padding: 10px 22px; font-weight: 900; cursor: pointer;
+      font-size: 14px; font-family: inherit; transition: transform .12s;
+    }
+    .empty-reset:hover { transform: translateY(-2px); }
+
+    /* ━━━━━ 3: Active nav link ━━━━━ */
+    .navlinks a.nav-active { color: var(--lemon-yellow) !important; opacity: 1 !important; }
+    header.scrolled .navlinks a.nav-active { color: var(--limmi-blue) !important; }
 </style>
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "LIMMI",
+    "description": "Natural lemon juice from handpicked Sicilian lemons. No sugar, colorants or preservatives.",
+    "brand": { "@type": "Brand", "name": "LIMMI" },
+    "countryOfOrigin": "IT",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "LIMMI Classic",
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "RUB",
+        "url": "https://www.wildberries.ru/brands/23485-limmi"
+      },
+      {
+        "@type": "Offer",
+        "name": "LIMMI Sweet",
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "RUB",
+        "url": "https://www.ozon.ru/category/limonnyy-sok-31526/limmi-75977239/"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Prevent flash of alcoholic content before JS runs -->
+  <script>
+    (function(){
+      try {
+        var age = localStorage.getItem('limmi_age');
+        if (age !== '18plus') document.documentElement.classList.add('pre-under18');
+      } catch(e) {
+        document.documentElement.classList.add('pre-under18');
+      }
+    })();
+  </script>
 </head>
+
 <body>
+
 <header id="header">
-<div class="container">
-<div class="nav">
-<a aria-label="Limmi" class="brand" href="#top">
-<img alt="LIMMI" class="brand-logo" src="logo-limmi.svg"/>
-</a>
-<nav aria-label="Навигация" class="navlinks">
-<a href="recipes-en.html">Recipes</a>
-<a href="#education">How to use</a>
-<a href="#buy">Where to buy</a>
-</nav>
-<div class="navcta">
-<a class="btn btn-ghost" href="index.html">RU</a>
-<a class="btn btn-primary" href="recipes-en.html">View recipes</a>
-<button aria-label="Открыть меню" class="burger" id="burger">☰</button>
-</div>
-</div>
-<div aria-label="Мобильное меню" class="mobilemenu" id="mobilemenu">
-<a href="recipes-en.html">Recipes</a>
-<a href="#education">How to use</a>
-<a href="#buy">Where to buy</a>
-</div>
-</div>
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Limmi">
+        <img class="brand-logo" src="logo-limmi.svg" alt="LIMMI">
+      </a>
+
+      <nav class="navlinks" aria-label="Navigation">
+        <a href="#products">Products</a>
+        <a href="recipes-en.html">Recipes</a>
+        <a href="#buy">Where to buy</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="navcta">
+        <div class="lang-switch" aria-label="Language switch">
+          <a class="lang-link" href="index.html">RU</a>
+          <a class="lang-link active" href="index-en.html">EN</a>
+        </div>
+        <button class="burger" id="burger" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+
+    <div class="mobilemenu" id="mobilemenu" aria-label="Mobile menu">
+      <a href="#products">Products</a>
+      <a href="recipes-en.html">Recipes</a>
+      <a href="#buy">Where to buy</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
 </header>
+
 <main id="top">
-<!-- HERO -->
-<section class="hero">
-<div class="container">
-<div class="hero-grid">
-<div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+<div class="hero-logo">
+  <img src="logo-limmi.svg" alt="LIMMI Logo">
+</div>          
 <h1>LIMMI — Sicilian sunshine in your glass</h1>
-<p>100% Sicilian lemon juice for mixes and drinks</p>
-<div class="hero-actions">
-<a class="btn btn-primary" href="recipes-en.html">View recipes</a>
-<a class="btn btn-ghost" href="#buy">Where to buy</a>
+          <p>Sicilian lemon juice — for perfect drinks</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="recipes-en.html">View recipes</a>
+            <a class="btn btn-ghost" href="#buy">Where to buy</a>
+          </div>
+
+          <div class="hero-note">Tip: replace “fresh lemon” with LIMMI — convenient, fast, consistent taste.</div>
+        </div>
+
+        <div class="hero-card" aria-label="Benefits">
+          <div class="pillrow"></div>
+
+          <h3>The perfect addition to your cocktails</h3>
+          <ul>
+            <li><span class="dot"></span><span>Consistent taste — every cocktail turns out perfect, no surprises.</span></li>
+            <li><span class="dot"></span><span>100% Sicilian lemons — grown under Italian sun, no concentrate.</span></li>
+            <li><span class="dot"></span><span>Value — one bottle = many servings.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+      <div class="hero-scroll-line"></div>
+      <div class="hero-scroll-chevron">↓</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-title">About <span style="color: #ffd400;">LIMMI</span></div>
+<div class="brand-intro">
+  <div class="brand-intro-text">
+    <p>
+      <span class="highlight">LIMMI is a natural juice from handpicked Italian lemons</span>, grown in the sun of Sicily, Campania and Calabria. Since 1999 we have preserved tradition and guaranteed impeccable quality in every bottle.
+    </p>
+    <p class="secondary">
+      The harvest is hand-picked at peak ripeness, and the cold-press technology preserves the maximum vitamin C and rich, vibrant flavour with no added sugar, colorants or preservatives. This makes LIMMI <strong>the market leader in Italy with a 38% share</strong> and the ideal choice for your home bar.
+    </p>
+  </div>
+  <div class="brand-anniversary">
+    <img src="limmi-manufacture.jpg" alt="LIMMI production">
+    <span>Since 1999</span>
+  </div>
 </div>
-<div class="hero-note">Tip: replace “fresh lemon” with LIMMI — convenient, fast, and consistently tasty.</div>
-</div>
-<div aria-label="Преимущества" class="hero-card">
-<div class="pillrow"></div>
-<h3>The perfect addition to your cocktails</h3>
-<ul>
-<li><span class="dot"></span><span>Consistent taste in every bottle.</span></li>
-<li><span class="dot"></span><span>Only Italian lemons.</span></li>
-<li><span class="dot"></span><span>One bottle = many servings.</span></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<!-- ABOUT -->
-<section class="about" id="about">
-<div class="container">
-<div class="section-title">About LIMMI</div>
-<div class="section-sub">LIMMI is a habit: one product that makes homemade drinks easier and more consistent.</div>
-<div class="about-grid">
-<div class="about-lead">
-<span class="kicker">EDUCATION-FIRST</span>
-<h3>We do not just “sell lemon juice” — we show how to use it every day</h3>
-<p>
-            In Russia, lemon juice is often seen as an occasional substitute for fresh lemon or just a cooking ingredient.
-            Our goal is to expand its use cases and make LIMMI a standard home bar ingredient.
+
+      <div class="section-sub">LIMMI is a habit: one product that makes homemade drinks easier and more consistent.</div>
+
+      <div class="about-grid">
+        <div class="about-lead">
+          <span class="kicker">TASTE SCHOOL</span>
+          <h3>Changing the perception of lemon juice: from a rare ingredient to an everyday ritual.</h3>
+          <p>
+            In Russia, lemon juice is often seen as an occasional substitute for fresh lemon or a cooking ingredient.
           </p>
-<ul class="about-list">
-<li><span class="dot"></span><span><strong>Drink occasions</strong>: LIMMI naturally fits homemade cocktails and mixed drinks.</span></li>
-<li><span class="dot"></span><span><strong>Convenience</strong>: no need to cut lemons — just open and pour.</span></li>
-<li><span class="dot"></span><span><strong>Consistent result</strong>: the same taste and acidity in every bottle.</span></li>
-<li><span class="dot"></span><span><strong>One bottle = dozens of servings</strong> for drinks and mixes.</span></li>
-</ul>
-</div>
-<div class="about-right">
-<div aria-label="Фото бренда (можно заменить)" class="about-media"></div>
-<div aria-label="Ключевые идеи" class="about-cards">
-<div class="about-card">
-<div class="top">
-<div style="font-weight:1000;">Habit</div>
-<span class="pillmini">HOME BAR</span>
-</div>
-<h4>Standard ingredient</h4>
-<p>The goal is for LIMMI to become something you always keep at home “for drinks.”</p>
-</div>
-<div class="about-card">
-<div class="top">
-<div style="font-weight:1000;">Message</div>
-<span class="pillmini">SIMPLE</span>
-</div>
-<h4>Easy to use</h4>
-<p>Focus on clear use cases: drinks, mixes, and quick solutions without extra steps.</p>
-</div>
-<div class="about-card">
-<div class="top">
-<div style="font-weight:1000;">Benefit</div>
-<span class="pillmini">CONSISTENT</span>
-</div>
-<h4>Consistent taste</h4>
-<p>The same result in every glass — without the “surprises” of fresh lemons.</p>
-</div>
-<div class="about-card">
-<div class="top">
-<div style="font-weight:1000;">Value</div>
-<span class="pillmini">DOZENS</span>
-</div>
-<h4>Many servings</h4>
-<p>One bottle means dozens of drinks, so the product feels truly cost-effective.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- WHY -->
+          <p style="margin-top: 16px; font-weight: 500; opacity: 0.85;">
+            Our goal is to grow a culture of lemon juice use and make LIMMI a standard bar and kitchen staple in your home.
+          </p>
+          <ul class="about-list">
+            <li><span class="dot"></span><span><strong>LIMMI</strong>: the ideal choice for homemade cocktails and mixes.</span></li>
+            <li><span class="dot"></span><span><strong>No fuss</strong>: no need to wash, peel or slice lemons. Just open and pour.</span></li>
+            <li><span class="dot"></span><span><strong>Consistent results</strong>: the same taste and acidity in every drop. Your cocktails are always perfect.</span></li>
+            <li><span class="dot"></span><span><strong>Economy and convenience</strong>: one bottle lasts for dozens of servings. Always within reach.</span></li>
+          </ul>
+        </div>
+
+        <div class="about-right">
+          <div class="about-media" aria-label="Brand photo"></div>
+
+          <div class="about-cards" aria-label="Key ideas">
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Ritual</div>
+                <span class="pillmini">HOME BAR</span>
+              </div>
+              <h4>A must-have in every kitchen</h4>
+              <p>The goal — for LIMMI to become the go-to drink ingredient always kept at home.</p>
+            </div>
+
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Convenience</div>
+                <span class="pillmini">NO KNIFE</span>
+              </div>
+              <h4>Open and pour</h4>
+              <p>Focus on ease of use: drinks, mixes and quick solutions with no extra steps.</p>
+            </div>
+
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Key benefit</div>
+                <span class="pillmini">CONSISTENCY</span>
+              </div>
+              <h4>Consistent taste</h4>
+              <p>No more surprises. LIMMI delivers the same result — from the first drop to the last.</p>
+            </div>
+
+            <div class="about-card">
+              <div class="top">
+                <div style="font-weight:1000;">Value</div>
+                <span class="pillmini">SAVINGS</span>
+              </div>
+              <h4>Many servings</h4>
+              <p>One bottle lasts for dozens of drinks. Noticeably cheaper than buying lemons. Pay for juice, not for water, peel and pips.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-title">LIMMI <span style="color: var(--lemon-yellow);">Products</span></div>
+      <div class="section-sub">Natural Sicilian lemon juice — for your favourite drinks and dishes</div>
+
+      <div class="products-grid">
+        
+        <!-- Product 1: LIMMI -->
+        <div class="product-card" data-product="classic">
+          <div class="product-image">
+            <img loading="lazy" src="product-classic.png" alt="LIMMI Classic lemon juice">
+            <div class="product-hover">
+              <span>Learn more</span>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">LIMMI</h3>
+            <p class="product-subtitle">Lemon juice</p>
+          </div>
+        </div>
+
+
+        <!-- Product 2: LIMMI SWEET -->
+        <div class="product-card" data-product="sweet">
+          <div class="product-image">
+            <img loading="lazy" src="product-sweet.png" alt="LIMMI Sweet lemon juice">
+            <div class="product-hover">
+              <span>Learn more</span>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">LIMMI SWEET</h3>
+            <p class="product-subtitle">Lemon juice with sweet taste</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal" id="productModal">
+    <div class="product-modal-content">
+      <button class="product-modal-close" id="productModalClose">&times;</button>
+      
+      <div class="product-modal-grid">
+        <!-- Left column: gallery -->
+        <div class="product-modal-gallery">
+          <div class="gallery-main">
+            <img id="galleryMainImg" src="" alt="Product image">
+          </div>
+          <div class="gallery-thumbs" id="galleryThumbs"></div>
+        </div>
+        
+        <!-- Right column: info -->
+        <div class="product-modal-info">
+          <h2 id="modalProductTitle">LIMMI CLASSIC</h2>
+          <p class="modal-subtitle" id="modalProductSubtitle">Lemon juice</p>
+          
+          <div class="modal-description" id="modalProductDesc">
+            <!-- description injected by JS -->
+          </div>
+          
+          <div class="product-specs">
+            <h4>Specifications</h4>
+            <div class="specs-grid" id="modalProductSpecs"></div>
+          </div>
+          
+          <div class="product-buy">
+            <a href="#buy" class="btn btn-primary">Where to buy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY -->
 <section class="why">
-<div class="container">
-<div class="section-title">Why LIMMI</div>
-<div class="section-sub">Not just advertising, but clear use scenarios — that is how habits are formed.</div>
-<div class="why-grid">
-<div class="why-item">
-<span class="tag">CONVENIENT</span>
-<h3>No need to cut lemons</h3>
-<p>Open — add — done. No cutting boards, knives, or waste.</p>
-</div>
-<div class="why-item">
-<span class="tag">CONSISTENT</span>
-<h3>The same taste every time</h3>
-<p>Always the same acidity and result, without surprises.</p>
-</div>
-<div class="why-item">
-<span class="tag">VALUE</span>
-<h3>Dozens of servings</h3>
-<p>One bottle is enough for many homemade drinks and mixes.</p>
-</div>
-</div>
-</div>
+  <div class="container">
+    <div class="section-title">Why LIMMI</div>
+    <div class="section-sub">LIMMI is the leader in the lemon juice segment.</div>
+
+    <div class="why-grid">
+      
+      <!-- Card 1: Quality -->
+      <div class="why-item">
+       <div class="why-icon">🍋</div>
+        <span class="tag">100% ITALY</span>
+        <h3>Only Sicilian lemons</h3>
+        <p>Lemons from Sicily, Campania and Calabria. Hand-picked at peak ripeness. Cold-pressed without heat.</p>
+      </div>
+
+      <!-- Card 2: Unique feature -->
+      <div class="why-item">
+        <div class="why-icon">✨</div>
+        <span class="tag">SIGNATURE FEATURE</span>
+        <h3>Essential oil capsule</h3>
+        <p>Lemon essential oil in the bottle neck. Every pour adds fresh drops — as if just squeezed.</p>
+      </div>
+
+      <!-- Card 3: Consistency -->
+      <div class="why-item">
+        <div class="why-icon">📊</div>
+        <span class="tag">CONSISTENCY</span>
+        <h3>The same taste every time</h3>
+        <p>Dozens of blind tests every year. LIMMI consistently scores top marks, beating competitors.</p>
+      </div>
+
+      <!-- Card 4: Convenience -->
+      <div class="why-item">
+        <div class="why-icon">🥤</div>
+        <span class="tag">CONVENIENCE</span>
+        <h3>No need to cut lemons</h3>
+        <p>Open — add — done. No boards, knives, pips or waste.</p>
+      </div>
+
+      <!-- Card 5: Natural -->
+      <div class="why-item">
+        <div class="why-icon">🌿</div>
+        <span class="tag">NATURAL</span>
+        <h3>No sugar or preservatives</h3>
+        <p>Natural lemon juice. No artificial flavourings, colorants or GMO. Just vitamin C and goodness.</p>
+      </div>
+
+      <!-- Card 6: Savings -->
+      <div class="why-item">
+        <div class="why-icon">💰</div>
+        <span class="tag">SAVINGS</span>
+        <h3>One bottle = dozens of servings</h3>
+        <p>Available from 200 ml to 1 litre. Enough for many cocktails, lemonades and dishes.</p>
+      </div>
+
+    </div>
+  </div>
 </section>
-<!-- RECIPES -->
-<section class="recipes" id="recipes">
-<div class="container">
-<div class="section-title">Drinks with LIMMI</div>
-<div class="section-sub" style="margin-top:10px; opacity:.92; font-weight:700;">Alcoholic cards are available only for 18+. Alcohol is harmful to your health.</div>
-<div aria-label="Слайдер рецептов" class="slider">
-<button aria-label="Назад" class="navbtn" id="prev">‹</button>
-<div class="track" id="track" tabindex="0">
-<div class="recipe-card" data-badge="AIBOLIT" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: grapefruit juice 100 ml, orange juice 100 ml, banana 1/2 pc." data-img="Aibolit.png" data-need="Grapefruit juice 100 ml,Orange juice 100 ml,Banana 1/2 pc,Fruit LIMMI 20 ml,Strawberry puree 50 g,Strawberry syrup 20 ml" data-step1="Combine grapefruit juice 100 ml, orange juice 100 ml in a glass, shaker, or blender bowl." data-step2="Add banana 1/2 pc, Fruit LIMMI 20 ml and ice if needed." data-step3="Blend until smooth and serve immediately." data-title="Aibolit" data-type="nonalc" tabindex="0">
-<div class="imgwrap"><img alt="Aibolit" src="Aibolit.png"/></div>
-<div class="recipe-content">
-<span class="label">NON-ALCOHOLIC</span>
-<div class="recipe-title">Aibolit</div>
-<div class="recipe-sub">Grapefruit juice + Orange juice + Banana</div>
-<div class="mini-cta"><span class="mini-pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card" data-badge="BABY COLADA" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: pineapple juice 100 ml, coconut cream 30 ml, Lemon LIMMI 19 ml." data-img="BabyColada.png" data-need="Pineapple juice 100 ml,Coconut cream 30 ml,Lemon LIMMI 19 ml,Coconut syrup 15 ml" data-step1="Combine pineapple juice 100 ml, coconut cream 30 ml in a glass, shaker, or blender bowl." data-step2="Add Lemon LIMMI 19 ml, coconut syrup 15 ml and ice if needed." data-step3="Stir to balance the flavor and serve very cold." data-title="Baby Colada" data-type="nonalc" tabindex="0">
-<div class="imgwrap"><img alt="Baby Colada" src="BabyColada.png"/></div>
-<div class="recipe-content">
-<span class="label">NON-ALCOHOLIC</span>
-<div class="recipe-title">Baby Colada</div>
-<div class="recipe-sub">Pineapple juice + Coconut cream + Lemon LIMMI</div>
-<div class="mini-cta"><span class="mini-pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card" data-badge="HOMEMADE LEMONADE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: Lemon LIMMI 20 ml, cane sugar 25 ml, top with sparkling water." data-img="HomemadeLemonade.png" data-need="Lemon LIMMI 20 ml,Cane sugar 25 ml,Top with sparkling water" data-step1="Combine Lemon LIMMI 20 ml, cane sugar 25 ml in a glass, shaker, or blender bowl." data-step2="Add cane sugar 25 ml, top with sparkling water and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-title="Homemade Lemonade" data-type="nonalc" tabindex="0">
-<div class="imgwrap"><img alt="Homemade Lemonade" src="HomemadeLemonade.png"/></div>
-<div class="recipe-content">
-<span class="label">NON-ALCOHOLIC</span>
-<div class="recipe-title">Homemade Lemonade</div>
-<div class="recipe-sub">Lemon LIMMI + Cane sugar + Top with sparkling water</div>
-<div class="mini-cta"><span class="mini-pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card" data-badge="RASPBERRY ALOE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: raspberry puree 50 g, raspberry syrup 10 ml, aloe syrup 25 ml." data-img="RaspberryAloe.png" data-need="Raspberry puree 50 g,Raspberry syrup 10 ml,Aloe syrup 25 ml,Lemon LIMMI 20 ml,Top with sparkling water" data-step1="Combine raspberry puree 50 g, raspberry syrup 10 ml in a glass, shaker, or blender bowl." data-step2="Add aloe syrup 25 ml, Lemon LIMMI 20 ml and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-title="Raspberry Aloe" data-type="nonalc" tabindex="0">
-<div class="imgwrap"><img alt="Raspberry Aloe" src="RaspberryAloe.png"/></div>
-<div class="recipe-content">
-<span class="label">NON-ALCOHOLIC</span>
-<div class="recipe-title">Raspberry Aloe</div>
-<div class="recipe-sub">Raspberry puree + Raspberry syrup + Aloe syrup</div>
-<div class="mini-cta"><span class="mini-pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card" data-badge="AVOCADO SMOOTHIE" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: ripe avocado 1 pc, Lemon LIMMI 20 ml, cane sugar 20 ml." data-img="AvocadoSmoothie.png" data-need="Ripe avocado 1 pc,Lemon LIMMI 20 ml,Cane sugar 20 ml,sparkling water if desired" data-step1="Combine ripe avocado 1 pc, Lemon LIMMI 20 ml in a glass, shaker, or blender bowl." data-step2="Add cane sugar 20 ml, sparkling water if desired and ice if needed." data-step3="Top up with sparkling base, stir gently, and serve chilled." data-title="Avocado Smoothie" data-type="nonalc" tabindex="0">
-<div class="imgwrap"><img alt="Avocado Smoothie" src="AvocadoSmoothie.png"/></div>
-<div class="recipe-content">
-<span class="label">NON-ALCOHOLIC</span>
-<div class="recipe-title">Avocado Smoothie</div>
-<div class="recipe-sub">Ripe avocado + Lemon LIMMI + Cane sugar</div>
-<div class="mini-cta"><span class="mini-pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card" data-badge="SPIRULINA" data-desc="Refreshing non-alcoholic drink made with LIMMI. Includes: spirulina 5 g, fresh cucumber 100 g, celery stalk 50 g." data-img="Spirulina.png" data-need="Spirulina 5 g,Fresh cucumber 100 g,Celery stalk 50 g,Fresh green basil 15 g,Cane sugar 15 ml,Lemon LIMMI 15 ml" data-step1="Combine spirulina 5 g, fresh cucumber 100 g in a glass, shaker, or blender bowl." data-step2="Add celery stalk 50 g, fresh green basil 15 g and ice if needed." data-step3="Stir to balance the flavor and serve very cold." data-title="Spirulina" data-type="nonalc" tabindex="0">
-<div class="imgwrap"><img alt="Spirulina" src="Spirulina.png"/></div>
-<div class="recipe-content">
-<span class="label">NON-ALCOHOLIC</span>
-<div class="recipe-title">Spirulina</div>
-<div class="recipe-sub">Spirulina + Fresh cucumber + Celery stalk</div>
-<div class="mini-cta"><span class="mini-pill">INSTRUCTIONS 1–2–3</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card locked" data-alcinfo="Silver tequila 50 ml, Triple Sec 25 ml, Lemon LIMMI 15 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature tequila cocktail with a bright Lemon LIMMI accent." data-img="tequila-citrus.jpg" data-need="Silver tequila 50 ml,Triple Sec 25 ml,Lemon LIMMI 15 ml" data-title="Margarita (18+)" data-type="alc" tabindex="0">
-<div class="imgwrap"><img alt="Margarita" src="tequila-citrus.jpg"/></div>
-<div class="recipe-content">
-<span class="label lock">ALCOHOL 18+</span>
-<div class="recipe-title">Margarita</div>
-<div class="recipe-sub">Silver tequila + Triple Sec + Lemon LIMMI</div>
-<div class="mini-cta"><span class="mini-pill">RECIPE 18+</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card locked" data-alcinfo="Cointreau 50 ml, Cranberry vodka 25 ml, Cranberry drink 25 ml, Lemon LIMMI 15 ml. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="vodka-citrus.jpg" data-need="Cointreau 50 ml,Cranberry vodka 25 ml,Cranberry drink 25 ml,Lemon LIMMI 15 ml" data-title="Cosmopolitan (18+)" data-type="alc" tabindex="0">
-<div class="imgwrap"><img alt="Cosmopolitan" src="vodka-citrus.jpg"/></div>
-<div class="recipe-content">
-<span class="label lock">ALCOHOL 18+</span>
-<div class="recipe-title">Cosmopolitan</div>
-<div class="recipe-sub">Cointreau + Cranberry vodka + Cranberry drink</div>
-<div class="mini-cta"><span class="mini-pill">RECIPE 18+</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card locked" data-alcinfo="Blue gin 75 ml, Lemon LIMMI 15 ml, Simple syrup 15 ml, Albumin 5 g. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature gin cocktail with a bright Lemon LIMMI accent." data-img="gin-tonic.jpg" data-need="Blue gin 75 ml,Lemon LIMMI 15 ml,Simple syrup 15 ml,Albumin 5 g" data-title="Gimlet (18+)" data-type="alc" tabindex="0">
-<div class="imgwrap"><img alt="Gimlet" src="gin-tonic.jpg"/></div>
-<div class="recipe-content">
-<span class="label lock">ALCOHOL 18+</span>
-<div class="recipe-title">Gimlet</div>
-<div class="recipe-sub">Blue gin + Lemon LIMMI + Simple syrup</div>
-<div class="mini-cta"><span class="mini-pill">RECIPE 18+</span><span>Open →</span></div>
-</div>
-</div>
-<div class="recipe-card locked" data-alcinfo="Vodka vanilla 25 ml, Passion fruit puree 50 g, Lemon LIMMI 10 ml, Simple syrup, Sparkling wine. Balanced adult cocktail with LIMMI lemon acidity and expressive presentation." data-badge="18+" data-desc="Signature vodka cocktail with a bright Lemon LIMMI accent." data-img="vodka-citrus.jpg" data-need="Vodka vanilla 25 ml,Passion fruit puree 50 g,Lemon LIMMI 10 ml,Simple syrup,Sparkling wine" data-title="Pornstar Martini (18+)" data-type="alc" tabindex="0">
-<div class="imgwrap"><img alt="Pornstar Martini" src="vodka-citrus.jpg"/></div>
-<div class="recipe-content">
-<span class="label lock">ALCOHOL 18+</span>
-<div class="recipe-title">Pornstar Martini</div>
-<div class="recipe-sub">Vanilla vodka + Passion fruit puree + Lemon LIMMI</div>
-<div class="mini-cta"><span class="mini-pill">RECIPE 18+</span><span>Open →</span></div>
-</div>
-</div>
-</div>
-<button aria-label="Вперёд" class="navbtn" id="next">›</button>
-</div>
-<div aria-label="Пагинация" class="dots" id="dots"></div>
-</div>
+
+    <!-- RECIPES -->
+  <section class="recipes" id="recipes">
+    <div class="container">
+      <div class="section-title">Drinks with LIMMI</div>
+      <div class="section-sub" style="margin-top:10px; opacity:.92; font-weight:700;">Alcoholic cards are available for 18+ only. Alcohol is harmful to your health.</div>
+      
+      <div class="slider" aria-label="Recipe slider">
+        <button class="navbtn" id="prev" aria-label="Previous">‹</button>
+
+        <div class="track" id="track" tabindex="0">
+
+          <!-- 1. Aibolit -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="AIBOLIT" data-title="Aibolit"
+               data-desc="A refreshing non-alcoholic drink based on LIMMI. Contains: grapefruit juice 100 ml, orange juice 100 ml, banana 1/2 pc."
+               data-img="Aibolit.png"
+               data-step1="Combine grapefruit juice 100 ml and orange juice 100 ml in a glass, shaker or blender."
+               data-step2="Add banana 1/2 pc, Fruit LIMMI 20 ml and ice if needed."
+               data-step3="Blend until smooth and serve immediately."
+               data-need="Grapefruit juice 100 ml,Orange juice 100 ml,Banana 1/2 pc,Fruit LIMMI 20 ml">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Aibolit.png" alt="Aibolit"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Aibolit</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Grapefruit</span>
+                <span class="ing-chip">Orange</span>
+                <span class="ing-chip">Banana</span>
+                <span class="ing-chip">LIMMI</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Watermelon -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="WATERMELON" data-title="Watermelon"
+               data-desc="A refreshing non-alcoholic drink based on LIMMI. Contains: watermelon puree 120 g, Fruit LIMMI 25 ml, watermelon syrup."
+               data-img="Watermelon.png"
+               data-step1="Combine watermelon puree 120 g and Fruit LIMMI 25 ml in a glass, shaker or blender."
+               data-step2="Add watermelon syrup and ice."
+               data-step3="Blend until smooth and serve immediately."
+               data-need="Watermelon puree 120 g,Fruit LIMMI 25 ml,Watermelon syrup,Ice">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Watermelon.png" alt="Watermelon"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Watermelon</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Watermelon</span>
+                <span class="ing-chip">Fruit LIMMI</span>
+                <span class="ing-chip">Syrup</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Basilio -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="BASILIO" data-title="Basilio"
+               data-desc="A refreshing non-alcoholic drink based on LIMMI. Contains: purple basil 25 g, Lemon LIMMI 15 ml, simple syrup 25 ml."
+               data-img="Basilio.png"
+               data-step1="Combine purple basil 25 g and Lemon LIMMI 15 ml in a glass, shaker or blender."
+               data-step2="Add simple syrup 25 ml, sparkling water and ice if needed."
+               data-step3="Top with sparkling water, stir gently and serve chilled."
+               data-need="Purple basil 25 g,Lemon LIMMI 15 ml,Simple syrup 25 ml,Sparkling water top">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Basilio.png" alt="Basilio"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Basilio</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Basil</span>
+                <span class="ing-chip">Lemon LIMMI</span>
+                <span class="ing-chip">Simple syrup</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Baby Colada -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="BABY" data-title="Baby Colada"
+               data-desc="A refreshing non-alcoholic drink based on LIMMI. Contains: pineapple juice 100 ml, coconut cream 30 ml, Lemon LIMMI 19 ml."
+               data-img="BabyColada.png"
+               data-step1="Combine pineapple juice 100 ml and coconut cream 30 ml in a glass, shaker or blender."
+               data-step2="Add Lemon LIMMI 19 ml, coconut syrup 15 ml and ice if needed."
+               data-step3="Stir to balance the flavour and serve ice cold."
+               data-need="Pineapple juice 100 ml,Coconut cream 30 ml,Lemon LIMMI 19 ml,Coconut syrup 15 ml">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="BabyColada.png" alt="Baby Colada"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Baby Colada</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Pineapple</span>
+                <span class="ing-chip">Coconut cream</span>
+                <span class="ing-chip">LIMMI</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Pear Lemonade -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="PEAR" data-title="Pear Lemonade"
+               data-desc="A refreshing non-alcoholic drink based on LIMMI. Contains: pear puree 80 g, Lemon LIMMI 20 ml, pear syrup 20 ml."
+               data-img="PearLemonade.png"
+               data-step1="Combine pear puree 80 g and Lemon LIMMI 20 ml in a glass, shaker or blender."
+               data-step2="Add pear syrup 20 ml, sparkling water and ice if needed."
+               data-step3="Top with sparkling water, stir gently and serve chilled."
+               data-need="Pear puree 80 g,Lemon LIMMI 20 ml,Pear syrup 20 ml,Sparkling water top">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="PearLemonade.png" alt="Pear Lemonade"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Pear Lemonade</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Pear</span>
+                <span class="ing-chip">Lemon LIMMI</span>
+                <span class="ing-chip">Pear syrup</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Homemade Lemonade -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="HOMEMADE" data-title="Homemade Lemonade"
+               data-desc="A classic refreshing lemonade based on LIMMI."
+               data-img="HomemadeLemonade.png"
+               data-step1="Combine Lemon LIMMI 20 ml and cane sugar 25 ml in a glass."
+               data-step2="Add ice and top with sparkling water."
+               data-step3="Stir gently and serve with a lemon slice."
+               data-need="Lemon LIMMI 20 ml,Cane sugar 25 ml,Sparkling water,Ice,Lemon slice">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="HomemadeLemonade.png" alt="Homemade Lemonade"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Homemade Lemonade</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">LIMMI</span>
+                <span class="ing-chip">Sugar</span>
+                <span class="ing-chip">Sparkling water</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Cranberry Lemonade -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="CRANBERRY" data-title="Cranberry Lemonade"
+               data-desc="A refreshing non-alcoholic drink based on LIMMI. Contains: cranberry 65 g, cranberry syrup 30 ml, Fruit LIMMI 20 ml."
+               data-img="CranberryLemonade.png"
+               data-step1="Combine cranberry or cranberry puree 65 g and cranberry syrup 30 ml in a glass, shaker or blender."
+               data-step2="Add Fruit LIMMI 20 ml, sparkling water and ice."
+               data-step3="Top with sparkling water, stir gently and serve chilled."
+               data-need="Cranberry or cranberry puree 65 g,Cranberry syrup 30 ml,Fruit LIMMI 20 ml,Sparkling water top">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="CranberryLemonade.png" alt="Cranberry Lemonade"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Cranberry Lemonade</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Cranberry</span>
+                <span class="ing-chip">Cranberry syrup</span>
+                <span class="ing-chip">LIMMI</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Lavender -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="LAVENDER" data-title="Lavender"
+               data-desc="A refreshing non-alcoholic drink based on LIMMI. Contains: lavender syrup 20 ml, Lemon LIMMI 20 ml, sparkling water."
+               data-img="Lavender.png"
+               data-step1="Combine lavender syrup 20 ml and Lemon LIMMI 20 ml in a glass."
+               data-step2="Add ice and top with sparkling water."
+               data-step3="Top with sparkling water, stir gently and serve chilled."
+               data-need="Lavender syrup 20 ml,Lemon LIMMI 20 ml,Sparkling water top">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Lavender.png" alt="Lavender"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Lavender</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Lavender</span>
+                <span class="ing-chip">Lemon LIMMI</span>
+                <span class="ing-chip">Sparkling water</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Raspberry Aloe -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="RASPBERRY" data-title="Raspberry Aloe"
+               data-desc="A berry drink with notes of aloe and lemon."
+               data-img="RaspberryAloe.png"
+               data-step1="Combine raspberry puree 50 g and raspberry syrup 10 ml in a glass."
+               data-step2="Add aloe syrup 25 ml, Lemon LIMMI 20 ml and ice."
+               data-step3="Top with sparkling water and stir gently."
+               data-need="Raspberry puree 50 g,Raspberry syrup 10 ml,Aloe syrup 25 ml,Lemon LIMMI 20 ml,Sparkling water">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="RaspberryAloe.png" alt="Raspberry Aloe"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Raspberry Aloe</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Raspberry</span>
+                <span class="ing-chip">Aloe</span>
+                <span class="ing-chip">Lemon LIMMI</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. Avocado Smoothie -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="SMOOTHIE" data-title="Avocado Smoothie"
+               data-desc="A nutritious and filling smoothie with avocado and lemon."
+               data-img="AvocadoSmoothie.png"
+               data-step1="Combine 1 avocado and Lemon LIMMI 20 ml in a blender."
+               data-step2="Add cane sugar 20 ml and ice."
+               data-step3="Blend until smooth and serve."
+               data-need="Avocado 1 pc,Lemon LIMMI 20 ml,Cane sugar 20 ml,Ice">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="AvocadoSmoothie.png" alt="Avocado Smoothie"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Avocado Smoothie</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Avocado</span>
+                <span class="ing-chip">Lemon LIMMI</span>
+                <span class="ing-chip">Sugar</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 11. Spirulina -->
+          <div class="recipe-card" tabindex="0"
+               data-type="nonalc" data-badge="SPIRULINA" data-title="Spirulina"
+               data-desc="A green detox drink with superfoods."
+               data-img="Spirulina.png"
+               data-step1="Combine spirulina 5 g, cucumber 100 g and celery 50 g in a blender."
+               data-step2="Add basil 15 g, cane sugar 15 ml, Lemon LIMMI 15 ml."
+               data-step3="Stir to balance the flavour and serve chilled."
+               data-need="Spirulina 5 g,Cucumber 100 g,Celery 50 g,Basil 15 g,Cane sugar 15 ml,Lemon LIMMI 15 ml">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Spirulina.png" alt="Spirulina"></div>
+            <div class="recipe-content">
+              <span class="label">NON-ALCOHOLIC</span>
+              <div class="recipe-title">Spirulina</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Spirulina</span>
+                <span class="ing-chip">Cucumber</span>
+                <span class="ing-chip">Celery</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 12. Margarita 18+ -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc" data-badge="18+" data-title="Margarita"
+               data-desc="A signature tequila cocktail with a bright LIMMI lemon accent."
+               data-img="Margarita.png"
+               data-alcinfo="Silver tequila 50 ml, Triple sec 25 ml, LIMMI lemon 15 ml. A balanced adult cocktail with LIMMI's lemon acidity and an expressive presentation."
+               data-step1="Rim the glass with salt. Combine silver tequila 50 ml, triple sec 25 ml and Lemon LIMMI 15 ml in a shaker with ice."
+               data-step2="Shake vigorously for 12–15 seconds."
+               data-step3="Strain into a chilled salt-rimmed glass and serve."
+               data-need="Silver tequila 50 ml,Triple sec 25 ml,LIMMI lemon 15 ml">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Margarita.png" alt="Margarita"></div>
+            <div class="recipe-content">
+              <span class="label lock">ALCOHOLIC 18+</span>
+              <div class="recipe-title">Margarita</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Tequila</span>
+                <span class="ing-chip">Triple sec</span>
+                <span class="ing-chip">LIMMI</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 13. Cosmopolitan 18+ -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc" data-badge="18+" data-title="Cosmopolitan"
+               data-desc="A signature vodka cocktail with a bright LIMMI lemon accent."
+               data-img="Cosmopolitan.png"
+               data-alcinfo="Cointreau 50 ml, Cranberry vodka 25 ml, Cranberry juice 25 ml, LIMMI lemon 15 ml. A balanced adult cocktail with LIMMI's lemon acidity and an expressive presentation."
+               data-step1="Combine Cointreau 50 ml, cranberry vodka 25 ml and Lemon LIMMI 15 ml in a shaker with ice."
+               data-step2="Add cranberry juice 25 ml and shake vigorously for 12–15 seconds."
+               data-step3="Strain into a chilled martini glass and serve."
+               data-need="Cointreau 50 ml,Cranberry vodka 25 ml,Cranberry juice 25 ml,LIMMI lemon 15 ml">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Cosmopolitan.png" alt="Cosmopolitan"></div>
+            <div class="recipe-content">
+              <span class="label lock">ALCOHOLIC 18+</span>
+              <div class="recipe-title">Cosmopolitan</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Cointreau</span>
+                <span class="ing-chip">Cranberry vodka</span>
+                <span class="ing-chip">LIMMI</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 14. Gimlet 18+ -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc" data-badge="18+" data-title="Gimlet"
+               data-desc="A signature gin cocktail with a bright LIMMI lemon accent."
+               data-img="Gimlet.png"
+               data-alcinfo="Blue Gin 75 ml, Lemon LIMMI 15 ml, Simple syrup 15 ml, Albumin 5 g. A balanced adult cocktail with LIMMI's lemon acidity and an expressive presentation."
+               data-step1="Combine Blue Gin 75 ml, Lemon LIMMI 15 ml and albumin 5 g in a shaker without ice."
+               data-step2="Dry shake for 10 seconds, add simple syrup 15 ml and ice, shake for another 12 seconds."
+               data-step3="Strain into a chilled glass and serve."
+               data-need="Blue Gin 75 ml,Lemon LIMMI 15 ml,Simple syrup 15 ml,Albumin 5 g">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="Gimlet.png" alt="Gimlet"></div>
+            <div class="recipe-content">
+              <span class="label lock">ALCOHOLIC 18+</span>
+              <div class="recipe-title">Gimlet</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Gin</span>
+                <span class="ing-chip">Lemon LIMMI</span>
+                <span class="ing-chip">Simple syrup</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 15. Porn Star Martini 18+ -->
+          <div class="recipe-card locked" tabindex="0"
+               data-type="alc" data-badge="18+" data-title="Porn Star Martini"
+               data-desc="A signature vodka cocktail with a bright LIMMI lemon accent."
+               data-img="PornStarMartini.png"
+               data-alcinfo="Vanilla vodka 25 ml, Passion fruit puree 50 g, Lemon LIMMI 10 ml, Simple syrup, Sparkling wine. A balanced adult cocktail with LIMMI's lemon acidity and an expressive presentation."
+               data-step1="Combine vanilla vodka 25 ml, passion fruit puree 50 g and Lemon LIMMI 10 ml in a shaker with ice."
+               data-step2="Add simple syrup to taste and shake vigorously for 12–15 seconds."
+               data-step3="Strain into a martini glass, serve a small glass of sparkling wine on the side."
+               data-need="Vanilla vodka 25 ml,Passion fruit puree 50 g,Lemon LIMMI 10 ml,Simple syrup,Sparkling wine">
+            <div class="card-type-strip"></div>
+            <div class="imgwrap"><img loading="lazy" src="PornStarMartini.png" alt="Porn Star Martini"></div>
+            <div class="recipe-content">
+              <span class="label lock">ALCOHOLIC 18+</span>
+              <div class="recipe-title">Porn Star Martini</div>
+              <div class="card-ingredients">
+                <span class="ing-chip">Vanilla vodka</span>
+                <span class="ing-chip">Passion fruit</span>
+                <span class="ing-chip">LIMMI</span>
+              </div>
+              <div class="card-cta">
+                <span class="cta-text">View recipe</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="navbtn" id="next" aria-label="Next">›</button>
+      </div>
+
+      <div class="dots" id="dots" aria-label="Pagination"></div>
+    </div>
+  </section>
+
+  <!-- BUY -->
+  <section class="buy" id="buy">
+    <div class="container">
+      <div class="section-title">Where to buy LIMMI</div>
+      <div class="section-sub">LIMMI is available on major online marketplaces and the Globus online store.</div>
+
+      <div class="buy-actions">
+        <a class="btn btn-wb" href="https://www.wildberries.ru/brands/23485-limmi?sort=popular&page=1&foriginal=1" target="_blank" rel="noopener noreferrer">Wildberries</a>
+        <a class="btn btn-ozon" href="https://www.ozon.ru/category/limonnyy-sok-31526/limmi-75977239/" target="_blank" rel="noopener noreferrer">Ozon</a>
+        <a class="btn btn-globus" href="https://online.globus.ru/brand/26178" target="_blank" rel="noopener noreferrer">Globus</a>
+      </div>
+    </div>
+  </section>
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-title">Frequently Asked Questions</div>
+    <div class="section-sub">Answers to the most common questions about LIMMI</div>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <img src="lemon.svg" alt="Question" style="width: 28px; height: 28px;">
+          <h4>How is LIMMI different from fresh lemon?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer" id="faq-answer-1" role="region">
+          <p>LIMMI delivers consistent taste and convenience in every bottle. No need to wash, cut or squeeze lemons — just open and add. Perfect for your home bar.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <img src="lemon.svg" alt="Question" style="width: 28px; height: 28px;">
+          <h4>How long does an opened bottle keep?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer" id="faq-answer-2" role="region">
+          <p>After opening, store in the fridge at +2°C to +4°C within the best-before date. The bottle has a convenient dispenser that keeps the product fresh. The product may contain natural sediment. Shake before use.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <img src="lemon.svg" alt="Question" style="width: 28px; height: 28px;">
+          <h4>Is LIMMI suitable for baking and cooking?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer" id="faq-answer-3" role="region">
+          <p>Yes! LIMMI works perfectly in marinades, sauces, baking and desserts. It is a full replacement for fresh lemon juice.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <img src="lemon.svg" alt="Question" style="width: 28px; height: 28px;">
+          <h4>Which lemons are used to make LIMMI?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer" id="faq-answer-4" role="region">
+          <p>LIMMI is made from 100% Sicilian lemons grown on sunny Italian plantations. No concentrate, no additives.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <img src="lemon.svg" alt="Question" style="width: 28px; height: 28px;">
+          <h4>Does it contain sugar?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer" id="faq-answer-5" role="region">
+          <p>The classic LIMMI lemon juice contains no sugar. It is pure natural lemon juice. For sweet drinks we recommend adding syrups to taste. The sweet LIMMI version uses fructose syrup.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <img src="lemon.svg" alt="Question" style="width: 28px; height: 28px;">
+          <h4>Where can I buy LIMMI?</h4>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-answer" id="faq-answer-6" role="region">
+          <p>LIMMI is available on Wildberries, Ozon and Globus hypermarkets. Links are in the "Where to buy" section.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- BUY -->
-<section class="buy" id="buy">
-<div class="container">
-<div class="section-title">Where to buy LIMMI</div>
-<div class="section-sub">You can order LIMMI on major marketplaces and via the Globus online store.</div>
-<div class="buy-actions">
-<a class="btn btn-primary" href="https://www.wildberries.ru/brands/23485-limmi?sort=popular&page=1&amp;foriginal=1" rel="noopener noreferrer" target="_blank">Wildberries</a>
-<a class="btn btn-dark" href="https://www.ozon.ru/category/limonnyy-sok-31526/limmi-75977239/" rel="noopener noreferrer" target="_blank">Ozon</a>
-<a class="btn btn-primary" href="https://online.globus.ru/brand/26178" rel="noopener noreferrer" target="_blank">Globus</a>
-</div>
-</div>
-</section>
+
 </main>
+
 <footer>
-<div class="container">
-<div class="foot">
-<div>
-<div style="font-weight:1000; letter-spacing:.6px;">LIMMI</div>
-<small>The perfect lemon for drinks. Education-first approach: we show real use cases.</small>
-</div>
-<div>
-<small>
-          © 2026<br/>
-          Contacts / social media here
+  <div class="container">
+    <div class="foot">
+      <div>
+        <div style="font-weight:1000; letter-spacing:.6px;">LIMMI</div>
+        <small>The perfect lemon for drinks. Education-first approach: we show real usage scenarios.</small>
+      <nav class="foot-nav" aria-label="Site navigation">
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#recipes">Recipes</a>
+        <a href="#buy">Where to buy</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      </div>
+      <div>
+        <small>
+          © 2026 LIMMI Russia<br>
+          Official distributor in Russia
         </small>
-</div>
-</div>
-</div>
+      </div>
+    </div>
+  </div>
 </footer>
+
 <!-- MODAL -->
-<div aria-hidden="true" class="modal-backdrop" id="modalBackdrop">
-<div aria-labelledby="modalTitle" aria-modal="true" class="modal" role="dialog">
-<div class="modal-media">
-<img alt="" id="modalImg" src="">
-<button aria-label="Закрыть" class="modal-close" id="modalClose">✕</button>
-</img></div>
-<div class="modal-body">
-<span class="modal-badge" id="modalBadge">RECIPE</span>
-<h3 id="modalTitle">Recipe</h3>
-<p class="desc" id="modalDesc"></p>
-<div class="instructions">
-<div class="instructions-head">INSTRUCTIONS</div>
-<div class="steps">
-<div class="step"><div class="num">1</div><p id="modalStep1"></p></div>
-<div class="step"><div class="num">2</div><p id="modalStep2"></p></div>
-<div class="step"><div class="num">3</div><p id="modalStep3"></p></div>
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-media">
+      <img id="modalImg" src="" alt="" />
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <span class="modal-badge" id="modalBadge">RECIPE</span>
+      <h3 id="modalTitle">Recipe</h3>
+      <p class="desc" id="modalDesc"></p>
+
+      <div class="instructions">
+        <div class="instructions-head">RECIPE</div>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><p id="modalStep1"></p></div>
+          <div class="step"><div class="num">2</div><p id="modalStep2"></p></div>
+          <div class="step"><div class="num">3</div><p id="modalStep3"></p></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div style="font-weight:1000;">🍸 YOU'LL NEED:</div><button class="copy-btn" id="copyIngrBtn">📋 Copy</button></div>
+        <div class="need" id="modalNeed"></div>
+      </div>
+
+      <div class="alc-warn" id="alcWarn" style="display:none; margin-top:12px; padding:10px 14px; background:#fff3cd; border-radius:12px; font-size:13px; font-weight:800; color:#856404;">🔞 Alcohol is harmful to your health</div>
+
+      <div class="modal-bottom">
+        <div class="qrbox" title="Replace placeholder with real QR">
+          <div class="qrmini" aria-hidden="true"></div>
+        </div>
+
+        <button class="btn btn-primary" id="modalOk">Got it</button>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<div>
-<div style="font-weight:1000; margin-bottom:10px;">YOU WILL NEED:</div>
-<div class="need" id="modalNeed"></div>
-</div>
-<div class="modal-bottom">
-<div class="qrbox" title="Заменишь заглушку на реальный QR">
-<div aria-hidden="true" class="qrmini"></div>
-<div>SCAN FOR MORE</div>
-</div>
-<button class="btn btn-primary" id="modalOk">Got it</button>
-</div>
-</div>
-</div>
-</div>
+
 <!-- AGE GATE (moved BEFORE script) -->
-<div aria-hidden="true" class="age-backdrop" id="ageBackdrop">
-<div aria-labelledby="ageTitle" aria-modal="true" class="age-modal" role="dialog">
-<div class="age-top">
-<h3 id="ageTitle">Confirm your age</h3>
-<p>Alcoholic cocktails are available only to users aged 18+. Please choose an option below.</p>
+<div class="age-backdrop" id="ageBackdrop" aria-hidden="true">
+  <div class="age-modal" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+    <div class="age-top">
+      <h3 id="ageTitle">Confirm your age</h3>
+      <p>Alcoholic cocktails are available for users aged 18+ only. Please choose below.</p>
+    </div>
+
+    <div class="age-actions">
+      <button class="btn btn-primary" id="ageYes">I'm over 18</button>
+      <button class="btn btn-dark" id="ageNo">I'm under 18</button>
+    </div>
+  </div>
 </div>
-<div class="age-actions">
-<button class="btn btn-primary" id="ageYes">I am over 18</button>
-<button class="btn btn-secondary" id="ageNo">I am under 18</button>
-</div>
-</div>
-</div>
+
 <script>
   // ===== Header behavior =====
   const header = document.getElementById('header');
@@ -1395,15 +2777,17 @@
   function buildDots(){
     dotsWrap.innerHTML = '';
     const total = track.querySelectorAll('.recipe-card').length;
-    const visible = Math.max(1, Math.round(track.clientWidth / slideWidth()));
+    if(!total) return;
+    const sw = slideWidth();
+    const visible = Math.max(1, Math.round(track.clientWidth / sw));
     const pages = Math.max(1, Math.ceil(total / visible));
 
-    for(let i=0;i<pages;i++){
+    for(let i = 0; i < pages; i++){
       const b = document.createElement('button');
-      b.className = 'dotbtn' + (i===0 ? ' active' : '');
-      b.setAttribute('aria-label', `Страница ${i+1}`);
-      b.addEventListener('click', ()=>{
-        track.scrollTo({ left: i * track.clientWidth, behavior:'smooth' });
+      b.className = 'dotbtn' + (i === 0 ? ' active' : '');
+      b.setAttribute('aria-label', `Page ${i + 1}`);
+      b.addEventListener('click', () => {
+        track.scrollTo({ left: i * visible * sw, behavior: 'smooth' });
       });
       dotsWrap.appendChild(b);
     }
@@ -1412,8 +2796,11 @@
   function setActiveDot(){
     const dots = [...dotsWrap.querySelectorAll('.dotbtn')];
     if(!dots.length) return;
-    const page = Math.round(track.scrollLeft / track.clientWidth);
-    dots.forEach((d, idx)=> d.classList.toggle('active', idx===page));
+    const sw = slideWidth();
+    const visible = Math.max(1, Math.round(track.clientWidth / sw));
+    const step = visible * sw;
+    const page = Math.min(dots.length - 1, Math.round(track.scrollLeft / step));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === page));
   }
 
   window.addEventListener('resize', buildDots);
@@ -1440,54 +2827,70 @@
     need: document.getElementById('modalNeed'),
   };
 
-  function openModalFromCard(card){
-    const type = card.dataset.type || 'nonalc';
+// ===== Focus trap helpers =====
+function getFocusable(container) {
+  return [...container.querySelectorAll(
+    'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])'
+  )].filter(el => el.offsetParent !== null);
+}
 
-    modal.badge.textContent = card.dataset.badge || 'RECIPE';
-    modal.title.textContent = card.dataset.title || 'Напиток';
-    modal.desc.textContent  = card.dataset.desc  || '';
-    modal.img.src = card.dataset.img || '';
-    modal.img.alt = card.dataset.title || 'Напиток';
+let _lastFocused = null;
 
-    if(type === 'alc'){
-      // В этой версии не показываем пошаговые рецепты алкоголя.
-      // Можно хранить описание для 18+ в data-alcinfo и спиjuice в data-need (как плейсхолдеры под взрослую версию).
-      modal.s1.textContent = card.dataset.alcinfo || 'Контент 18+. (Заполнить описание на взрослой версии сайта.)';
-      modal.s2.textContent = 'Alcohol is harmful to your health.';
-      modal.s3.textContent = 'Если вам есть 18+, выберите «I am over 18» в окне подтверждения возраста.';
-
-      modal.need.innerHTML = '';
-      const items = (card.dataset.need || '18+').split(',').map(s => s.trim()).filter(Boolean);
-      items.forEach(it => {
-        const chip = document.createElement('div');
-        chip.className = 'chip';
-        chip.textContent = it;
-        modal.need.appendChild(chip);
-      });
+function trapFocus(e, container) {
+  const focusable = getFocusable(container);
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last  = focusable[focusable.length - 1];
+  if (e.key === 'Tab') {
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
     } else {
-      modal.s1.textContent = card.dataset.step1 || '';
-      modal.s2.textContent = card.dataset.step2 || '';
-      modal.s3.textContent = card.dataset.step3 || '';
-
-      modal.need.innerHTML = '';
-      const items = (card.dataset.need || '').split(',').map(s => s.trim()).filter(Boolean);
-      items.forEach(it => {
-        const chip = document.createElement('div');
-        chip.className = 'chip';
-        chip.textContent = it;
-        modal.need.appendChild(chip);
-      });
+      if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
     }
-
-    backdrop.classList.add('open');
-    backdrop.setAttribute('aria-hidden', 'false');
-    okBtn.focus();
   }
+}
 
-  function closeModal(){
-    backdrop.classList.remove('open');
-    backdrop.setAttribute('aria-hidden', 'true');
-  }
+function openModalFromCard(card){
+  const type = card.dataset.type || 'nonalc';
+  _lastFocused = document.activeElement;
+
+  modal.badge.textContent = card.dataset.badge || 'RECIPE';
+  modal.title.textContent = card.dataset.title || 'Drink';
+  modal.desc.textContent  = card.dataset.desc  || '';
+  modal.img.src = card.dataset.img || '';
+  modal.img.alt = card.dataset.title || 'Drink';
+
+    // Show steps for all cards; warning only for alc
+  modal.s1.textContent = card.dataset.step1 || '';
+  modal.s2.textContent = card.dataset.step2 || '';
+  modal.s3.textContent = card.dataset.step3 || '';
+
+  modal.need.innerHTML = '';
+  const needItems = (card.dataset.need || '').split(',').map(s => s.trim()).filter(Boolean);
+  needItems.forEach(it => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = it;
+    modal.need.appendChild(chip);
+  });
+
+  const alcWarn = document.getElementById('alcWarn');
+  if (alcWarn) alcWarn.style.display = (type === 'alc') ? 'block' : 'none';
+
+  document.body.classList.add('noscroll');
+  backdrop.classList.add('open');
+  backdrop.setAttribute('aria-hidden', 'false');
+  const modalBody = document.querySelector('.modal-body');
+if (backdrop) backdrop.scrollTop = 0;
+okBtn.focus();
+}
+
+function closeModal(){
+  backdrop.classList.remove('open');
+  backdrop.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('noscroll');
+  if (_lastFocused) { _lastFocused.focus(); _lastFocused = null; }
+}
 
   document.querySelectorAll('.recipe-card').forEach(card => {
     card.addEventListener('click', () => openModalFromCard(card));
@@ -1505,6 +2908,8 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && backdrop?.classList.contains('open')) closeModal();
+    if (backdrop?.classList.contains('open')) trapFocus(e, backdrop.querySelector('.modal'));
+    if (ageBackdrop?.classList.contains('open')) trapFocus(e, ageBackdrop.querySelector('.age-modal'));
   });
 
   // ===== Age Gate logic =====
@@ -1514,19 +2919,23 @@
   const ageNo = document.getElementById('ageNo');
 
   function openAgeGate(){
+    _lastFocused = document.activeElement;
     ageBackdrop.classList.add('open');
     ageBackdrop.setAttribute('aria-hidden', 'false');
     document.body.classList.add('noscroll');
+    setTimeout(() => { const f = getFocusable(ageBackdrop)[0]; if(f) f.focus(); }, 50);
   }
 
   function closeAgeGate(){
     ageBackdrop.classList.remove('open');
     ageBackdrop.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('noscroll');
+    if (_lastFocused) { _lastFocused.focus(); _lastFocused = null; }
   }
 
   function applyAgeFilter(value){
     try { localStorage.setItem(AGE_KEY, value); } catch(e) {}
+    document.documentElement.classList.remove('pre-under18');
     document.body.classList.toggle('under18', value === 'under18');
     buildDots();
     setActiveDot();
@@ -1571,6 +2980,233 @@
 
   // start when DOM ready (extra safety)
   window.addEventListener('DOMContentLoaded', initAgeGate);
+
+// ===== FAQ Accordion =====
+function initFaq() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+
+    function toggle() {
+      const isOpen = item.classList.contains('open');
+      // Close all others
+      faqItems.forEach(other => {
+        other.classList.remove('open');
+        other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      // Toggle current
+      if (!isOpen) {
+        item.classList.add('open');
+        question.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    question.addEventListener('click', toggle);
+    question.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+}
+
+// Run after page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFaq);
+} else {
+  initFaq();
+}
+
+// ===== PRODUCTS MODAL =====
+const productModal = document.getElementById('productModal');
+const productModalClose = document.getElementById('productModalClose');
+const productCards = document.querySelectorAll('.product-card');
+
+// Product data
+const productsData = {
+  classic: {
+    title: 'LIMMI',
+    subtitle: 'Lemon juice',
+    desc: 'Classic lemon juice from handpicked Sicilian lemons. Cold-pressed, with no added sugar, flavourings or colorants. Preserves maximum vitamin C and natural taste.',
+    specs: {
+      volume: '200 ml / 1 l',
+      composition: 'Lemon juice (99.85%), lemon peel essential oil, antioxidant: potassium metabisulphite',
+      storage: 'Store in a cool, dry place. After opening, refrigerate at +2℃ to +4℃ within the best-before date',
+      nutrition: 'Per 100 ml: 26 kcal / 0.3 g protein / 0 g fat / 2.3 g carbs',
+      shelfLife: '12 months',
+      features: 'Cold-pressed, essential oil capsule in bottle neck'
+    },
+    images: ['product-classic-1.png', 'product-classic-2.png', 'product-classic-3.png', 'product-classic-4.png', 'product-classic-5.png', 'product-classic-6.png', 'product-classic-7.png', 'product-classic-8.png']
+  },
+  sweet: {
+    title: 'LIMMI SWEET',
+    subtitle: 'Lemon juice with sweet taste',
+    desc: 'A unique product combining the taste and aroma of IGP Syracuse lemon juice with natural fructose syrup. Ideal for children, desserts and sweet cocktails.',
+    specs: {
+      volume: '250 ml',
+      composition: 'Lemon juice (59.8%), fructose syrup, lemon peel essential oil, antioxidant: potassium metabisulphite',
+      storage: 'Store in a cool, dry place. After opening, refrigerate at +2℃ to +4℃ within the best-before date',
+      nutrition: 'Per 100 ml: 105 kcal / 0.3 g protein / 0 g fat / 26 g carbs',
+      shelfLife: '12 months',
+      features: 'Sweet taste without sugar, ideal for children'
+    },
+    images: ['product-sweet-1.png', 'product-sweet-2.png', 'product-sweet-3.png', 'product-sweet-4.png', 'product-sweet-5.png', 'product-sweet-6.png', 'product-sweet-7.png']
+  }
+};
+
+// Open product modal
+function openProductModal(productId) {
+  const product = productsData[productId];
+  if (!product) return;
+  
+  // Populate data
+  document.getElementById('modalProductTitle').textContent = product.title;
+  document.getElementById('modalProductSubtitle').textContent = product.subtitle;
+  document.getElementById('modalProductDesc').textContent = product.desc;
+  
+  // Populate specs
+  const specsContainer = document.getElementById('modalProductSpecs');
+  specsContainer.innerHTML = '';
+  
+  const specItems = [
+    { label: 'Volume', value: product.specs.volume },
+    { label: 'Composition', value: product.specs.composition },
+    { label: 'Storage conditions', value: product.specs.storage },
+    { label: 'Nutrition', value: product.specs.nutrition },
+    { label: 'Shelf life', value: product.specs.shelfLife },
+    { label: 'Features', value: product.specs.features }
+  ];
+  
+  specItems.forEach(item => {
+    const specDiv = document.createElement('div');
+    specDiv.className = 'spec-item';
+    specDiv.innerHTML = `
+      <span class="spec-label">${item.label}</span>
+      <span class="spec-value">${item.value}</span>
+    `;
+    specsContainer.appendChild(specDiv);
+  });
+  
+  // Populate gallery
+  const galleryMain = document.getElementById('galleryMainImg');
+  const thumbsContainer = document.getElementById('galleryThumbs');
+  
+  galleryMain.src = product.images[0];
+  thumbsContainer.innerHTML = '';
+  
+  product.images.forEach((img, index) => {
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb' + (index === 0 ? ' active' : '');
+    thumb.innerHTML = `<img src="${img}" alt="Product photo">`;
+    thumb.addEventListener('click', () => {
+      galleryMain.src = img;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+    thumbsContainer.appendChild(thumb);
+  });
+  
+  // Open modal
+  productModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var buyBtn = document.querySelector('#productModal .product-buy .btn');
+    if (buyBtn) {
+      buyBtn.onclick = function(e) {
+        e.preventDefault();
+        closeProductModal();
+        setTimeout(function() {
+          window.location.href = buyBtn.getAttribute('href');
+        }, 200);
+      };
+    }
+  }, 50);
+}
+
+// Close product modal
+function closeProductModal() {
+  productModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+productModalClose.addEventListener('click', closeProductModal);
+productModal.addEventListener('click', (e) => {
+  if (e.target === productModal) closeProductModal();
+});
+
+// Product card click handlers
+productCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const productId = card.dataset.product;
+    openProductModal(productId);
+  });
+});
+
+// Close on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && productModal.classList.contains('open')) {
+    closeProductModal();
+  }
+});
+
+
+  // ━━━━━ FIX 1: Slider disabled state ━━━━━
+  function updateNavBtns(){
+    if(!prev || !next || !track) return;
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+  }
+  track?.addEventListener('scroll', () => requestAnimationFrame(updateNavBtns), { passive: true });
+  window.addEventListener('resize', updateNavBtns);
+  setTimeout(updateNavBtns, 120);
+
+  // ━━━━━ FIX 6: Scroll-to-top ━━━━━
+  const backToTop = document.getElementById('backToTop');
+  if(backToTop){
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+
+  // 1: Scroll-reveal
+  (function(){
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section:not(.hero)').forEach(s => {
+      const c = s.querySelector(':scope > .container');
+      if(c){ c.classList.add('reveal'); io.observe(c); }
+    });
+    document.querySelectorAll('.why-item, .about-card').forEach((el, i) => {
+      el.style.transitionDelay = (i % 3 * 0.1) + 's';
+      el.classList.add('reveal');
+      io.observe(el);
+    });
+  })();
+
+  // 7: Keyboard slider nav
+  track?.addEventListener('keydown', e => {
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); scrollByCards(-1); }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); scrollByCards(1); }
+  });
+
+  // 5: Copy ingredients
+  document.getElementById('copyIngrBtn')?.addEventListener('click', function(){
+    const items = [...document.querySelectorAll('#modalNeed .chip')].map(c => '• ' + c.textContent).join('\n');
+    navigator.clipboard?.writeText(items).then(() => {
+      this.textContent = '✓ Copied';
+      this.classList.add('copied');
+      setTimeout(() => { this.textContent = '📋 Copy'; this.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+      this.textContent = '✓ Copied';
+      setTimeout(() => this.textContent = '📋 Copy', 2000);
+    });
+  });
+
 </script>
+
+  <button id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
 </body>
 </html>

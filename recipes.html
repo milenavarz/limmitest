@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>LIMMI — Рецепты</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -512,6 +514,118 @@ max-height: 85vh;
 
 body.modal-open { overflow: hidden !important; position: fixed; width: 100%; height: 100%; top: 0; left: 0; right: 0; }
 
+
+    /* ━━━━━ Scroll-to-top button ━━━━━ */
+    #backToTop{
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      background: var(--lemon-yellow);
+      color: #000;
+      border: 0;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,.22);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .22s ease, transform .22s ease, box-shadow .18s ease;
+      pointer-events: none;
+      z-index: 300;
+    }
+    #backToTop.visible{
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #backToTop:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(0,0,0,.28);
+    }
+    html{ scroll-behavior: smooth; }
+
+  
+    /* ━━━━━ 1: Scroll-reveal ━━━━━ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .55s cubic-bezier(.4,0,.2,1),
+                  transform .55s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ━━━━━ 2: Hero scroll indicator ━━━━━ */
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      opacity: 0;
+      animation: hintFadeIn 1s ease 1.4s forwards,
+                 hintPulse 2.4s ease-in-out 2.4s infinite;
+      z-index: 2;
+    }
+    @keyframes hintFadeIn { to { opacity: .72; } }
+    @keyframes hintPulse {
+      0%,100% { transform: translateX(-50%) translateY(0);   opacity: .72; }
+      55%     { transform: translateX(-50%) translateY(8px); opacity: 1;   }
+    }
+    .hero-scroll-line {
+      width: 1.5px; height: 26px;
+      background: rgba(255,255,255,.75);
+      border-radius: 2px;
+    }
+    .hero-scroll-chevron { color: rgba(255,255,255,.9); font-size: 14px; line-height: 1; }
+
+    /* ━━━━━ 4: Footer nav ━━━━━ */
+    .foot-nav {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px;
+    }
+    .foot-nav a {
+      font-size: 13px; font-weight: 700; opacity: .68;
+      text-decoration: none; color: inherit; transition: opacity .15s;
+    }
+    .foot-nav a:hover { opacity: 1; }
+
+    /* ━━━━━ 5: Copy ingredients button ━━━━━ */
+    .copy-btn {
+      background: rgba(0,0,0,.06); border: 0; border-radius: 999px;
+      padding: 5px 12px; font-size: 12px; font-weight: 800;
+      cursor: pointer; font-family: inherit; white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .copy-btn:hover { background: rgba(0,0,0,.12); }
+    .copy-btn.copied { background: #d4edda; color: #155724; }
+
+    /* ━━━━━ 6: Empty search state ━━━━━ */
+    .empty-state {
+      display: none; flex-direction: column; align-items: center;
+      padding: 64px 20px; text-align: center; gap: 10px;
+    }
+    .empty-icon { font-size: 52px; line-height: 1; }
+    .empty-state h3 { font-size: 22px; font-weight: 1000; margin-top: 4px; }
+    .empty-state p { font-weight: 600; opacity: .7; max-width: 320px; line-height: 1.5; }
+    .empty-reset {
+      margin-top: 6px; background: var(--limmi-blue); color: #fff; border: 0;
+      border-radius: 999px; padding: 10px 22px; font-weight: 900; cursor: pointer;
+      font-size: 14px; font-family: inherit; transition: transform .12s;
+    }
+    .empty-reset:hover { transform: translateY(-2px); }
+
+    /* ━━━━━ 3: Active nav link ━━━━━ */
+    .navlinks a.nav-active { color: var(--lemon-yellow) !important; opacity: 1 !important; }
+    header.scrolled .navlinks a.nav-active { color: var(--limmi-blue) !important; }
 </style>
 </head>
 
@@ -525,7 +639,7 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
 
       <nav class="navlinks" aria-label="Навигация">
         <a href="index.html#about">О бренде</a>
-        <a href="#filters">Фильтр</a>
+        <a href="#filters" class="nav-active">Рецепты</a>
         <a href="index.html#buy">Где купить</a>
       </nav>
 
@@ -848,6 +962,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Вотермелонмен (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка 50 мл, Пюре арбуз 70 г, Сироп арбуз 15 мл, сок лимона LIMMI 15 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини водку 50 мл, пюре арбуза 70 г и лимонный LIMMI 15 мл в шейкере."
+          data-step2="Добавь арбузный сироп 15 мл и лёд, энергично взбей 10–12 секунд."
+          data-step3="Процеди в бокал со льдом, долей газированную воду и подавай."
           data-img="WatermelonMan.png"
           data-need="Водка 50 мл,Пюре арбуз 70 г,Сироп арбуз 15 мл,сок лимона LIMMI 15 мл,Газированная вода top">
           <div class="imgwrap"><img src="WatermelonMan.png" alt="Вотермелонмен"></div>
@@ -865,6 +982,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Холодный Глинтвейн (18+)"
           data-desc="Авторский коктейль на игристом с ярким лимонным акцентом LIMMI."
           data-alcinfo="Готовый глинтвейн 150 мл, сок лимона LIMMI 15 мл, Сахарный сироп по вкусу. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Налей готовый глинтвейн 150 мл в бокал, наполненный льдом."
+          data-step2="Добавь лимонный LIMMI 15 мл и сахарный сироп по вкусу."
+          data-step3="Аккуратно перемешай барной ложкой и подавай охлаждённым."
           data-img="ColdMulledWine.png"
           data-need="Готовый глинтвейн 150 мл,сок лимона LIMMI 15 мл,Сахарный сироп по вкусу">
           <div class="imgwrap"><img src="ColdMulledWine.png" alt="Холодный Глинтвейн"></div>
@@ -882,6 +1002,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Ананас дайкири (18+)"
           data-desc="Авторский коктейль на роме с ярким лимонным акцентом LIMMI."
           data-alcinfo="Ром светлый 50 мл, Сироп ананас 15 мл, Свежий ананас, сок лимона LIMMI 15 мл, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини ром светлый 50 мл, лимонный LIMMI 15 мл и альбумин 5 мл в шейкере без льда."
+          data-step2="Взбей насухо 10 секунд, добавь сироп ананас 15 мл и лёд, взбей ещё 12 секунд."
+          data-step3="Процеди в охлаждённый бокал, украси свежим ананасом и подавай."
           data-img="PineappleDaiquiri.png"
           data-need="Ром светлый 50 мл,Сироп ананас 15 мл,Свежий ананас,сок лимона LIMMI 15 мл,Альбумин 5 мл">
           <div class="imgwrap"><img src="PineappleDaiquiri.png" alt="Ананас дайкири"></div>
@@ -899,6 +1022,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Арбузный физ (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 50 мл, Пюре арбуз 50 г, сок лимона LIMMI 15 мл, Арбузный сироп 5 мл, Альбумин 5 г. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 50 мл, пюре арбуза 50 г, лимонный LIMMI 15 мл и альбумин 5 г в шейкере без льда."
+          data-step2="Взбей насухо 10 секунд, добавь арбузный сироп 5 мл и лёд, взбей ещё 12 секунд."
+          data-step3="Процеди в высокий бокал, долей газированную воду и подавай."
           data-img="WatermelonFizz.png"
           data-need="Джин 50 мл,Пюре арбуз 50 г,сок лимона LIMMI 15 мл,Арбузный сироп 5 мл,Альбумин 5 г">
           <div class="imgwrap"><img src="WatermelonFizz.png" alt="Арбузный физ"></div>
@@ -916,6 +1042,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Балалайка (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка 50 мл, Куантро 25 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини водку 50 мл, куантро 25 мл и лимонный LIMMI 15 мл в шейкере с льдом."
+          data-step2="Энергично взбей 12–15 секунд до сильного охлаждения."
+          data-step3="Процеди в охлаждённый коктейльный бокал и подавай."
           data-img="Balalaika.png"
           data-need="Водка 50 мл,Куантро 25 мл,сок лимона LIMMI 15 мл">
           <div class="imgwrap"><img src="Balalaika.png" alt="Балалайка"></div>
@@ -933,6 +1062,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Банановое блаженство (18+)"
           data-desc="Авторский коктейль на роме с ярким лимонным акцентом LIMMI."
           data-alcinfo="Ром светлый 50 мл, Банан 100 г, сок лимона LIMMI 20 мл, Сахарный сироп, Кокосовые сливки 30 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини ром светлый 50 мл, банан 100 г и лимонный LIMMI 20 мл в чаше блендера."
+          data-step2="Добавь кокосовые сливки 30 мл, сахарный сироп по вкусу и лёд, взбей до однородной текстуры."
+          data-step3="Перелей в высокий бокал и подавай сразу."
           data-img="BananaBliss.png"
           data-need="Ром светлый 50 мл,Банан 100 г,сок лимона LIMMI 20 мл,Сахарный сироп,Кокосовые сливки 30 мл">
           <div class="imgwrap"><img src="BananaBliss.png" alt="Банановое блаженство"></div>
@@ -950,6 +1082,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Безил смеш (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка 50 мл, Пюре базилик 70 г, Сироп базилик 15 мл, сок лимона LIMMI 15 мл, Свежий зеленый базилик. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини водку 50 мл, пюре базилика 70 г и лимонный LIMMI 15 мл в шейкере."
+          data-step2="Добавь сироп базилик 15 мл и лёд, энергично взбей 10–12 секунд."
+          data-step3="Процеди в бокал со льдом, укрась свежим зелёным базиликом и подавай."
           data-img="BasilSmash.png"
           data-need="Водка 50 мл,Пюре базилик 70 г,Сироп базилик 15 мл,сок лимона LIMMI 15 мл,Свежий зеленый базилик">
           <div class="imgwrap"><img src="BasilSmash.png" alt="Безил смеш"></div>
@@ -967,6 +1102,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Водка Строуберри Сауэр (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка 50 мл, Сладкий LIMMI 20 мл, Клубничное пюре 50 г. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини водку 50 мл, клубничное пюре 50 г и сладкий LIMMI 20 мл в шейкере."
+          data-step2="Добавь лёд и энергично взбей 12–15 секунд."
+          data-step3="Процеди в охлаждённый бокал и подавай."
           data-img="VodkaStrawberrySour.png"
           data-need="Водка 50 мл,Сладкий LIMMI 20 мл,Клубничное пюре 50 г">
           <div class="imgwrap"><img src="VodkaStrawberrySour.png" alt="Водка Строуберри Сауэр"></div>
@@ -984,6 +1122,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Гимлет (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин Блю 75 мл, сок лимона LIMMI 15 мл, Сахарный сироп 15 мл, Альбумин 5 г. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин Блю 75 мл, лимонный LIMMI 15 мл и альбумин 5 г в шейкере без льда."
+          data-step2="Взбей насухо 10 секунд, добавь сахарный сироп 15 мл и лёд, взбей ещё 12 секунд."
+          data-step3="Процеди в охлаждённый бокал и подавай."
           data-img="Gimlet.png"
           data-need="Джин Блю 75 мл,сок лимона LIMMI 15 мл,Сахарный сироп 15 мл,Альбумин 5 г">
           <div class="imgwrap"><img src="Gimlet.png" alt="Гимлет"></div>
@@ -1001,6 +1142,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Голубая Луна (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 50 мл, Ликер Трипл Сек 25 мл, Сироп блю кюрасао 15 мл, сок лимона LIMMI 15 мл, Ананасовый сок, Спрайт top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 50 мл, трипл сек 25 мл, сироп блю кюрасао 15 мл и лимонный LIMMI 15 мл в шейкере с льдом."
+          data-step2="Взбей 10–12 секунд, процеди в высокий бокал со льдом."
+          data-step3="Долей ананасовый сок и Спрайт, аккуратно перемешай и подавай."
           data-img="BlueMoon.png"
           data-need="Джин 50 мл,Ликер Трипл Сек 25 мл,Сироп блю кюрасао 15 мл,сок лимона LIMMI 15 мл,Ананасовый сок,Спрайт top">
           <div class="imgwrap"><img src="BlueMoon.png" alt="Голубая Луна"></div>
@@ -1018,6 +1162,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Кир Спешл (18+)"
           data-desc="Авторский коктейль на игристом с ярким лимонным акцентом LIMMI."
           data-alcinfo="Игристое брют 100 мл, Sweet LIMMI 15 мл, Ликер «Крем де Кассис» 25 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Охлади бокал для шампанского, налей ликер «Крем де Кассис» 25 мл."
+          data-step2="Добавь Sweet LIMMI 15 мл и аккуратно перемешай."
+          data-step3="Долей охлаждённое игристое брют 100 мл, не мешая, и подавай."
           data-img="KirSpecial.png"
           data-need="Игристое брют 100 мл,Sweet LIMMI 15 мл,Ликер «Крем де Кассис» 25 мл">
           <div class="imgwrap"><img src="KirSpecial.png" alt="Кир Спешл"></div>
@@ -1035,6 +1182,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Кловер клаб (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 50 мл, Пюре малина 70 г, Сироп малина 15 мл, сок лимона LIMMI 15 мл, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 50 мл, пюре малины 70 г, лимонный LIMMI 15 мл и альбумин 5 мл в шейкере без льда."
+          data-step2="Взбей насухо 10 секунд, добавь сироп малина 15 мл и лёд, взбей ещё 12 секунд."
+          data-step3="Процеди в охлаждённый бокал, украси малиной и подавай."
           data-img="CloverClub.png"
           data-need="Джин 50 мл,Пюре малина 70 г,Сироп малина 15 мл,сок лимона LIMMI 15 мл,Альбумин 5 мл">
           <div class="imgwrap"><img src="CloverClub.png" alt="Кловер клаб"></div>
@@ -1052,6 +1202,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Космополитен (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Куантро 50 мл, Водка клюквенная 25 мл, Морс клюквенный 25 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини куантро 50 мл, клюквенную водку 25 мл и лимонный LIMMI 15 мл в шейкере с льдом."
+          data-step2="Добавь морс клюквенный 25 мл и энергично взбей 12–15 секунд."
+          data-step3="Процеди в охлаждённый бокал мартини и подавай."
           data-img="Cosmopolitan.png"
           data-need="Куантро 50 мл,Водка клюквенная 25 мл,Морс клюквенный 25 мл,сок лимона LIMMI 15 мл">
           <div class="imgwrap"><img src="Cosmopolitan.png" alt="Космополитен"></div>
@@ -1069,6 +1222,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Лавандовый джин физ (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 50 мл, Лавандовый ликер 20 мл, Сироп лаванда 15 мл, сок лимона LIMMI 15 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 50 мл, лавандовый ликер 20 мл и лимонный LIMMI 15 мл в шейкере с льдом."
+          data-step2="Добавь лавандовый сироп 15 мл и взбей 10–12 секунд."
+          data-step3="Процеди в высокий бокал со льдом, долей газированную воду и подавай."
           data-img="LavenderGinFizz.png"
           data-need="Джин 50 мл,Лавандовый ликер 20 мл,Сироп лаванда 15 мл,сок лимона LIMMI 15 мл,Газированная вода top">
           <div class="imgwrap"><img src="LavenderGinFizz.png" alt="Лавандовый джин физ"></div>
@@ -1086,6 +1242,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Лимонадный Джо (18+)"
           data-desc="Авторский коктейль на виски/бурбоне с ярким лимонным акцентом LIMMI."
           data-alcinfo="Бурбон 50 мл, Ликер персиковый 20 мл, Ликер яблочный 20 мл, сок лимона LIMMI 15 мл, Сахарный сироп 15 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини бурбон 50 мл, персиковый ликер 20 мл, яблочный ликер 20 мл и лимонный LIMMI 15 мл в шейкере с льдом."
+          data-step2="Добавь сахарный сироп 15 мл и взбей 10–12 секунд."
+          data-step3="Процеди в высокий бокал со льдом, долей газированную воду и подавай."
           data-img="LemonadeJoe.png"
           data-need="Бурбон 50 мл,Ликер персиковый 20 мл,Ликер яблочный 20 мл,сок лимона LIMMI 15 мл,Сахарный сироп 15 мл,Газированная вода top">
           <div class="imgwrap"><img src="LemonadeJoe.png" alt="Лимонадный Джо"></div>
@@ -1103,6 +1262,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Маргарита (18+)"
           data-desc="Авторский коктейль на текиле с ярким лимонным акцентом LIMMI."
           data-alcinfo="Текила серебро 50 мл, Трипл сек 25 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Натри край бокала солью. Соедини текилу серебро 50 мл, трипл сек 25 мл и лимонный LIMMI 15 мл в шейкере с льдом."
+          data-step2="Энергично взбей 12–15 секунд."
+          data-step3="Процеди в охлаждённый бокал с солёным ободком и подавай."
           data-img="Margarita.png"
           data-need="Текила серебро 50 мл,Трипл сек 25 мл,сок лимона LIMMI 15 мл">
           <div class="imgwrap"><img src="Margarita.png" alt="Маргарита"></div>
@@ -1120,6 +1282,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Мохито пешн (18+)"
           data-desc="Авторский коктейль на роме с ярким лимонным акцентом LIMMI."
           data-alcinfo="Ром 50 мл, Пюре маракуйя 70 г, Сироп маракуйя 15 мл, сок лимона LIMMI 15 мл, Лайм, Мята, Газированная вода. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Раздави лайм и мяту в стакане, добавь ром 50 мл, пюре маракуйя 70 г и лимонный LIMMI 15 мл."
+          data-step2="Добавь сироп маракуйя 15 мл, наполни стакан льдом и перемешай."
+          data-step3="Долей газированную воду, украси мятой и подавай."
           data-img="MojitoPassion.png"
           data-need="Ром 50 мл,Пюре маракуйя 70 г,Сироп маракуйя 15 мл,сок лимона LIMMI 15 мл,Лайм,Мята,Газированная вода">
           <div class="imgwrap"><img src="MojitoPassion.png" alt="Мохито пешн"></div>
@@ -1137,6 +1302,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Палома (18+)"
           data-desc="Авторский коктейль на текиле с ярким лимонным акцентом LIMMI."
           data-alcinfo="Белая текила 50 мл, Лимми лимон 5 мл, Соль 1 щепотка, Грейпфрутовая содовая 100 мл, Лёд. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Натри край бокала солью. Налей белую текилу 50 мл и лимонный LIMMI 5 мл в бокал со льдом."
+          data-step2="Добавь щепотку соли и аккуратно перемешай."
+          data-step3="Долей грейпфрутовую содовую 100 мл, не мешая, и подавай."
           data-img="Paloma.png"
           data-need="Белая текила 50 мл,Лимми лимон 5 мл,Соль 1 щепотка,Грейпфрутовая содовая 100 мл,Лёд">
           <div class="imgwrap"><img src="Paloma.png" alt="Палома"></div>
@@ -1154,6 +1322,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Порн Стар Мартини (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка ванильная 25 мл, Пюре маракуйя 50 г, сок лимона LIMMI 10 мл, Сахарный сироп, Игристое вино. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини ванильную водку 25 мл, пюре маракуйя 50 г и лимонный LIMMI 10 мл в шейкере с льдом."
+          data-step2="Добавь сахарный сироп по вкусу и энергично взбей 12–15 секунд."
+          data-step3="Процеди в бокал мартини, подай отдельно бокал игристого вина."
           data-img="PornStarMartini.png"
           data-need="Водка ванильная 25 мл,Пюре маракуйя 50 г,сок лимона LIMMI 10 мл,Сахарный сироп,Игристое вино">
           <div class="imgwrap"><img src="PornStarMartini.png" alt="Порн Стар Мартини"></div>
@@ -1171,6 +1342,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Рамос Физ (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 45 мл, сок лимона LIMMI 10 мл, LIMMI sweet 10 мл, Сахарный сироп 30 мл, Белок яйца 30 мл, Сливки 60 мл, Содовая до верха. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 45 мл, лимонный LIMMI 10 мл, LIMMI sweet 10 мл, сахарный сироп 30 мл, белок яйца 30 мл и сливки 60 мл в шейкере без льда."
+          data-step2="Взбей насухо 15–20 секунд до пышной пены, добавь лёд и взбей ещё 20 секунд."
+          data-step3="Процеди в высокий бокал, долей содовую до верха и подавай."
           data-img="RamosFizz.png"
           data-need="Джин 45 мл,сок лимона LIMMI 10 мл,LIMMI sweet 10 мл,Сахарный сироп 30 мл,Белок яйца 30 мл,Сливки 60 мл,Содовая до верха">
           <div class="imgwrap"><img src="RamosFizz.png" alt="Рамос Физ"></div>
@@ -1188,6 +1362,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Серебряный Король (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 50 мл, сок лимона LIMMI 15 мл, Сахарный сироп 10 мл, Апельсиновый биттер 2 дэша, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 50 мл, лимонный LIMMI 15 мл и альбумин 5 мл в шейкере без льда."
+          data-step2="Взбей насухо 10 секунд, добавь сахарный сироп 10 мл, биттер 2 дэша и лёд, взбей ещё 12 секунд."
+          data-step3="Процеди в охлаждённый бокал и подавай."
           data-img="SilverKing.png"
           data-need="Джин 50 мл,сок лимона LIMMI 15 мл,Сахарный сироп 10 мл,Апельсиновый биттер 2 дэша,Альбумин 5 мл">
           <div class="imgwrap"><img src="SilverKing.png" alt="Серебряный Король"></div>
@@ -1205,6 +1382,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Слинг (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 50 мл, LIMMI sweet 15 мл, Вишневый ликер 25 мл, Альбумин 5 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 50 мл, вишнёвый ликер 25 мл, LIMMI sweet 15 мл и альбумин 5 мл в шейкере без льда."
+          data-step2="Взбей насухо 10 секунд, добавь лёд и взбей ещё 12 секунд."
+          data-step3="Процеди в высокий бокал со льдом, долей газированную воду и подавай."
           data-img="Sling.png"
           data-need="Джин 50 мл,LIMMI sweet 15 мл,Вишневый ликер 25 мл,Альбумин 5 мл,Газированная вода top">
           <div class="imgwrap"><img src="Sling.png" alt="Слинг"></div>
@@ -1222,6 +1402,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Тини Огурец (18+)"
           data-desc="Авторский коктейль на джине с ярким лимонным акцентом LIMMI."
           data-alcinfo="Джин 50 мл, Вермут сухой 15 мл, Сироп огурец 20 мл, сок лимона LIMMI 15 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини джин 50 мл, сухой вермут 15 мл и лимонный LIMMI 15 мл в смесительном стакане со льдом."
+          data-step2="Добавь сироп огурец 20 мл и перемешай барной ложкой 15–20 секунд."
+          data-step3="Процеди в охлаждённый бокал мартини, украси слайсом огурца и подавай."
           data-img="TinyCucumber.png"
           data-need="Джин 50 мл,Вермут сухой 15 мл,Сироп огурец 20 мл,сок лимона LIMMI 15 мл">
           <div class="imgwrap"><img src="TinyCucumber.png" alt="Тини Огурец"></div>
@@ -1239,6 +1422,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Том Ям Мери (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка 50 мл, Паста Том Ям 25 г, сок лимона LIMMI 15 мл, Томатный сок 100 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини водку 50 мл, пасту Том Ям 25 г и лимонный LIMMI 15 мл в шейкере с льдом."
+          data-step2="Взбей 10–12 секунд, процеди в высокий бокал со льдом."
+          data-step3="Долей томатный сок 100 мл, аккуратно перемешай и подавай."
           data-img="TomYumMary.png"
           data-need="Водка 50 мл,Паста Том Ям 25 г,сок лимона LIMMI 15 мл,Томатный сок 100 мл">
           <div class="imgwrap"><img src="TomYumMary.png" alt="Том Ям Мери"></div>
@@ -1256,6 +1442,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Томми Ди Сауэр (18+)"
           data-desc="Авторский коктейль на виски/бурбоне с ярким лимонным акцентом LIMMI."
           data-alcinfo="Бурбон 50 мл, сок лимона LIMMI 15 мл, Пюре маракуйя 50 мл, Сироп маракуйя 20 мл, Альбумин 5 мл. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини бурбон 50 мл, пюре маракуйя 50 мл, лимонный LIMMI 15 мл и альбумин 5 мл в шейкере без льда."
+          data-step2="Взбей насухо 10 секунд, добавь сироп маракуйя 20 мл и лёд, взбей ещё 12 секунд."
+          data-step3="Процеди в бокал со льдом и подавай."
           data-img="TommyDSour.png"
           data-need="Бурбон 50 мл,сок лимона LIMMI 15 мл,Пюре маракуйя 50 мл,Сироп маракуйя 20 мл,Альбумин 5 мл">
           <div class="imgwrap"><img src="TommyDSour.png" alt="Томми Ди Сауэр"></div>
@@ -1273,6 +1462,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Шпинат Сауэр (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка 50 мл, Шпинат свежий 50 г, сок лимона LIMMI 15 мл, Сахарный сироп, Тоник top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини водку 50 мл, свежий шпинат 50 г и лимонный LIMMI 15 мл в шейкере."
+          data-step2="Добавь сахарный сироп по вкусу и лёд, энергично взбей 12–15 секунд."
+          data-step3="Процеди в высокий бокал со льдом, долей тоник и подавай."
           data-img="SpinachSour.png"
           data-need="Водка 50 мл,Шпинат свежий 50 г,сок лимона LIMMI 15 мл,Сахарный сироп,Тоник top">
           <div class="imgwrap"><img src="SpinachSour.png" alt="Шпинат Сауэр"></div>
@@ -1290,6 +1482,9 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
           data-title="Яблочный тини (18+)"
           data-desc="Авторский коктейль на водке с ярким лимонным акцентом LIMMI."
           data-alcinfo="Водка 50 мл, Яблочный ликер 25 мл, сок лимона LIMMI 10 мл, Газированная вода top. Сбалансированный взрослый коктейль с лимонной кислотностью LIMMI и выразительной подачей."
+          data-step1="Соедини водку 50 мл, яблочный ликер 25 мл и лимонный LIMMI 10 мл в шейкере с льдом."
+          data-step2="Энергично взбей 12–15 секунд до сильного охлаждения."
+          data-step3="Процеди в охлаждённый бокал, долей газированную воду и подавай."
           data-img="AppleTiny.png"
           data-need="Водка 50 мл,Яблочный ликер 25 мл,сок лимона LIMMI 10 мл,Газированная вода top">
           <div class="imgwrap"><img src="AppleTiny.png" alt="Яблочный тини"></div>
@@ -1302,12 +1497,24 @@ body.modal-open { overflow: hidden !important; position: fixed; width: 100%; hei
         </div>
       </div>
     </div>
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">🍋</div>
+      <h3>Ничего не найдено</h3>
+      <p>Попробуй другое название или сбрось фильтр</p>
+      <button class="empty-reset" id="emptyResetBtn">Сбросить фильтр</button>
+    </div>
   </section>
 
   <footer>
     <div class="container">
       <small>
-        LIMMI • Рецепты и сценарии использования.<br>
+        LIMMI • Рецепты и сценарии использования.
+      <nav class="foot-nav" aria-label="Навигация сайта">
+        <a href="index.html">Главная</a>
+        <a href="index.html#products">Продукты</a>
+        <a href="index.html#buy">Где купить</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav><br>
         Алкоголь вредит вашему здоровью.
       </small>
     </div>
@@ -1482,17 +1689,12 @@ function openModal(card){
     const need = (card.dataset.need || '').split(',').map(s=>s.trim()).filter(Boolean);
     need.forEach(n=>{ const c = document.createElement('div'); c.className = 'chip'; c.textContent = n; modal.need.appendChild(c); });
     
-    if(type === 'alc'){
-      instructionsBox.style.display = 'none';
-      warnText.style.display = 'block';
-      modal.desc.textContent = card.dataset.alcinfo || card.dataset.desc || '';
-    } else {
-      instructionsBox.style.display = 'block';
-      warnText.style.display = 'none';
-      modal.s1.textContent = card.dataset.step1 || '';
-      modal.s2.textContent = card.dataset.step2 || '';
-      modal.s3.textContent = card.dataset.step3 || '';
-    }
+    // Show steps for all cards; warning only for alc
+    instructionsBox.style.display = 'block';
+    modal.s1.textContent = card.dataset.step1 || '';
+    modal.s2.textContent = card.dataset.step2 || '';
+    modal.s3.textContent = card.dataset.step3 || '';
+    warnText.style.display = (type === 'alc') ? 'block' : 'none';
     
     // 👇 ЭТО САМОЕ ВАЖНОЕ — прокрутка к началу и блокировка скролла
     if (modalBackdrop) {
@@ -1542,10 +1744,14 @@ function closeModal(){
 
   function render(){
     const cards = [...grid.querySelectorAll('.card')];
+    let anyVisible = false;
     cards.forEach(card=>{
       const visible = matchesFilter(card) && matchesQuery(card);
       card.style.display = visible ? '' : 'none';
+      if(visible) anyVisible = true;
     });
+    const es = document.getElementById('emptyState');
+    if(es) es.style.display = anyVisible ? 'none' : 'flex';
   }
 
   filterBtns.forEach(btn=>{
@@ -1568,6 +1774,35 @@ function closeModal(){
     initAge();
     render();
   });
+
+  // Scroll-to-top
+  const backToTop = document.getElementById('backToTop');
+  if(backToTop){
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+
+  // 1: Scroll-reveal
+  (function(){
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    const ph = document.querySelector('.pagehead .container');
+    if(ph){ ph.classList.add('reveal'); io.observe(ph); }
+  })();
+
+  // 6: Empty state reset button
+  document.getElementById('emptyResetBtn')?.addEventListener('click', () => {
+    const allBtn = document.querySelector('.chipbtn[data-filter="all"]');
+    if(allBtn) allBtn.click();
+  });
+
 </script>
+  <button id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
 </body>
 </html>
